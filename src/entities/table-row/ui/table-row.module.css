@@ -16,9 +16,6 @@
     display: grid;
     gap: 8px;
     align-items: center;
-    grid-template-columns: repeat(6,1fr);
-    grid-template-areas:
-      "name name rating price btns btns";
     padding-left: 18px;
     padding-right: 18px;
   }
@@ -27,5 +24,17 @@
     display: grid;
     padding-top: 22px;
     padding-bottom: 22px;
+  }
+
+  .row_type_examples {
+  }
+
+  .row_type_price {
+    grid-template-columns: repeat(8,1fr);
+    grid-template-areas:
+      "name name price dept_id is_hidden createdAt updatedAt btns";
+  }
+
+  .row_type_testimonials {
   }
 }

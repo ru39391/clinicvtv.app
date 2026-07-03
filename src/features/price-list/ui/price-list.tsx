@@ -9,6 +9,7 @@ import { useHandlePositions } from "../hooks/use-handle-positions";
 import { useModalStore } from "@/shared/store";
 import { usePricelistStore, type TPriceQueryData } from "@/entities/price";
 import { Table } from "@/entities/table";
+import { TableCell } from "@/entities/table-cell";
 import { TableRow } from "@/entities/table-row";
 import {
   LIST_IS_EMPTY,
@@ -62,6 +63,10 @@ const RemovePositionModal: FC<{
   )
 };
 
+const PriceRows: FC<{ values: Record<string, string>[]; }> = ({ values }) => values.map(
+  ({ key, value }) => <TableCell key={key} type={key}>{value}</TableCell>
+);
+
 const PriceList: FC = () => {
   const [sortData, setSortData] = useState<TPriceQueryData | null>(null);
   const { open } = useModalStore();
@@ -75,21 +80,18 @@ const PriceList: FC = () => {
     CREATED_AT_KEY,
     UPDATED_AT_KEY
   ];
-  const captions: string[] = keys.map(key => PRICE_CAPTIONS[key]);
 
-  const setClassName = (key: string): string => `${styles.positions__col} ${styles[`positions__col_type_${key}`]}`;
-  const setRowClass = (keys: string[]): Record<string, string> => keys.reduce((acc, key) => ({ ...acc, [key]: setClassName(key) }), {});
-  const sortColValues = async (name: keyof TPositionData) => {
-    console.log(name);
+  const sortColValues = async (key: keyof TPositionData) => {
+    console.log(key);
     return;
 
     const arr = ["price", "rating"] as (keyof TPositionData)[];
 
-    if(!arr.includes(name)) {
+    if(!arr.includes(key)) {
       return;
     }
 
-    const data = await sortPositions(name as TPriceQueryData["sortby"]);
+    const data = await sortPositions(key as TPriceQueryData["sortby"]);
 
     setSortData(data);
   }
@@ -100,28 +102,32 @@ const PriceList: FC = () => {
 
   return (
     <Table>
-      <TableRow>
-        {keys.map((name) => (
-          <div key={name} className={setClassName(name)}>
-            <span
-              className={`${styles.positions__caption} ${styles[`positions__caption_type_${name}`]}`}
-              onClick={() => sortColValues(name as keyof TPositionData)}
-            >
-              {PRICE_CAPTIONS[name]}
-              {sortData?.sortby === name && sortData?.sortdir === "ASC" && <span className={styles.positions__sortdir}>▲</span>}
-              {sortData?.sortby === name && sortData?.sortdir === "DESC" && <span className={styles.positions__sortdir}>▼</span>}
-            </span>
-          </div>
+      <TableRow
+        isCaption={true}
+        type="price"
+      >
+        {keys.map((key) => (
+          <TableCell
+            key={key}
+            isCaption={true}
+            handleClick={() => sortColValues(key)}
+            type={key}
+          >
+            {PRICE_CAPTIONS[key]}
+          </TableCell>
         ))}
       </TableRow>
       {pricelist.map(({ id, ...props }: TPriceData) => {
-        const values = keys.map(key => props[key as keyof TPriceData]);
+        const values = keys.reduce(
+          (acc, key) => ([...acc, { key, value: String(props[key as keyof TPriceData]) }]),
+          []
+        );
 
         return (
-          <TableRow key={id.toString()}>
-            {props.name}
+          <TableRow key={id.toString()} type="price">
+            <PriceRows {...{ values }} />
 
-            <div className={styles.positions__col_type_btns}>
+            <TableCell type="btns">
               <Button
                 handleClick={() => setCurrPriceData(id)}
                 style="icon"
@@ -134,7 +140,7 @@ const PriceList: FC = () => {
               >
                 <TrashBinIcon />
               </Button>
-            </div>
+            </TableCell>
           </TableRow>
         )
       })}
