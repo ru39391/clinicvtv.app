@@ -7,6 +7,7 @@ const TableCell: FC<ITableCell> = ({
   handleClick,
   isCaption,
   sortdir,
+  sortby,
   type
 }) => {
   const rowClassName = `${styles.col} ${styles[`col_type_${type}`]}`;
@@ -20,8 +21,8 @@ const TableCell: FC<ITableCell> = ({
         {...(handleClick && { onClick: handleClick })}
       >
         {children}
-        {sortdir === "ASC" && <span className={styles.col__sortdir}>▲</span>}
-        {sortdir === "DESC" && <span className={styles.col__sortdir}>▼</span>}
+        {sortby === type && sortdir === "ASC" && <span className={styles.col__sortdir}>▲</span>}
+        {sortby === type && sortdir === "DESC" && <span className={styles.col__sortdir}>▼</span>}
       </span>
     </div>
   )

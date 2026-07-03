@@ -48,10 +48,7 @@
   line-height: 1.875;
   font-weight: var(--fw-bold);
   color: var(--color-border-dark);
-}
-
-.col__sortdir {
-  display: none;
+  cursor: pointer;
 }
 
 .col__caption_type_price,
@@ -59,17 +56,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   gap: 0 8px;
-}
-
-.col__caption_type_price .col__sortdir,
-.col__caption_type_rating .col__sortdir {
-  display: block;
-}
-
-.col__actions {
-  gap: 0 12px;
-  display: flex;
-  justify-content: space-around;
 }

@@ -1,3 +1,3 @@
 import type { TPaginationData } from "./pagination";
 
-export type TQueryData = Partial<Pick<TPaginationData, "page" | "perPage">> & { search?: string; } | null;
+export type TQueryData<T> = Partial<Pick<TPaginationData, "page" | "perPage">> & { search?: string; sortby: T; sortdir: "ASC" | "DESC" } | null;

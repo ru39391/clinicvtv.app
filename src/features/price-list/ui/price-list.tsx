@@ -3,7 +3,7 @@ import { Button, Card, Loader } from "@/shared/ui";
 import { EditIcon, TrashBinIcon } from "@/shared/icons";
 
 import { PositionItem } from "@/entities/position-item";
-import { sortPositions } from "../lib/sort-positions";
+import { sortPricelist } from "../lib/sort-price-list";
 import { useHandlePositions } from "../hooks/use-handle-positions";
 
 import { useModalStore } from "@/shared/store";
@@ -82,16 +82,7 @@ const PriceList: FC = () => {
   ];
 
   const sortColValues = async (key: keyof TPositionData) => {
-    console.log(key);
-    return;
-
-    const arr = ["price", "rating"] as (keyof TPositionData)[];
-
-    if(!arr.includes(key)) {
-      return;
-    }
-
-    const data = await sortPositions(key as TPriceQueryData["sortby"]);
+    const data = await sortPricelist(key as TPriceQueryData["sortby"]);
 
     setSortData(data);
   }
@@ -112,6 +103,10 @@ const PriceList: FC = () => {
             isCaption={true}
             handleClick={() => sortColValues(key)}
             type={key}
+            {...(sortData && {
+              sortby: sortData.sortby,
+              sortdir: sortData.sortdir
+            })}
           >
             {PRICE_CAPTIONS[key]}
           </TableCell>

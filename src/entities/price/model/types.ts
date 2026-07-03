@@ -12,8 +12,10 @@ export type TPricelistState = {
   isLoading: boolean;
 }
 
+export type TPriceQueryData = TQueryData<keyof TPriceData>;
+
 export type TPricelistStore = TPricelistState & {
-  fetchPricelist: (data: TQueryData) => Promise<void>;
+  fetchPricelist: (data: TPriceQueryData) => Promise<void>;
   createPriceItem: (data: TPricePayload) => Promise<boolean>;
   updatePriceItem: (data: TPriceData) => Promise<boolean>;
   removePriceItem: (id: TPriceData["id"]) => Promise<boolean>;
@@ -21,7 +23,7 @@ export type TPricelistStore = TPricelistState & {
 }
 
 export type TPricelistApi = {
-  fetchItems: (data: TQueryData) => Promise<Omit<TPricelistState, "isLoading" | "current">>;
+  fetchItems: (data: TPriceQueryData) => Promise<Omit<TPricelistState, "isLoading" | "current">>;
   addItem: ({ item, arr, pagination }: {
     item: TPricePayload;
     arr: TPriceData[];
@@ -36,10 +38,4 @@ export type TPricelistApi = {
     arr: TPriceData[];
     pagination: TPricelistState["pagination"];
   }) => Promise<Omit<TPricelistState, "isLoading" | "current"> & { success: boolean }>;
-}
-
-export type TPriceQueryData = {
-  sortby: keyof Omit<TPriceData, "isMinValue" | "subdept_id">;
-  sortdir: "ASC" | "DESC";
-  search?: string;
 }
