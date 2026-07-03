@@ -3,6 +3,7 @@ import { type ITableCell } from "../model/types";
 import styles from './table-cell.module.css';
 
 const TableCell: FC<ITableCell> = ({
+  caption,
   children,
   handleClick,
   isCaption,
@@ -12,7 +13,7 @@ const TableCell: FC<ITableCell> = ({
 }) => {
   const rowClassName = `${styles.col} ${styles[`col_type_${type}`]}`;
 
-  if(!isCaption) return <div className={rowClassName}>{children}</div>;
+  if(!isCaption) return <div className={rowClassName}>{Boolean(caption) && <span className={styles.col__title}>{caption}: </span>}{children}</div>;
 
   return (
     <div className={rowClassName}>

@@ -58,3 +58,14 @@
   justify-content: center;
   gap: 0 8px;
 }
+
+.col__title {
+  font-weight: var(--fw-normal);
+  color: var(--color-border-dark);
+}
+
+@media (--md-min-value) {
+  .col__title {
+    display: none;
+  }
+}

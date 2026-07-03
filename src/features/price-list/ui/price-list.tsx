@@ -1,9 +1,8 @@
 import { useState, type FC } from "react";
 import { Button, Card, Loader } from "@/shared/ui";
 import { EditIcon, TrashBinIcon } from "@/shared/icons";
-
-import { PositionItem } from "@/entities/position-item";
 import { sortPricelist } from "../lib/sort-price-list";
+
 import { useHandlePositions } from "../hooks/use-handle-positions";
 
 import { useModalStore } from "@/shared/store";
@@ -18,9 +17,15 @@ import {
   PRICE_KEY,
   DEPT_ID_KEY,
   IS_HIDDEN_KEY,
+  IS_MIN_VALUE_KEY,
   CREATED_AT_KEY,
   UPDATED_AT_KEY
 } from "@/shared/constants";
+import {
+  formatCurrency,
+  formatDate,
+  setItemHiddenCaption
+} from "@/shared/utils";
 import type { TItemData, TPositionData, TPriceData } from "@/shared/types";
 
 const styles = {};
@@ -63,8 +68,21 @@ const RemovePositionModal: FC<{
   )
 };
 
-const PriceRows: FC<{ values: Record<string, string>[]; }> = ({ values }) => values.map(
-  ({ key, value }) => <TableCell key={key} type={key}>{value}</TableCell>
+const PriceRows: FC<{ values: (Record<string, string> & { isMinValue: number; })[]; }> = ({ values }) => values.map(
+  ({ key, value, isMinValue }) => {
+    const caption = key === IS_HIDDEN_KEY ? setItemHiddenCaption(value) : formatDate(value, key);
+    const priceValue = `${isMinValue === 1 ? 'от ' : ''}${formatCurrency(value)}`;
+
+    return (
+      <TableCell
+        key={key}
+        caption={PRICE_CAPTIONS[key]}
+        type={key}
+      >
+        {key === PRICE_KEY ? priceValue : caption}
+      </TableCell>
+    )
+  }
 );
 
 const PriceList: FC = () => {
@@ -114,7 +132,14 @@ const PriceList: FC = () => {
       </TableRow>
       {pricelist.map(({ id, ...props }: TPriceData) => {
         const values = keys.reduce(
-          (acc, key) => ([...acc, { key, value: String(props[key as keyof TPriceData]) }]),
+          (acc, key) => ([
+            ...acc,
+            {
+              key,
+              value: String(props[key as keyof TPriceData]),
+              [IS_MIN_VALUE_KEY]: props[IS_MIN_VALUE_KEY]
+            }
+          ]),
           []
         );
 

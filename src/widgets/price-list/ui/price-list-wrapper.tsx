@@ -1,23 +1,30 @@
 import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreatePositionForm } from "@/features/create-position-form";
+import { ItemsCounter } from "@/entities/items-counter";
 import { Loader } from "@/shared/ui";
-import { PositionsCounter } from "@/features/positions-counter";
-
+import { Pagination } from "@/entities/pagination";
 import { PriceList } from "@/features/price-list";
-
-import { PositionsPagination } from "@/features/positions-pagination";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { Wrapper } from "@/entities/wrapper";
 import { useModalStore } from "@/shared/store";
 import { usePricelistStore, type TPositionState } from "@/entities/price";
 
-const PositionsWrapper: FC = () => {
+const PriceListCounter: FC<Pick<TPositionState, "isLoading" | "pagination">> = ({ isLoading, pagination }) => (
+  pagination ? <Loader isCircleHidden={isLoading} isVisible={isLoading}><ItemsCounter {...pagination} /></Loader> : ""
+);
+
+const PriceListPagination: FC<Pick<TPositionState, "fetchPricelist" | "isLoading" | "pagination">> = ({ fetchPricelist, isLoading, pagination }) => (
+  pagination ? <Loader isCircleHidden={isLoading} isVisible={isLoading}><Pagination {...pagination} handleClick={fetchPricelist} /></Loader> : ""
+);
+
+const PriceListWrapper: FC = () => {
   const { isOpen, open } = useModalStore();
   const {
     current: position,
     fetchPricelist,
     isLoading,
+    pagination,
     setCurrPriceData
   } = usePricelistStore();
 
@@ -53,7 +60,10 @@ const PositionsWrapper: FC = () => {
           <CreatePositionBtn><CreatePositionForm /></CreatePositionBtn>
         </>
       )}
-      footer={(<><PositionsCounter /><PositionsPagination /></>)}
+      footer={(<>
+        <PriceListCounter {...{ isLoading, pagination }} />
+        <PriceListPagination {...{ fetchPricelist, isLoading, pagination }} />
+      </>)}
       title="Все позиции"
     >
       <Loader hasCircle={false} isVisible={isLoading}><PriceList /></Loader>
@@ -61,4 +71,4 @@ const PositionsWrapper: FC = () => {
   )
 };
 
-export default PositionsWrapper;
+export default PriceListWrapper;
