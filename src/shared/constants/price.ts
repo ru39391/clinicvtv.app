@@ -1,7 +1,7 @@
-import { CAPTIONS } from "./position";
+import { CAPTIONS, NAME_KEY, PRICE_KEY } from "./position";
 
 export const PRICE_CAPTIONS = {
   ...CAPTIONS,
-  name: "Наименование",
-  price: "Цена, ₽"
+  [NAME_KEY]: "Наименование",
+  [PRICE_KEY]: "Цена, ₽"
 }
