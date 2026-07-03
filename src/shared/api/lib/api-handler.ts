@@ -5,7 +5,7 @@ import { useNotificationStore } from "@/shared/store/notification";
 const notificationState = useNotificationStore.getState();
 
 const handleApiClient = async <P, R>(
-  params: { method?: "GET" | "POST" | "PUT" | "DELETE"; url: string },
+  params: { method?: "GET" | "POST" | "PATCH" | "DELETE"; url: string },
   payload: P | null = null,
 ): Promise<TResponseData<R>> => {
   let res: TResponseData<R> = {
@@ -47,7 +47,7 @@ export const apiHandler = {
   create: async <P, T>(url: string, payload: P) =>
     handleApiClient<P, T>({ url, method: "POST" }, payload),
   update: async <P, T>(url: string, payload: P) =>
-    handleApiClient<P, T>({ url, method: "PUT" }, payload),
+    handleApiClient<P, T>({ url, method: "PATCH" }, payload),
   remove: async <P, T>(url: string, payload?: P) =>
     handleApiClient<P, T>({ url, method: "DELETE" }, payload),
 };

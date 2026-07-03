@@ -1,6 +1,6 @@
 import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
-import { CreatePositionForm } from "@/features/create-position-form";
+import { CreatePriceItemForm } from "@/features/create-price-item-form";
 import { ItemsCounter } from "@/entities/items-counter";
 import { Loader } from "@/shared/ui";
 import { Pagination } from "@/entities/pagination";
@@ -31,7 +31,7 @@ const PriceListWrapper: FC = () => {
   const openCreatePositionForm = (position: TPositionState["current"]) => {
     if(!position) return;
 
-    open({ content: <CreatePositionForm /> });
+    open({ content: <CreatePriceItemForm /> });
   }
 
   const resetPositionData = (isOpen: boolean) => {
@@ -57,7 +57,7 @@ const PriceListWrapper: FC = () => {
       aside={(
         <>
           <ResetPositionsBtn />
-          <CreatePositionBtn><CreatePositionForm /></CreatePositionBtn>
+          <CreatePositionBtn><CreatePriceItemForm /></CreatePositionBtn>
         </>
       )}
       footer={(<>

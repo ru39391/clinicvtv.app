@@ -9,6 +9,7 @@ export const UPDATED_AT_KEY = "updatedAt";
 
 export const CAPTIONS = {
   [ID_KEY]: "ID",
+  [NAME_KEY]: "Наименование",
   [DEPT_ID_KEY]: "Отделение",
   [SUBDEPT_ID_KEY]: "Специализация",
   [IS_HIDDEN_KEY]: "Скрыто",
@@ -16,7 +17,14 @@ export const CAPTIONS = {
   [UPDATED_AT_KEY]: "Дата изменения"
 };
 
-export const ADD_POSITION_SUCCEED = "Данные товара успешно сохранены";
-export const EDIT_POSITION_SUCCEED = "Товар успешно отредактирован";
-export const REMOVE_POSITION_SUCCEED = "Товар успешно удалён";
-export const LIST_IS_EMPTY = "Записей не найдено";
+export const POSITION_KEY = "запись";
+export const ADD_POSITION_KEY = "Добавить";
+export const EDIT_POSITION_KEY = "Редактировать";
+export const REMOVE_POSITION_KEY = "Удалить";
+
+export const ADD_POSITION_SUCCEED = "Данные успешно сохранены";
+export const EDIT_POSITION_SUCCEED = "Элемент успешно отредактирован";
+export const REMOVE_POSITION_SUCCEED = "Элемент успешно удалён";
+export const LIST_IS_EMPTY = "Записи не найдены";
+
+export const CONFIRM_KEY = "Вы действительно хотите";

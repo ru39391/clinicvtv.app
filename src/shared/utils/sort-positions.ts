@@ -1,5 +1,11 @@
 import { StorageHandler } from "./storage-handler";
-import { QUERY_KEY } from "../constants";
+import {
+  CREATED_AT_KEY,
+  NAME_KEY,
+  PRICE_KEY,
+  UPDATED_AT_KEY,
+  QUERY_KEY
+} from "../constants";
 import type { TQueryData } from "../types";
 
 export const sortPositions = async <T>(
@@ -23,10 +29,22 @@ export const sortPositions = async <T>(
   }
 
   const arr = [...payload.data].sort((a, b) => {
-    const aValue = Number(a[sortby]);
-    const bValue = Number(b[sortby]);
+    const aValue = a[sortby];
+    const bValue = b[sortby];
+    const dir = data.sortdir === 'ASC' ? 1 : -1;
+    const dateDir = dir * (new Date(String(aValue)).getTime() - new Date(String(bValue)).getTime());
 
-    return data.sortdir === "ASC" ? aValue - bValue : bValue - aValue;
+    switch (sortby) {
+      case CREATED_AT_KEY:
+        return dateDir;
+      case UPDATED_AT_KEY:
+        return dateDir;
+      case NAME_KEY:
+        return dir * String(aValue).localeCompare(String(bValue), 'ru');
+      case PRICE_KEY:
+      default:
+        return dir * (Number(aValue) - Number(bValue));
+    }
   });
 
   return { arr, data };

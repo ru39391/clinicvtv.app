@@ -1,7 +1,7 @@
 import { apiHandler } from "@/shared/api";
 import { StorageHandler } from "@/shared/utils";
 import { routes } from "@/shared/constants";
-import { QUERY_KEY } from "@/shared/constants";
+import { IS_HIDDEN_KEY, QUERY_KEY } from "@/shared/constants";
 import type { TPricelistApi, TPriceQueryData } from "../model/types";
 import type { TPaginationData, TPriceData, TPricePayload } from "@/shared/types";
 
@@ -9,14 +9,14 @@ export const pricelistApi: TPricelistApi = {
   fetchItems: async (payload = null) => {
     const storageData = StorageHandler.getData<TPriceQueryData>(QUERY_KEY);
     const query = payload && storageData ? {...payload, ...storageData} : (payload || storageData);
-    const url = `${routes.api.price}${query
+    const url = `${routes.api.price}?${IS_HIDDEN_KEY}=all${query
       ? Object.entries(query).reduce(
         (acc, [key, value], index) => {
-          const str = `${index !== 0 ? "&" : ""}${key}=${value}`;
+          const str = `&${key}=${value}`;
 
           return `${acc}${str}`;
         }
-        , "?"
+        , ""
       )
       : ""
     }`;

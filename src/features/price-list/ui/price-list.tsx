@@ -19,7 +19,10 @@ import {
   IS_HIDDEN_KEY,
   IS_MIN_VALUE_KEY,
   CREATED_AT_KEY,
-  UPDATED_AT_KEY
+  UPDATED_AT_KEY,
+  REMOVE_POSITION_KEY,
+  POSITION_KEY,
+  CONFIRM_KEY
 } from "@/shared/constants";
 import {
   formatCurrency,
@@ -27,24 +30,22 @@ import {
   setItemHiddenCaption
 } from "@/shared/utils";
 import type { TItemData, TPositionData, TPriceData } from "@/shared/types";
-
+// TODO: удалить
 const styles = {};
-
+// TODO: декомпозировать
 const RemovePositionModal: FC<{
   id: TItemData["id"];
   name: TItemData["name"];
 }> = ({ id, name }) => {
   const { close } = useModalStore();
-  const { handleRemoveItem } = {
-    handleRemoveItem: (id) => console.log(id) //useHandlePositions()
-  };
+  const { handleRemoveItem } = useHandlePositions();
   const { isLoading } = usePricelistStore();
 
   return (
     <Card
       {...{
-        title: "Удалить товар",
-        subtitle: `Вы действительно хотите удалить товар ${name}?`,
+        title: `${REMOVE_POSITION_KEY} ${POSITION_KEY}`,
+        subtitle: `${CONFIRM_KEY} ${REMOVE_POSITION_KEY.toLowerCase()} "${name}"?`,
         type: ["md"]
       }}
     >
