@@ -5,6 +5,10 @@ export const routes = {
     testimonials: "/testimonials",
   },
   api: {
+    examples: "/examples",
+    price: "/pricelist",
+    team: "/team",
+    testimonials: "/testimonials",
   },
 } as const;
 

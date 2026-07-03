@@ -3,21 +3,23 @@ import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreatePositionForm } from "@/features/create-position-form";
 import { Loader } from "@/shared/ui";
 import { PositionsCounter } from "@/features/positions-counter";
-import { PositionsList } from "@/features/positions-list";
+
+import { PriceList } from "@/features/price-list";
+
 import { PositionsPagination } from "@/features/positions-pagination";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { Wrapper } from "@/entities/wrapper";
 import { useModalStore } from "@/shared/store";
-import { usePositionStore, type TPositionState } from "@/entities/position";
+import { usePricelistStore, type TPositionState } from "@/entities/price";
 
 const PositionsWrapper: FC = () => {
   const { isOpen, open } = useModalStore();
   const {
     current: position,
-    fetchPositions,
+    fetchPricelist,
     isLoading,
-    setCurrPosition
-  } = usePositionStore();
+    setCurrPriceData
+  } = usePricelistStore();
 
   const openCreatePositionForm = (position: TPositionState["current"]) => {
     if(!position) return;
@@ -28,11 +30,11 @@ const PositionsWrapper: FC = () => {
   const resetPositionData = (isOpen: boolean) => {
     if(isOpen) return;
 
-    setCurrPosition(null);
+    setCurrPriceData(null);
   }
 
   useEffect(() => {
-    fetchPositions(null);
+    fetchPricelist(null);
   }, []);
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const PositionsWrapper: FC = () => {
       footer={(<><PositionsCounter /><PositionsPagination /></>)}
       title="Все позиции"
     >
-      <Loader hasCircle={false} isVisible={isLoading}><PositionsList /></Loader>
+      <Loader hasCircle={false} isVisible={isLoading}><PriceList /></Loader>
     </Wrapper>
   )
 };
