@@ -7,4 +7,4 @@ export * from "./query";
 export * from "./testimonial";
 export * from "./user";
 
-export * from "./position";
+//export * from "./position";

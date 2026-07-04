@@ -1,16 +1,11 @@
 import type {
-  TPaginationData,
+  TCommonState,
   TPriceData,
   TPricePayload,
   TQueryData
 } from "@/shared/types";
 
-export type TPricelistState = {
-  data: TPriceData[];
-  current: TPriceData | null;
-  pagination: TPaginationData | null;
-  isLoading: boolean;
-}
+export type TPricelistState = TCommonState<TPriceData>;
 
 export type TPriceQueryData = TQueryData<keyof TPriceData>;
 
