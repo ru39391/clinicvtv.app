@@ -1,9 +1,9 @@
 import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { Loader } from "@/shared/ui";
-import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsWrapper } from "@/features/positions";
+import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { TestimonialsList } from "@/features/testimonials-list";
 import {
   useTestimonialStore,
@@ -27,7 +27,12 @@ const TestimonialsWrapper: FC = () => {
   return (
     <PositionsWrapper<TTestimonialData>
       {...{
-        aside: '<aside />',
+        aside: (
+          <>
+            <ResetPositionsBtn<TTestimonialQueryData> {...{ fetchItems, isLoading }} />
+            {/*<CreatePositionBtn><CreatePriceItemForm /></CreatePositionBtn>*/}
+          </>
+        ),
         currData,
         form: '<CreatePriceItemForm />',
         footer: (

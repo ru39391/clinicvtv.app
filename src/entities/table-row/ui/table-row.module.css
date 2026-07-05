@@ -35,6 +35,10 @@
       "name name price dept_id is_hidden createdAt updatedAt btns";
   }
 
-  .row_type_testimonials {
+  .row_type_testimonial {
+    grid-template-columns: repeat(8,1fr);
+    grid-template-areas:
+      "name rating is_hidden introtext introtext createdAt updatedAt btns"
+      "desc desc desc desc desc desc desc .";
   }
 }

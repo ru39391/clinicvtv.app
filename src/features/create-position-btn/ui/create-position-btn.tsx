@@ -3,7 +3,7 @@ import { AddIcon } from "@/shared/icons";
 import { Button } from "@/shared/ui";
 import { useModalStore } from "@/shared/store";
 import { usePositionStore } from "@/entities/position";
-
+// TODO: универсализировать
 const CreatePositionBtn: FC<{ children: ReactNode }> = ({ children }) => {
   const { open } = useModalStore();
   const { setCurrPosition } = usePositionStore();

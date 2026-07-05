@@ -1,7 +1,5 @@
 import { StorageHandler } from "@/shared/utils";
-import { usePositionStore } from "@/entities/position";
-
-const positionState = usePositionStore.getState();
+import { QUERY_KEY } from "@/shared/constants"
 
 const resetStorageData = (key: string): Promise<{ success: boolean; }> => {
   StorageHandler.removeData(key);
@@ -13,13 +11,15 @@ const resetStorageData = (key: string): Promise<{ success: boolean; }> => {
   });
 };
 
-
-export const resetPositions = async (key: string) => {
+export const resetPositions = async <T>(
+  fetchItems: (data: T | null) => Promise<void>,
+  key: string = QUERY_KEY
+) => {
   const { success } = await resetStorageData(key);
 
   if(!success) {
     return;
   }
 
-  positionState.fetchPositions(null);
+  fetchItems(null);
 }

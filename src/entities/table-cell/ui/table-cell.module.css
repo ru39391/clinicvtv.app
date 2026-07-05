@@ -13,12 +13,27 @@
   grid-area: price;
 }
 
+.col_type_desc {
+  grid-area: desc;
+  text-align: left;
+  line-height: var(--line-height-lg);
+  color: var(--color-border-dark);
+}
+
+.col_type_introtext {
+  grid-area: introtext;
+}
+
 .col_type_dept_id {
   grid-area: dept_id;
 }
 
 .col_type_is_hidden {
   grid-area: is_hidden;
+}
+
+.col_type_rating {
+  grid-area: rating;
 }
 
 .col_type_createdAt {
