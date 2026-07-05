@@ -4,7 +4,7 @@ import { usePositionStore } from "@/entities/position";
 import { REMOVE_POSITION_SUCCEED } from "@/shared/constants";
 import type { THandlePositions } from "../model/types";
 import type { TPositionData } from "@/shared/types";
-
+// TODO: проверить на переиспользование
 export const useHandlePositions = (): THandlePositions => {
   const { close: closeModal } = useModalStore();
   const { add: addNotification } = useNotificationStore();
