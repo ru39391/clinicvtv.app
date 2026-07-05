@@ -13,6 +13,6 @@ export type TTestimonialState = TPositionState<TTestimonialData>;
 
 export type TTestimonialQueryData = TQueryData<keyof TTestimonialData>;
 
-export type TTestimonialStore = TPositionStore<TTestimonialPayload, TTestimonialQueryData, TTestimonialState, TTestimonialData>;
+export type TTestimonialStore = TPositionStore<TTestimonialPayload, TTestimonialQueryData, TTestimonialData>;
 
 export type TTestimonialApi = TPositionApi<TTestimonialPayload, TTestimonialQueryData, TTestimonialData>;

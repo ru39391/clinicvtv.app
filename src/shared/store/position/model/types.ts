@@ -9,15 +9,15 @@ export type TPositionState<T> = {
 
 export type TPositionResponse<T> = Omit<TPositionState<T>, "isLoading" | "current"> & { success: boolean };
 
-export type TPositionStore<P, Q, S, T extends { id: number }> = S & {
-  fetchItems: (data: Q) => Promise<void>;
+export type TPositionStore<P, Q, T extends { id: number }> = TPositionState<T> & {
+  fetchItems: (data: Q | null) => Promise<void>;
   createItem: (data: P) => Promise<boolean>;
   updateItem: (data: T) => Promise<boolean>;
   removeItem: (id: T["id"]) => Promise<boolean>;
   setCurrItemData: (id: T["id"] | null) => void;
 }
 
-export type TPositionApi<P, Q, T> = {
+export type TPositionApi<P, Q, T extends { id: number }> = {
   fetchData: (data: Q | null) => Promise<Omit<TPositionState<T>, "isLoading" | "current">>;
   addData: ({ item, arr, pagination }: {
     item: P;
@@ -33,4 +33,10 @@ export type TPositionApi<P, Q, T> = {
     arr: T[];
     pagination: TPositionState<T>["pagination"];
   }) => Promise<TPositionResponse<T>>;
+}
+
+export type TPositionStoreOptions<P, Q, T extends { id: number }> = {
+  name: string;
+  api: TPositionApi<P, Q, T>;
+  initialState?: Partial<TPositionState<T>>;
 }

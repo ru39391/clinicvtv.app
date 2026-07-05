@@ -5,6 +5,10 @@ import { IS_HIDDEN_KEY, QUERY_KEY } from "@/shared/constants";
 import type { TPricelistApi, TPriceQueryData } from "../model/types";
 import type { TPaginationData, TPriceData, TPricePayload } from "@/shared/types";
 
+// TODO: избавиться от лишнего кода
+// import { createPositionApi } from "@/shared/store";
+// export const pricelistActions: TPricelistActions = createPositionApi<TPricePayload, TPriceQueryData, TPriceData>(routes.api.price);
+
 export const pricelistApi: TPricelistApi = {
   fetchItems: async (payload = null) => {
     const storageData = StorageHandler.getData<TPriceQueryData>(QUERY_KEY);
