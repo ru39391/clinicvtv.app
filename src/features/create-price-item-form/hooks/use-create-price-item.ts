@@ -1,7 +1,7 @@
 import { useActionState } from "react";
 import { useModalStore, useNotificationStore, type TNotification } from "@/shared/store";
-import { usePricelistStore } from "@/entities/price";
-import type { TFormHandler, TFormState, TPriceData, TPricePayload } from "@/shared/types";
+import { usePricelistStore, type TPricelistData, type TPricelistPayload } from "@/entities/pricelist";
+import type { TFormHandler, TFormState } from "@/shared/types";
 import {
   ADD_POSITION_SUCCEED,
   PRICE_KEY,
@@ -11,26 +11,26 @@ import {
   SUBDEPT_ID_KEY
 } from "@/shared/constants";
 
-export const useCreatePriceItem = (): TFormHandler<TPricePayload> => {
+export const useCreatePriceItem = (): TFormHandler<TPricelistPayload> => {
   const { close: closeModal } = useModalStore();
   const { add: addNotification } = useNotificationStore();
   const {
     current: currPriceItem,
-    createPriceItem,
-    setCurrPriceData,
-    updatePriceItem
+    createItem,
+    setCurrItemData,
+    updateItem
   } = usePricelistStore();
 
   const hidePopups = (data: Omit<TNotification, "id" | "createdAt">) => {
     closeModal();
-    setCurrPriceData(null);
+    setCurrItemData(null);
 
     if(data) addNotification(data);
   }
 
-  const updatePriceItemData = async (data: TPricePayload): Promise<boolean> => {
+  const updatePriceItemData = async (data: TPricelistPayload): Promise<boolean> => {
     const isValueDataEqual = Object.entries(data).reduce(
-      (acc, [key, value]) => currPriceItem === null ? !acc : acc && currPriceItem[key as keyof TPricePayload] === value,
+      (acc, [key, value]) => currPriceItem === null ? !acc : acc && currPriceItem[key as keyof TPricelistPayload] === value,
       true
     );
 
@@ -40,13 +40,13 @@ export const useCreatePriceItem = (): TFormHandler<TPricePayload> => {
       return !isValueDataEqual;
     };
 
-    return await updatePriceItem({ ...( currPriceItem && { ...currPriceItem }), ...data } as TPriceData);
+    return await updateItem({ ...( currPriceItem && { ...currPriceItem }), ...data } as TPricelistData);
   }
 
   const submitForm = () => async (
     _: unknown,
     formData: FormData
-  ): Promise<TFormState<TPricePayload>> => {
+  ): Promise<TFormState<TPricelistPayload>> => {
     const formValues = Object.fromEntries(formData);
     const values = {
       [DEPT_ID_KEY]: Number(currPriceItem?.[DEPT_ID_KEY]) || 0,
@@ -60,11 +60,11 @@ export const useCreatePriceItem = (): TFormHandler<TPricePayload> => {
       [IS_HIDDEN_KEY]: Number(values[IS_HIDDEN_KEY]),
       [IS_MIN_VALUE_KEY]: Number(values[IS_MIN_VALUE_KEY]),
       [SUBDEPT_ID_KEY]: 0
-    } as TPricePayload;
+    } as TPricelistPayload;
 
     const success = currPriceItem
       ? await updatePriceItemData(payload)
-      : await createPriceItem(payload);
+      : await createItem(payload);
 
     if (success) {
       hidePopups({ title: ADD_POSITION_SUCCEED, type: "success" });

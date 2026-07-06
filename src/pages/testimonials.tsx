@@ -1,6 +1,6 @@
 import { useEffect, type FC } from "react";
-import { Heading } from "@/entities/heading";
 import { GoBackBtn  } from "@/features/go-back-btn";
+import { Heading } from "@/entities/heading";
 import { Layout } from "@/shared/ui";
 import { TestimonialsWrapper } from "@/widgets/testimonials";
 

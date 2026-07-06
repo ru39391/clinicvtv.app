@@ -16,6 +16,7 @@ const TestimonialsWrapper: FC = () => {
     fetchItems,
     isLoading,
     pagination,
+    removeItem,
     setCurrItemData: setCurrData
   } = useTestimonialStore();
 
@@ -47,7 +48,7 @@ const TestimonialsWrapper: FC = () => {
       }}
     >
       <TestimonialsList
-        showRemoveModal={({ id, isLoading, name, removeItem }: TTestimonialsListOptions) => open({
+        showRemoveModal={({ id, isLoading, name }: TTestimonialsListOptions) => open({
           content: <RemovePositionModal<TTestimonialData> {...{ id, isLoading, name, removeItem }} />
         })}
       />

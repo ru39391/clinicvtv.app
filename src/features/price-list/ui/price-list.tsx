@@ -1,15 +1,11 @@
 import { useState, type FC } from "react";
-import { Button, Card, Loader } from "@/shared/ui";
+import { Button } from "@/shared/ui";
 import { EditIcon, TrashBinIcon } from "@/shared/icons";
-import { sortPricelist } from "../lib/sort-price-list";
-
-import { useHandlePositions } from "../hooks/use-handle-positions";
-
-import { useModalStore } from "@/shared/store";
-import { usePricelistStore, type TPriceQueryData } from "@/entities/price";
+import { sortPricelist } from "../lib/sort-pricelist";
 import { Table } from "@/entities/table";
 import { TableCell } from "@/entities/table-cell";
 import { TableRow } from "@/entities/table-row";
+import { type TPricelistData, type TPricelistQueryData } from "@/entities/pricelist";
 import {
   LIST_IS_EMPTY,
   PRICE_CAPTIONS,
@@ -19,55 +15,9 @@ import {
   IS_HIDDEN_KEY,
   IS_MIN_VALUE_KEY,
   CREATED_AT_KEY,
-  UPDATED_AT_KEY,
-  REMOVE_POSITION_KEY,
-  POSITION_KEY,
-  CONFIRM_KEY
+  UPDATED_AT_KEY
 } from "@/shared/constants";
-import {
-  formatCurrency,
-  formatDate,
-  setItemHiddenCaption
-} from "@/shared/utils";
-import type { TItemData, TPositionData, TPriceData } from "@/shared/types";
-// TODO: удалить
-const styles = {};
-// TODO: декомпозировать
-const RemovePositionModal: FC<{
-  id: TItemData["id"];
-  name: TItemData["name"];
-}> = ({ id, name }) => {
-  const { close } = useModalStore();
-  const { handleRemoveItem } = useHandlePositions();
-  const { isLoading } = usePricelistStore();
-
-  return (
-    <Card
-      {...{
-        title: `${REMOVE_POSITION_KEY} ${POSITION_KEY}`,
-        subtitle: `${CONFIRM_KEY} ${REMOVE_POSITION_KEY.toLowerCase()} "${name}"?`,
-        type: ["md"]
-      }}
-    >
-      <div className={styles.positions__actions}>
-        <Button
-          handleClick={() => handleRemoveItem(id)}
-          isDisabled={isLoading}
-          style={isLoading ? "plain" : "row"}
-        >
-          {isLoading ? <Loader isVisible={isLoading} size="xs" /> : "Да"}
-        </Button>
-        <Button
-          handleClick={() => close()}
-          isDisabled={isLoading}
-          style="plain"
-        >
-          Нет
-        </Button>
-      </div>
-    </Card>
-  )
-};
+import { formatCurrency, formatDate, setItemHiddenCaption } from "@/shared/utils";
 
 const PriceRows: FC<{ values: (Record<string, string> & { isMinValue: number; })[]; }> = ({ values }) => values.map(
   ({ key, value, isMinValue }) => {
@@ -86,11 +36,13 @@ const PriceRows: FC<{ values: (Record<string, string> & { isMinValue: number; })
   }
 );
 
-const PriceList: FC = () => {
-  const [sortData, setSortData] = useState<TPriceQueryData | null>(null);
-  const { open } = useModalStore();
-  const { data: pricelist, isLoading, setCurrPriceData } = usePricelistStore();
-
+const PriceList: FC = ({
+  arr,
+  isLoading,
+  setCurrData,
+  showRemoveModal
+}) => {
+  const [sortData, setSortData] = useState<TPricelistQueryData | null>(null);
   const keys = [
     NAME_KEY,
     PRICE_KEY,
@@ -100,13 +52,13 @@ const PriceList: FC = () => {
     UPDATED_AT_KEY
   ];
 
-  const sortColValues = async (key: keyof TPositionData) => {
-    const data = await sortPricelist(key as TPriceQueryData["sortby"]);
+  const sortColValues = async (key: keyof TPricelistData) => {
+    const data = await sortPricelist(key as TPricelistQueryData["sortby"]);
 
     setSortData(data);
   }
 
-  if(!isLoading && !pricelist.length) {
+  if(!isLoading && !arr.length) {
     return LIST_IS_EMPTY;
   }
 
@@ -131,13 +83,13 @@ const PriceList: FC = () => {
           </TableCell>
         ))}
       </TableRow>
-      {pricelist.map(({ id, ...props }: TPriceData) => {
+      {arr.map(({ id, ...props }: TPricelistData) => {
         const values = keys.reduce(
           (acc, key) => ([
             ...acc,
             {
               key,
-              value: String(props[key as keyof TPriceData]),
+              value: String(props[key as keyof TPricelistData]),
               [IS_MIN_VALUE_KEY]: props[IS_MIN_VALUE_KEY]
             }
           ]),
@@ -147,16 +99,15 @@ const PriceList: FC = () => {
         return (
           <TableRow key={id.toString()} type="price">
             <PriceRows {...{ values }} />
-
             <TableCell type="btns">
               <Button
-                handleClick={() => setCurrPriceData(id)}
+                handleClick={() => setCurrData(id)}
                 style="icon"
               >
                 <EditIcon />
               </Button>
               <Button
-                handleClick={() => open({ content: <RemovePositionModal {...{ id, name: props.name }} /> })}
+                handleClick={() => showRemoveModal({ id, name: props.name })}
                 style="unstyled"
               >
                 <TrashBinIcon />

@@ -39,10 +39,10 @@ const TestimonialRows: FC<{ values: (Record<string, string> & { rating: number; 
 
 const TestimonialsList: FC<ITestimonialsList> = ({ showRemoveModal }) => {
   const [sortData, setSortData] = useState<TTestimonialQueryData | null>(null);
+  // TODO: возможно, вызов лишний
   const {
     data: testimonials,
     isLoading,
-    removeItem,
     setCurrItemData
   } = useTestimonialStore();
 
@@ -115,8 +115,7 @@ const TestimonialsList: FC<ITestimonialsList> = ({ showRemoveModal }) => {
                 handleClick={() => showRemoveModal({
                   id,
                   isLoading,
-                  name: props.name,
-                  removeItem
+                  name: props.name
                 })}
                 style="unstyled"
               >

@@ -1,1 +1,1 @@
-export type TPositionsDir = "ASC" | "DESC" | null;
+// TODO: удалить

@@ -2,7 +2,7 @@ import { type FC } from "react";
 import { Form } from "@/entities/form";
 import { Button, Checkbox, TextField, Loader } from "@/shared/ui";
 import { CloseIcon } from "@/shared/icons";
-import { usePricelistStore } from "@/entities/price";
+import { usePricelistStore } from "@/entities/pricelist";
 import { useValidateForm } from "@/shared/hooks";
 import { useCreatePriceItem } from "../hooks/use-create-price-item";
 import {
