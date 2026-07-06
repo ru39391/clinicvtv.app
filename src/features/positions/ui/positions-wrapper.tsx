@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Loader } from "@/shared/ui";
 import { Wrapper } from "@/entities/wrapper";
-import { usePositionFormModal } from "../hooks/use-position-form-modal";
+import { useUpdatePositionModal } from "../hooks/use-update-position-modal";
 import type { IPositionsWrapper } from "../model/types";
 
 const PositionsWrapper = <T extends { id: number }, >({
@@ -13,13 +13,13 @@ const PositionsWrapper = <T extends { id: number }, >({
   isLoading,
   setCurrData
 }: IPositionsWrapper<T>) => {
-  const { openCreatePositionForm } = usePositionFormModal<T>({
+  const { showPositionForm } = useUpdatePositionModal<T>({
     content: form,
     setCurrData
   });
 
   useEffect(() => {
-    openCreatePositionForm(currData);
+    showPositionForm(currData);
   }, [currData]);
 
   return (

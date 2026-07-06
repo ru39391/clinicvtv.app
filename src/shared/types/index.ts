@@ -4,7 +4,6 @@ export * from "./form";
 export * from "./pagination";
 export * from "./price";
 export * from "./query";
-export * from "./testimonial";
 export * from "./user";
 
 //export * from "./position";

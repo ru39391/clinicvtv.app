@@ -1,19 +1,29 @@
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { AddIcon } from "@/shared/icons";
 import { Button } from "@/shared/ui";
 import { useModalStore } from "@/shared/store";
-import { usePositionStore } from "@/entities/position";
-// TODO: универсализировать
-const CreatePositionBtn: FC<{ children: ReactNode }> = ({ children }) => {
+import type { ICreatePositionBtn } from "../model/types";
+
+const CreatePositionBtn = <T extends { id: number }, >({
+  children,
+  setCurrData
+}: ICreatePositionBtn<T>) => {
   const { open } = useModalStore();
-  const { setCurrPosition } = usePositionStore();
 
   const openPositionModal = (content: ReactNode) => {
-    setCurrPosition(null);
+    setCurrData(null);
     open({ content });
   }
 
-  return <Button handleClick={() => openPositionModal(children)} caption="Добавить" style="row"><AddIcon /></Button>;
+  return (
+    <Button
+      caption="Добавить"
+      handleClick={() => openPositionModal(children)}
+      style="row"
+    >
+      <AddIcon />
+    </Button>
+  );
 };
 
 export default CreatePositionBtn;

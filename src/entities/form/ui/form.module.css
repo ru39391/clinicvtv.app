@@ -28,9 +28,9 @@
 
 
 @media (--sm-min-value) {
-.form__footer {
-  gap: 32px 0;
-}
+  .form__footer {
+    gap: 32px 0;
+  }
 }
 
 .form__divider {
@@ -38,4 +38,10 @@
   font-size: var(--font-size-body);
   font-weight: var(--fw-medium);
   color: var(--color-grey-light);
+}
+
+.form__row {
+  grid-column: 1/3;
+  display: flex;
+  justify-content: center;
 }

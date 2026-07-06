@@ -1,6 +1,8 @@
 import type {
-  TTestimonialData,
-  TTestimonialPayload,
+  TDatesData,
+  TDeptsData,
+  TItemData,
+  TIntroData,
   TQueryData
 } from "@/shared/types";
 import type {
@@ -8,6 +10,10 @@ import type {
   TPositionState,
   TPositionStore,
 } from "@/shared/store";
+
+export type TTestimonialData = TItemData & TIntroData & TDatesData & Pick<TDeptsData, "spec_id"> & { rating: number };
+
+export type TTestimonialPayload = Omit<TTestimonialData, "id" | "introtext" | "createdAt" | "updatedAt">;
 
 export type TTestimonialState = TPositionState<TTestimonialData>;
 

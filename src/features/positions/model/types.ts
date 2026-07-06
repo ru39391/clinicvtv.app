@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
-export type TPositionFormModal<T extends { id: number }> = {
+export type TUpdatePositionModal<T extends { id: number }> = {
   content: ReactNode;
   setCurrData: (data: T["id"] | null) => void;
 }
 
-export interface IPositionFormModal<T> {
-  openCreatePositionForm: (data: T | null) => void;
+export interface IUpdatePositionModal<T> {
+  showPositionForm: (data: T | null) => void;
 }
 
 export interface IPositionsWrapper<T extends { id: number }> {

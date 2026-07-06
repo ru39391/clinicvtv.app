@@ -1,15 +1,12 @@
 import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
-import { Loader } from "@/shared/ui";
+import { CreateTestimonialItemForm } from "@/features/create-testimonial-item-form";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsWrapper } from "@/features/positions";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { TestimonialsList } from "@/features/testimonials-list";
-import {
-  useTestimonialStore,
-  type TTestimonialData,
-  type TTestimonialQueryData
-} from "@/entities/testimonial";
+import { useTestimonialStore, type TTestimonialQueryData } from "@/entities/testimonial";
+import type { TTestimonialData } from "@/shared/types";
 
 const TestimonialsWrapper: FC = () => {
   const {
@@ -30,11 +27,13 @@ const TestimonialsWrapper: FC = () => {
         aside: (
           <>
             <ResetPositionsBtn<TTestimonialQueryData> {...{ fetchItems, isLoading }} />
-            {/*<CreatePositionBtn><CreatePriceItemForm /></CreatePositionBtn>*/}
+            <CreatePositionBtn<TTestimonialData> {...{ setCurrData }}>
+              <CreateTestimonialItemForm />
+            </CreatePositionBtn>
           </>
         ),
         currData,
-        form: '<CreatePriceItemForm />',
+        form: <CreateTestimonialItemForm />,
         footer: (
           <>
             <PaginationCounter {...{ isLoading, pagination }} />

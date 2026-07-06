@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useModalStore } from "@/shared/store";
-import type { IPositionFormModal, TPositionFormModal } from "../model/types";
+import type { IUpdatePositionModal, TUpdatePositionModal } from "../model/types";
 
-export const usePositionFormModal = <T extends { id: number }>(
-  { content, setCurrData }: TPositionFormModal<T>
-): IPositionFormModal<T> => {
+export const useUpdatePositionModal = <T extends { id: number }>(
+  { content, setCurrData }: TUpdatePositionModal<T>
+): IUpdatePositionModal<T> => {
   const { isOpen, open } = useModalStore();
 
-  const openCreatePositionForm = <T>(data: T) => {
+  const showPositionForm = <T>(data: T) => {
     if(!data) return;
 
     open({ content });
@@ -24,6 +24,6 @@ export const usePositionFormModal = <T extends { id: number }>(
   }, [isOpen]);
 
   return {
-    openCreatePositionForm
+    showPositionForm
   };
 };

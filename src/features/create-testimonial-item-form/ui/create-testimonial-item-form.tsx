@@ -1,25 +1,23 @@
 import { type FC } from "react";
-import { Form } from "@/entities/form";
+import { Form, FormRow } from "@/entities/form";
 import { Button, Checkbox, TextField, Loader } from "@/shared/ui";
 import { CloseIcon } from "@/shared/icons";
-import { usePricelistStore } from "@/entities/price";
+import { useTestimonialStore } from "@/entities/testimonial";
 import { useValidateForm } from "@/shared/hooks";
-import { useCreatePriceItem } from "../hooks/use-create-price-item";
+import { useCreateTestimonialItem } from "../hooks/use-create-testimonial-item";
 import {
   ADD_POSITION_KEY,
   EDIT_POSITION_KEY,
   POSITION_KEY,
-  PRICE_CAPTIONS,
+  TESTIMONIAL_CAPTIONS,
   NAME_KEY,
-  PRICE_KEY,
+  RATING_KEY,
   IS_HIDDEN_KEY,
-  IS_MIN_VALUE_KEY,
 } from "@/shared/constants";
-import styles from "./create-price-item-form.module.css";
 
-const CreatePriceItemForm: FC = () => {
-  const { formState, dispatchForm, isPending } = useCreatePriceItem();
-  const { current: currPriceItem } = usePricelistStore();
+const CreateTestimonialItemForm: FC = () => {
+  const { formState, dispatchForm, isPending } = useCreateTestimonialItem();
+  const { current: currTestimonialData } = useTestimonialStore();
   const {
     inputErrors,
     isBtnDisabled,
@@ -32,20 +30,21 @@ const CreatePriceItemForm: FC = () => {
   return (
     <Form
       action={dispatchForm}
-      title={`${currPriceItem ? EDIT_POSITION_KEY : ADD_POSITION_KEY} ${POSITION_KEY}`}
+      title={`${currTestimonialData ? EDIT_POSITION_KEY : ADD_POSITION_KEY} ${POSITION_KEY}`}
       isLogoVisible={false}
       mod={["md", "grid"]}
+      type="grid"
     >
       {[
         {
           name: NAME_KEY,
-          label: PRICE_CAPTIONS[NAME_KEY],
-          defaultValue: formState?.values?.[NAME_KEY] || currPriceItem?.[NAME_KEY] || "",
+          label: TESTIMONIAL_CAPTIONS[NAME_KEY],
+          defaultValue: formState?.values?.[NAME_KEY] || currTestimonialData?.[NAME_KEY] || "",
         },
         {
-          name: PRICE_KEY,
-          label: PRICE_CAPTIONS[PRICE_KEY],
-          defaultValue: formState?.values?.[PRICE_KEY] || String(currPriceItem?.[PRICE_KEY] || ""),
+          name: RATING_KEY,
+          label: TESTIMONIAL_CAPTIONS[RATING_KEY],
+          defaultValue: formState?.values?.[RATING_KEY] || String(currTestimonialData?.[RATING_KEY] || ""),
         },
       ].map(({
         defaultValue,
@@ -62,7 +61,7 @@ const CreatePriceItemForm: FC = () => {
             name,
             label,
             type: "text",
-            handleBlur: [PRICE_KEY].includes(name) ? validateNumberField : validatePlainField,
+            handleBlur: [RATING_KEY].includes(name) ? validateNumberField : validatePlainField,
             handleChange: unsetInvalidData,
             handleFieldValue: (input: HTMLInputElement | null) => resetFieldValue(input)
           }}
@@ -73,13 +72,8 @@ const CreatePriceItemForm: FC = () => {
       {[
         {
           name: IS_HIDDEN_KEY,
-          caption: PRICE_CAPTIONS[IS_HIDDEN_KEY],
-          isChecked: formState?.values?.[IS_HIDDEN_KEY] || currPriceItem?.[IS_HIDDEN_KEY] || false,
-        },
-        {
-          name: IS_MIN_VALUE_KEY,
-          caption: PRICE_CAPTIONS[IS_MIN_VALUE_KEY],
-          isChecked: formState?.values?.[IS_MIN_VALUE_KEY] || currPriceItem?.[IS_MIN_VALUE_KEY] || false,
+          caption: TESTIMONIAL_CAPTIONS[IS_HIDDEN_KEY],
+          isChecked: formState?.values?.[IS_HIDDEN_KEY] || currTestimonialData?.[IS_HIDDEN_KEY] || false,
         },
       ].map(({
         caption,
@@ -88,7 +82,7 @@ const CreatePriceItemForm: FC = () => {
       }) => (
         <Checkbox key={name} {...{ caption, name, isChecked }} />
       ))}
-      <div className={styles.row}>
+      <FormRow>
         <Button
           caption={!isPending ? "Сохранить" : ""}
           isDisabled={isPending || isBtnDisabled}
@@ -96,9 +90,9 @@ const CreatePriceItemForm: FC = () => {
         >
           <Loader isVisible={isPending} size="xs" />
         </Button>
-      </div>
+      </FormRow>
     </Form>
   )
 };
 
-export default CreatePriceItemForm;
+export default CreateTestimonialItemForm;
