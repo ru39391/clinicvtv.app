@@ -1,13 +1,26 @@
 import { useEffect, type FC } from "react";
-//import { Layout } from "@/shared/ui";
-//import { PositionsHeader, PositionsWrapper } from "@/widgets/positions";
+import { GoBackBtn  } from "@/features/go-back-btn";
+import { Heading } from "@/entities/heading";
+import { Layout } from "@/shared/ui";
+import { ExamplesWrapper } from "@/widgets/examples";
+//import { ExamplesSearchForm } from "@/features/examples-search-form";
 
 const Examples: FC = () => {
+  const props = {
+    title: "Примеры работ",
+    aside: <GoBackBtn />
+  };
+
   useEffect(() => {
-    document.title = "Примеры работ";
+    document.title = props.title;
   }, []);
 
-  return 'examples';//<Layout><PositionsHeader /><PositionsWrapper /></Layout>
+  return (
+    <Layout>
+      <Heading {...props}>ExamplesSearchForm</Heading>
+      <ExamplesWrapper />
+    </Layout>
+  )
 };
 
 export default Examples;

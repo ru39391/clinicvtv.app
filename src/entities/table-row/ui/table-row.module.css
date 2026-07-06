@@ -41,4 +41,11 @@
       "name rating is_hidden introtext introtext createdAt updatedAt btns"
       "desc desc desc desc desc desc desc .";
   }
+
+  .row_type_example {
+    grid-template-columns: repeat(8,1fr);
+    grid-template-areas:
+      "name name is_hidden introtext introtext createdAt updatedAt btns"
+      "desc desc desc desc desc desc desc .";
+  }
 }

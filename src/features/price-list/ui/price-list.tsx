@@ -43,6 +43,7 @@ const PriceList: FC<IPriceList> = ({
   setCurrData,
   showRemoveModal
 }) => {
+  // TODO: оформить в виде хука
   const [sortData, setSortData] = useState<TPricelistQueryData | null>(null);
   const keys = [
     NAME_KEY,

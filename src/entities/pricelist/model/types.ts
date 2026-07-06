@@ -12,7 +12,7 @@ import type {
 
 export type TPricelistData = TItemData & TDatesData & Omit<TDeptsData, "spec_id"> & { price: number; isMinValue: 1 | 0; };
 
-export type TPricelistPayload = Omit<TPricelistData, "id" | "createdAt" | "updatedAt">;
+export type TPricelistPayload = Omit<TPricelistData, "id" | "introtext" | "createdAt" | "updatedAt">;
 
 export type TPricelistState = TPositionState<TPricelistData>;
 

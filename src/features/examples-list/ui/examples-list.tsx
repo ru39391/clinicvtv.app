@@ -1,66 +1,55 @@
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import { Button } from "@/shared/ui";
 import { EditIcon, TrashBinIcon } from "@/shared/icons";
-import { sortTestimonials } from "../lib/sort-testimonials-list";
 import { Table } from "@/entities/table";
 import { TableCell } from "@/entities/table-cell";
 import { TableRow } from "@/entities/table-row";
 import {
   LIST_IS_EMPTY,
-  TESTIMONIAL_CAPTIONS,
+  EXAMPLE_CAPTIONS,
   NAME_KEY,
   DESC_KEY,
   INTRO_KEY,
-  SPEC_ID_KEY,
-  RATING_KEY,
   IS_HIDDEN_KEY,
   CREATED_AT_KEY,
   UPDATED_AT_KEY
 } from "@/shared/constants";
 import { formatDate, setItemHiddenCaption } from "@/shared/utils";
-import { type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
-import { type ITestimonialsList } from "../model/types";
+import { useSortExamplesList } from "../hooks/use-sort-examples-list";
+import { type TExampleData } from "@/entities/example";
+import { type IExamplesList } from "../model/types";
 
-const TestimonialRows: FC<{ values: (Record<string, string> & { rating: number; })[]; }> = ({ values }) => values.map(
-  ({ key, value, rating }) => {
+const ExampleRows: FC<{ values: Record<string, string>[]; }> = ({ values }) => values.map(
+  ({ key, value }) => {
     const caption = key === IS_HIDDEN_KEY ? setItemHiddenCaption(value) : formatDate(value, key);
 
     return (
       <TableCell
         key={key}
-        caption={TESTIMONIAL_CAPTIONS[key]}
+        caption={EXAMPLE_CAPTIONS[key]}
         type={key}
       >
-        {key === RATING_KEY ? String(rating) : caption}
+        {caption}
       </TableCell>
     )
   }
 );
 
-const TestimonialsList: FC<ITestimonialsList> = ({
+const ExamplesList: FC<IExamplesList> = ({
   arr,
   isLoading,
   setCurrData,
   showRemoveModal
 }) => {
-  // TODO: оформить в виде хука
-  const [sortData, setSortData] = useState<TTestimonialQueryData | null>(null);
+  const { sortData, sortColValues } = useSortExamplesList();
   const keys = [
     NAME_KEY,
     DESC_KEY,
     IS_HIDDEN_KEY,
-    RATING_KEY,
     INTRO_KEY,
     CREATED_AT_KEY,
     UPDATED_AT_KEY
   ];
-
-  const sortColValues = async (key: keyof TTestimonialData) => {
-    const sortby = key === INTRO_KEY ? SPEC_ID_KEY : key;
-    const data = await sortTestimonials(sortby as TTestimonialQueryData["sortby"]);
-
-    setSortData(data);
-  }
 
   if(!isLoading && !arr.length) {
     return LIST_IS_EMPTY;
@@ -70,7 +59,7 @@ const TestimonialsList: FC<ITestimonialsList> = ({
     <Table>
       <TableRow
         isCaption={true}
-        type="testimonial"
+        type="example"
       >
         {keys.map((key) => (
           key !== DESC_KEY && <TableCell
@@ -83,26 +72,25 @@ const TestimonialsList: FC<ITestimonialsList> = ({
               sortdir: sortData.sortdir
             })}
           >
-            {TESTIMONIAL_CAPTIONS[key]}
+            {EXAMPLE_CAPTIONS[key]}
           </TableCell>
         ))}
       </TableRow>
-      {arr.map(({ id, ...props }: TTestimonialData) => {
+      {arr.map(({ id, ...props }: TExampleData) => {
         const values = keys.reduce(
           (acc, key) => ([
             ...acc,
             {
               key,
-              value: String(props[key as keyof TTestimonialData]),
-              [RATING_KEY]: props[RATING_KEY]
+              value: String(props[key as keyof TExampleData]),
             }
           ]),
           []
         );
 
         return (
-          <TableRow key={id.toString()} type="testimonial">
-            <TestimonialRows {...{ values }} />
+          <TableRow key={id.toString()} type="example">
+            <ExampleRows {...{ values }} />
             <TableCell type="btns">
               <Button
                 handleClick={() => setCurrData(id)}
@@ -124,4 +112,4 @@ const TestimonialsList: FC<ITestimonialsList> = ({
   )
 };
 
-export default TestimonialsList;
+export default ExamplesList;

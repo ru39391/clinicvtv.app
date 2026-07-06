@@ -9,6 +9,9 @@ export const SPEC_ID_KEY = "spec_id";
 export const IS_HIDDEN_KEY = "is_hidden";
 export const CREATED_AT_KEY = "createdAt";
 export const UPDATED_AT_KEY = "updatedAt";
+export const IMG_BEFORE_KEY = "img_before";
+export const IMG_AFTER_KEY = "img_after";
+export const THUMB_KEY = "thumb";
 
 export const CAPTIONS = {
   [ID_KEY]: "ID",
