@@ -1,28 +1,43 @@
-import { forwardRef, useRef, type FC } from "react";
+import { forwardRef, ForwardedRef, useRef, type FC } from "react";
 import type { ITextField, ITextFieldInput } from "../model/types";
 import styles from './text-field.module.css';
 
-const TextFieldInput = forwardRef<HTMLInputElement, ITextFieldInput>(({
+const TextFieldInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, ITextFieldInput>(({
   defaultValue,
   handleBlur,
   handleChange,
   handleFocus,
   isRequired,
+  isTextarea,
   name,
   type
 }, ref) => {
+  const props = {
+    id: name,
+    name,
+    className: `${styles.field__input} ${styles.field__label}`,
+    ...(defaultValue && { defaultValue }),
+    ...(handleBlur && { onBlur: handleBlur }),
+    ...(handleChange && { onChange: handleChange }),
+    ...(handleFocus && { onFocus: handleFocus }),
+    ...(isRequired && { required: isRequired })
+  }
+
+  if(isTextarea) {
+    return (
+      <textarea
+        {...props}
+        ref={ref as ForwardedRef<HTMLTextAreaElement>}
+        className={`${props.className} ${styles.field__input_type_textarea}`}
+      />
+    )
+  }
+
   return (
     <input
-      ref={ref}
-      id={name}
-      name={name}
-      className={`${styles.field__input} ${styles.field__label}`}
+      {...props}
+      ref={ref as ForwardedRef<HTMLInputElement>}
       type={type || "text"}
-      {...(defaultValue && { defaultValue })}
-      {...(handleBlur && { onBlur: handleBlur })}
-      {...(handleChange && { onChange: handleChange })}
-      {...(handleFocus && { onFocus: handleFocus })}
-      {...(isRequired && { required: isRequired })}
     />
   );
 });
@@ -38,11 +53,12 @@ const TextField: FC<ITextField> = ({
   icon,
   isBtnVisible,
   isRequired,
+  isTextarea,
   label,
   name,
   type
 }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
   const fieldClassName = errorValue ? `${styles.field} ${styles.field_type_error}` : styles.field;
   const rowClassName = icon ? `${styles.field__row} ${styles.field__row_offset_y}` : styles.field__row;
   const input = (
@@ -54,6 +70,7 @@ const TextField: FC<ITextField> = ({
         handleChange,
         handleFocus,
         isRequired,
+        isTextarea,
         name,
         type
       }}

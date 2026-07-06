@@ -1,6 +1,5 @@
 import { sortPositions } from "@/shared/utils";
-import { useTestimonialStore, type TTestimonialQueryData } from "@/entities/testimonial";
-import type { TTestimonialData } from "@/shared/types";
+import { useTestimonialStore, type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
 
 export const sortTestimonials = async (sortby: TTestimonialQueryData["sortby"]): Promise<TTestimonialQueryData | null> => {
   const { data: testimonials } = useTestimonialStore.getState();

@@ -1,17 +1,14 @@
 import { useModalStore } from "@/shared/store";
 import { useNotificationStore } from "@/shared/store";
-import { usePositionStore } from "@/entities/position";
 import { REMOVE_POSITION_SUCCEED } from "@/shared/constants";
-import type { THandlePositions } from "../model/types";
-import type { TPositionData } from "@/shared/types";
-// TODO: проверить на переиспользование
-export const useHandlePositions = (): THandlePositions => {
+import type { TRemovePositionModal, TRemoveItemOptions } from "../model/types";
+
+export const useRemovePositionModal = <T extends { id: number }>(): TRemovePositionModal<T> => {
   const { close: closeModal } = useModalStore();
   const { add: addNotification } = useNotificationStore();
-  const { removePosition } = usePositionStore();
 
-  const handleRemoveItem = async (id: TPositionData["id"]) => {
-    const success = await removePosition(id);
+  const handleRemoveItem = async ({ id, removeItem }: TRemoveItemOptions<T>) => {
+    const success = await removeItem(id);
 
     if (!success) {
       return;

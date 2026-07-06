@@ -5,8 +5,7 @@ import { sortTestimonials } from "../lib/sort-testimonials-list";
 import { Table } from "@/entities/table";
 import { TableCell } from "@/entities/table-cell";
 import { TableRow } from "@/entities/table-row";
-import { useModalStore } from "@/shared/store";
-import { useTestimonialStore, type TTestimonialQueryData } from "@/entities/testimonial";
+import { useTestimonialStore, type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
 import {
   LIST_IS_EMPTY,
   TESTIMONIAL_CAPTIONS,
@@ -17,13 +16,10 @@ import {
   RATING_KEY,
   IS_HIDDEN_KEY,
   CREATED_AT_KEY,
-  UPDATED_AT_KEY,
-  REMOVE_POSITION_KEY,
-  POSITION_KEY,
-  CONFIRM_KEY
+  UPDATED_AT_KEY
 } from "@/shared/constants";
 import { formatDate, setItemHiddenCaption } from "@/shared/utils";
-import type { TTestimonialData } from "@/shared/types";
+import type { ITestimonialsList } from "../model/types";
 
 const TestimonialRows: FC<{ values: (Record<string, string> & { rating: number; })[]; }> = ({ values }) => values.map(
   ({ key, value, rating }) => {
@@ -41,10 +37,14 @@ const TestimonialRows: FC<{ values: (Record<string, string> & { rating: number; 
   }
 );
 
-const TestimonialsList: FC = () => {
+const TestimonialsList: FC<ITestimonialsList> = ({ showRemoveModal }) => {
   const [sortData, setSortData] = useState<TTestimonialQueryData | null>(null);
-  const { open } = useModalStore();
-  const { data: testimonials, isLoading, setCurrItemData } = useTestimonialStore();
+  const {
+    data: testimonials,
+    isLoading,
+    removeItem,
+    setCurrItemData
+  } = useTestimonialStore();
 
   const keys = [
     NAME_KEY,
@@ -104,7 +104,6 @@ const TestimonialsList: FC = () => {
         return (
           <TableRow key={id.toString()} type="testimonial">
             <TestimonialRows {...{ values }} />
-
             <TableCell type="btns">
               <Button
                 handleClick={() => setCurrItemData(id)}
@@ -113,9 +112,12 @@ const TestimonialsList: FC = () => {
                 <EditIcon />
               </Button>
               <Button
-                handleClick={
-                  () => console.log('open')//open({ content: <RemovePositionModal {...{ id, name: props.name }} /> })
-                }
+                handleClick={() => showRemoveModal({
+                  id,
+                  isLoading,
+                  name: props.name,
+                  removeItem
+                })}
                 style="unstyled"
               >
                 <TrashBinIcon />

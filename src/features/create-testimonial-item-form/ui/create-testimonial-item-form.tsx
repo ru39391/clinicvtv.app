@@ -11,6 +11,7 @@ import {
   POSITION_KEY,
   TESTIMONIAL_CAPTIONS,
   NAME_KEY,
+  DESC_KEY,
   RATING_KEY,
   IS_HIDDEN_KEY,
 } from "@/shared/constants";
@@ -46,29 +47,41 @@ const CreateTestimonialItemForm: FC = () => {
           label: TESTIMONIAL_CAPTIONS[RATING_KEY],
           defaultValue: formState?.values?.[RATING_KEY] || String(currTestimonialData?.[RATING_KEY] || ""),
         },
+        {
+          name: DESC_KEY,
+          label: TESTIMONIAL_CAPTIONS[DESC_KEY],
+          defaultValue: formState?.values?.[DESC_KEY] || currTestimonialData?.[DESC_KEY] || "",
+          isTextarea: true
+        }
       ].map(({
         defaultValue,
+        isTextarea,
         label,
         name
-      }) => (
-        <TextField
-          key={name}
-          isRequired
-          {...{
-            defaultValue,
-            errorValue: inputErrors[name] || "",
-            isBtnVisible:  inputErrors[name] !== undefined,
-            name,
-            label,
-            type: "text",
-            handleBlur: [RATING_KEY].includes(name) ? validateNumberField : validatePlainField,
-            handleChange: unsetInvalidData,
-            handleFieldValue: (input: HTMLInputElement | null) => resetFieldValue(input)
-          }}
-        >
-          <CloseIcon />
-        </TextField>
-      ))}
+      }) => {
+        const textField = (
+          <TextField
+            key={name}
+            isRequired
+            {...{
+              defaultValue,
+              isTextarea,
+              errorValue: inputErrors[name] || "",
+              isBtnVisible:  inputErrors[name] !== undefined,
+              name,
+              label,
+              type: "text",
+              handleBlur: [RATING_KEY].includes(name) ? validateNumberField : validatePlainField,
+              handleChange: unsetInvalidData,
+              handleFieldValue: (input: HTMLInputElement | null) => resetFieldValue(input),
+            }}
+          >
+            <CloseIcon />
+          </TextField>
+        );
+
+        return isTextarea ? <FormRow key={name}>{textField}</FormRow> : textField;
+      })}
       {[
         {
           name: IS_HIDDEN_KEY,

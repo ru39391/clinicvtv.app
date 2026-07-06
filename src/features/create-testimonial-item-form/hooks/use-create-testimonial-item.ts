@@ -47,7 +47,7 @@ export const useCreateTestimonialItem = (): TFormHandler<TTestimonialPayload> =>
   ): Promise<TFormState<TTestimonialPayload>> => {
     const formValues = Object.fromEntries(formData);
     const values = {
-      [RATING_KEY]: Number(currTestimonialData?.[RATING_KEY]) || 1,
+      [RATING_KEY]: Number(currTestimonialData?.[RATING_KEY]) || 5,
       [SPEC_ID_KEY]: Number(currTestimonialData?.[SPEC_ID_KEY]) || 0,
       [IS_HIDDEN_KEY]: Boolean(formValues[IS_HIDDEN_KEY]),
     };
@@ -55,8 +55,7 @@ export const useCreateTestimonialItem = (): TFormHandler<TTestimonialPayload> =>
       ...formValues,
       [RATING_KEY]: Number(formValues[RATING_KEY]) || values[RATING_KEY],
       [SPEC_ID_KEY]: Number(formValues[SPEC_ID_KEY]) || values[SPEC_ID_KEY],
-      [IS_HIDDEN_KEY]: Number(values[IS_HIDDEN_KEY]),
-      desc: "тест тест"
+      [IS_HIDDEN_KEY]: Number(values[IS_HIDDEN_KEY])
     } as TTestimonialPayload;
 
     const success = currTestimonialData
