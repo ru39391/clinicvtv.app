@@ -1,7 +1,8 @@
-import type { TTestimonialData } from "@/entities/testimonial";
-
-export type TTestimonialsListOptions = Pick<TTestimonialData, "id" | "name"> & { isLoading: boolean };
+import { type TTestimonialData, type TTestimonialStore } from "@/entities/testimonial";
 
 export interface ITestimonialsList {
-  showRemoveModal: ({ id, isLoading, name }: TTestimonialsListOptions) => void;
+  arr: TTestimonialStore["data"];
+  isLoading: TTestimonialStore["isLoading"];
+  setCurrData: TTestimonialStore["setCurrItemData"]
+  showRemoveModal: ({ id, name }: Pick<TTestimonialData, "id" | "name">) => void;
 }

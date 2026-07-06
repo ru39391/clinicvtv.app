@@ -5,19 +5,20 @@ import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsWrapper } from "@/features/positions";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
-import { TestimonialsList, type TTestimonialsListOptions } from "@/features/testimonials-list";
+import { TestimonialsList } from "@/features/testimonials-list";
 import { useModalStore } from "@/shared/store";
 import { useTestimonialStore, type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
 
 const TestimonialsWrapper: FC = () => {
   const { open } = useModalStore();
   const {
+    data: arr,
     current: currData,
     fetchItems,
+    removeItem,
+    setCurrItemData: setCurrData,
     isLoading,
     pagination,
-    removeItem,
-    setCurrItemData: setCurrData
   } = useTestimonialStore();
 
   useEffect(() => {
@@ -48,9 +49,14 @@ const TestimonialsWrapper: FC = () => {
       }}
     >
       <TestimonialsList
-        showRemoveModal={({ id, isLoading, name }: TTestimonialsListOptions) => open({
+        showRemoveModal={({ id, name }: Pick<TTestimonialData, "id" | "name">) => open({
           content: <RemovePositionModal<TTestimonialData> {...{ id, isLoading, name, removeItem }} />
         })}
+        {...{
+          arr,
+          isLoading,
+          setCurrData,
+        }}
       />
     </PositionsWrapper>
   )

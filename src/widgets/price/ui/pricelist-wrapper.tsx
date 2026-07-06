@@ -7,7 +7,6 @@ import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { PriceList } from "@/features/price-list";
 import { useModalStore } from "@/shared/store";
-import { type TItemData } from "@/shared/types";
 import { usePricelistStore, type TPricelistData, type TPricelistQueryData } from "@/entities/pricelist";
 
 const PricelistWrapper: FC = () => {
@@ -16,10 +15,10 @@ const PricelistWrapper: FC = () => {
     data: arr,
     current: currData,
     fetchItems,
+    removeItem,
+    setCurrItemData: setCurrData,
     isLoading,
     pagination,
-    removeItem,
-    setCurrItemData: setCurrData
   } = usePricelistStore();
 
   useEffect(() => {
@@ -50,7 +49,7 @@ const PricelistWrapper: FC = () => {
       }}
     >
       <PriceList
-        showRemoveModal={({ id, name }: Pick<TItemData, "id" | "name">) => open({
+        showRemoveModal={({ id, name }: Pick<TPricelistData, "id" | "name">) => open({
           content: <RemovePositionModal<TPricelistData> {...{ id, isLoading, name, removeItem }} />
         })}
         {...{

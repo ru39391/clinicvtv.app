@@ -5,7 +5,6 @@ import { sortTestimonials } from "../lib/sort-testimonials-list";
 import { Table } from "@/entities/table";
 import { TableCell } from "@/entities/table-cell";
 import { TableRow } from "@/entities/table-row";
-import { useTestimonialStore, type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
 import {
   LIST_IS_EMPTY,
   TESTIMONIAL_CAPTIONS,
@@ -19,7 +18,8 @@ import {
   UPDATED_AT_KEY
 } from "@/shared/constants";
 import { formatDate, setItemHiddenCaption } from "@/shared/utils";
-import type { ITestimonialsList } from "../model/types";
+import { type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
+import { type ITestimonialsList } from "../model/types";
 
 const TestimonialRows: FC<{ values: (Record<string, string> & { rating: number; })[]; }> = ({ values }) => values.map(
   ({ key, value, rating }) => {
@@ -37,15 +37,13 @@ const TestimonialRows: FC<{ values: (Record<string, string> & { rating: number; 
   }
 );
 
-const TestimonialsList: FC<ITestimonialsList> = ({ showRemoveModal }) => {
+const TestimonialsList: FC<ITestimonialsList> = ({
+  arr,
+  isLoading,
+  setCurrData,
+  showRemoveModal
+}) => {
   const [sortData, setSortData] = useState<TTestimonialQueryData | null>(null);
-  // TODO: возможно, вызов лишний
-  const {
-    data: testimonials,
-    isLoading,
-    setCurrItemData
-  } = useTestimonialStore();
-
   const keys = [
     NAME_KEY,
     DESC_KEY,
@@ -63,7 +61,7 @@ const TestimonialsList: FC<ITestimonialsList> = ({ showRemoveModal }) => {
     setSortData(data);
   }
 
-  if(!isLoading && !testimonials.length) {
+  if(!isLoading && !arr.length) {
     return LIST_IS_EMPTY;
   }
 
@@ -88,7 +86,7 @@ const TestimonialsList: FC<ITestimonialsList> = ({ showRemoveModal }) => {
           </TableCell>
         ))}
       </TableRow>
-      {testimonials.map(({ id, ...props }: TTestimonialData) => {
+      {arr.map(({ id, ...props }: TTestimonialData) => {
         const values = keys.reduce(
           (acc, key) => ([
             ...acc,
@@ -106,17 +104,13 @@ const TestimonialsList: FC<ITestimonialsList> = ({ showRemoveModal }) => {
             <TestimonialRows {...{ values }} />
             <TableCell type="btns">
               <Button
-                handleClick={() => setCurrItemData(id)}
+                handleClick={() => setCurrData(id)}
                 style="icon"
               >
                 <EditIcon />
               </Button>
               <Button
-                handleClick={() => showRemoveModal({
-                  id,
-                  isLoading,
-                  name: props.name
-                })}
+                handleClick={() => showRemoveModal({ id, name: props.name })}
                 style="unstyled"
               >
                 <TrashBinIcon />

@@ -5,7 +5,6 @@ import { sortPricelist } from "../lib/sort-pricelist";
 import { Table } from "@/entities/table";
 import { TableCell } from "@/entities/table-cell";
 import { TableRow } from "@/entities/table-row";
-import { type TPricelistData, type TPricelistQueryData } from "@/entities/pricelist";
 import {
   LIST_IS_EMPTY,
   PRICE_CAPTIONS,
@@ -18,6 +17,8 @@ import {
   UPDATED_AT_KEY
 } from "@/shared/constants";
 import { formatCurrency, formatDate, setItemHiddenCaption } from "@/shared/utils";
+import { type TPricelistData, type TPricelistQueryData } from "@/entities/pricelist";
+import type { IPriceList } from "../model/types";
 
 const PriceRows: FC<{ values: (Record<string, string> & { isMinValue: number; })[]; }> = ({ values }) => values.map(
   ({ key, value, isMinValue }) => {
@@ -36,7 +37,7 @@ const PriceRows: FC<{ values: (Record<string, string> & { isMinValue: number; })
   }
 );
 
-const PriceList: FC = ({
+const PriceList: FC<IPriceList> = ({
   arr,
   isLoading,
   setCurrData,
