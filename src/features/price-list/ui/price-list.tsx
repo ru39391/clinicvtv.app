@@ -1,3 +1,4 @@
+// TODO: удалить
 import { useState, type FC } from "react";
 import { sortPricelist } from "../lib/sort-pricelist";
 import { Table } from "@/entities/table";

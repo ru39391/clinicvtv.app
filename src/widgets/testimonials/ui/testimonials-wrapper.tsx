@@ -2,10 +2,10 @@ import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreateTestimonialItemForm } from "@/features/create-testimonial-item-form";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
+import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableData } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
-import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableData } from "@/features/positions-table";
 import { useModalStore } from "@/shared/store";
 import { useTestimonialStore, type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
 import {
