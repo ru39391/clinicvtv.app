@@ -41,7 +41,7 @@ const PricelistWrapper: FC = () => {
         footer: (
           <>
             <PaginationCounter {...{ isLoading, pagination }} />
-            <PaginationNav<TPricelistQueryData> {...{ fetchItems, isLoading, pagination }} />
+            <PaginationNav<TPricelistData> {...{ fetchItems, isLoading, pagination }} />
           </>
         ),
         isLoading,

@@ -41,7 +41,7 @@ const ExamplesWrapper: FC = () => {
         footer: (
           <>
             <PaginationCounter {...{ isLoading, pagination }} />
-            <PaginationNav<TExampleQueryData> {...{ fetchItems, isLoading, pagination }} />
+            <PaginationNav<TExampleData> {...{ fetchItems, isLoading, pagination }} />
           </>
         ),
         isLoading,

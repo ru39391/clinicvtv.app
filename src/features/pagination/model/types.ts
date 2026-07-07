@@ -1,4 +1,4 @@
-import type { TPaginationData } from "@/shared/types";
+import type { TPaginationData, TQueryData } from "@/shared/types";
 
 export interface IPaginationCounter {
   isLoading: boolean;
@@ -6,5 +6,5 @@ export interface IPaginationCounter {
 }
 
 export interface IPaginationNav<T> extends IPaginationCounter {
-  fetchItems: (data: T) => Promise<void>;
+  fetchItems: (data: TQueryData<T>) => Promise<void>;
 }

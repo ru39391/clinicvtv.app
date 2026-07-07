@@ -41,7 +41,7 @@ const TestimonialsWrapper: FC = () => {
         footer: (
           <>
             <PaginationCounter {...{ isLoading, pagination }} />
-            <PaginationNav<TTestimonialQueryData> {...{ fetchItems, isLoading, pagination }} />
+            <PaginationNav<TTestimonialData> {...{ fetchItems, isLoading, pagination }} />
           </>
         ),
         isLoading,
