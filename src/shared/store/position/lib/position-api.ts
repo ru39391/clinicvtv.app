@@ -21,7 +21,7 @@ export const createPositionApi = <P, Q, T extends { id: number }>(
     const { success, ...position } = data;
 
     return {
-      data: success ? [position, ...arr] : arr,
+      data: success ? [position, ...arr] as T[] : arr,
       pagination: pagination
         ? {
           ...pagination,
@@ -37,7 +37,7 @@ export const createPositionApi = <P, Q, T extends { id: number }>(
     const { success, ...position } = data;
 
     return {
-      data: success ? [...arr].map(data => data.id === position.id ? position : data) : arr,
+      data: success ? [...arr].map(data => data.id === position.id ? position : data) as T[] : arr,
       success
     };
   },
