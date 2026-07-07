@@ -1,13 +1,14 @@
-import { type TPricelistData, type TPricelistStore } from "@/entities/pricelist";
+import { type ReactNode } from "react";
+import { type TPricelistData } from "@/entities/pricelist";
 
 export interface IPriceList {
-  arr: TPricelistStore["data"];
-  isLoading: TPricelistStore["isLoading"];
-  setCurrData: TPricelistStore["setCurrItemData"];
-  showRemoveModal: ({ id, name }: Pick<TPricelistData, "id" | "name">) => void;
+  captions: Record<keyof TPricelistData, string>;
+  children: ReactNode;
+  keys: (keyof TPricelistData)[];
 }
 
 export interface IPriceRows {
+  captions: IPriceList["captions"];
   values: (Record<string, 1 | 0> & {
     key: keyof TPricelistData;
     value: string;

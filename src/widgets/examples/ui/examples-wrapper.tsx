@@ -2,7 +2,7 @@ import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreateExampleItemForm } from "@/features/create-example-item-form";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
-import { PositionsWrapper } from "@/features/positions";
+import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { ExamplesList } from "@/features/examples-list";
