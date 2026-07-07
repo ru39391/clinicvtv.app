@@ -71,7 +71,7 @@ const PricelistWrapper: FC = () => {
       {!isLoading && !arr.length
         ? LIST_IS_EMPTY
         : <PriceList {...{ captions, keys }}>
-            <PositionsTable<TPricelistData>
+            <PositionsTable<TPricelistData, IPriceRows["values"][number]>
               {...{
                 arr,
                 keys,

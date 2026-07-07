@@ -6,23 +6,23 @@ import { IS_MIN_VALUE_KEY } from "@/shared/constants";
 import { type TItemData } from "@/shared/types";
 import { type IPositionsTable, type TPositionTableData } from "../model/types";
 
-const PositionsTable = <T extends TItemData, >({
+const PositionsTable = <T extends TItemData & Partial<Record<typeof IS_MIN_VALUE_KEY, 1 | 0>>, R extends TPositionTableData<T>>({
   arr,
   children,
   keys,
   type,
   setCurrData,
   showRemoveModal
-}: IPositionsTable<T>) => (
+}: IPositionsTable<T, R>) => (
   arr.map((data: T) => {
     const values = keys.reduce(
-      (acc: TPositionTableData<T>[], key: keyof T) => ([
+      (acc: R[], key: keyof T) => ([
         ...acc,
         {
           key,
           value: String(data[key]),
           ...(data[IS_MIN_VALUE_KEY] !== undefined && { [IS_MIN_VALUE_KEY as string]: data[IS_MIN_VALUE_KEY] })
-        } as TPositionTableData<T>
+        } as R
       ]),
       []
     );

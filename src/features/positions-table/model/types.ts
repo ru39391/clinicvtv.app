@@ -7,9 +7,9 @@ export type TPositionTableData<T extends TItemData> = {
   value: string;
 } & Partial<Record<string, 0 | 1>>;
 
-export interface IPositionsTable<T extends TItemData> {
+export interface IPositionsTable<T extends TItemData, R extends TPositionTableData<T>> {
   arr: T[];
-  children: (values: TPositionTableData<T>[]) => ReactNode;
+  children: (values: R[]) => ReactNode;
   keys: (keyof T)[];
   type: ITableRow["type"];
   setCurrData: (id: T["id"]) => void;
