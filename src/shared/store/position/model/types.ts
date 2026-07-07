@@ -1,4 +1,4 @@
-import type { TPaginationData } from "@/shared/types";
+import type { TPaginationData, TQueryData } from "@/shared/types";
 
 export type TPositionState<T> = {
   data: T[];
@@ -9,16 +9,16 @@ export type TPositionState<T> = {
 
 export type TPositionResponse<T> = Omit<TPositionState<T>, "isLoading" | "current"> & { success: boolean };
 
-export type TPositionStore<P, Q, T extends { id: number }> = TPositionState<T> & {
-  fetchItems: (data: Q | null) => Promise<void>;
+export type TPositionStore<P, T extends { id: number }> = TPositionState<T> & {
+  fetchItems: (data: TQueryData<T> | null) => Promise<void>;
   createItem: (data: P) => Promise<boolean>;
   updateItem: (data: T) => Promise<boolean>;
   removeItem: (id: T["id"]) => Promise<boolean>;
   setCurrItemData: (id: T["id"] | null) => void;
 }
 
-export type TPositionApi<P, Q, T extends { id: number }> = {
-  fetchData: (data: Q | null) => Promise<Omit<TPositionState<T>, "isLoading" | "current">>;
+export type TPositionApi<P, T extends { id: number }> = {
+  fetchData: (data: TQueryData<T> | null) => Promise<Omit<TPositionState<T>, "isLoading" | "current">>;
   addData: ({ item, arr, pagination }: {
     item: P;
     arr: T[];
@@ -35,8 +35,8 @@ export type TPositionApi<P, Q, T extends { id: number }> = {
   }) => Promise<TPositionResponse<T>>;
 }
 
-export type TPositionStoreOptions<P, Q, T extends { id: number }> = {
+export type TPositionStoreOptions<P, T extends { id: number }> = {
   name: string;
-  api: TPositionApi<P, Q, T>;
+  api: TPositionApi<P, T>;
   initialState?: Partial<TPositionState<T>>;
 }

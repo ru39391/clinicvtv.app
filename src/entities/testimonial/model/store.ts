@@ -1,8 +1,8 @@
 import { createStore } from "@/shared/store";
 import { testimonialApi } from "../lib/testimonial-api";
-import type { TTestimonialData, TTestimonialQueryData, TTestimonialPayload } from "../model/types";
+import type { TTestimonialData, TTestimonialPayload } from "../model/types";
 
-export const useTestimonialStore = createStore<TTestimonialPayload, TTestimonialQueryData, TTestimonialData>({
+export const useTestimonialStore = createStore<TTestimonialPayload, TTestimonialData>({
   name: "TestimonialStore",
   api: testimonialApi
 });

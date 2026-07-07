@@ -1,8 +1,8 @@
 import { createStore } from "@/shared/store";
 import { pricelistApi } from "../lib/pricelist-api";
-import type { TPricelistData, TPricelistQueryData, TPricelistPayload } from "../model/types";
+import type { TPricelistData, TPricelistPayload } from "../model/types";
 
-export const usePricelistStore = createStore<TPricelistPayload, TPricelistQueryData, TPricelistData>({
+export const usePricelistStore = createStore<TPricelistPayload, TPricelistData>({
   name: "PricelistStore",
   api: pricelistApi
 });

@@ -1,16 +1,16 @@
 import { apiHandler } from "@/shared/api";
 import { StorageHandler } from "@/shared/utils";
 import { IS_HIDDEN_KEY, QUERY_KEY } from "@/shared/constants";
-import type { TPaginationData } from "@/shared/types";
+import type { TPaginationData, TQueryData } from "@/shared/types";
 import type { TPositionApi } from "../model/types";
 
-export const createPositionApi = <P, Q, T extends { id: number }>(
+export const createPositionApi = <P, T extends { id: number }>(
   apiUrl: string
-): TPositionApi<P, Q, T> => ({
+): TPositionApi<P, T> => ({
   fetchData: async (payload = null) => {
-    const storageData = StorageHandler.getData<Q>(QUERY_KEY);
+    const storageData = StorageHandler.getData<TQueryData<T>>(QUERY_KEY);
     const query = payload && storageData ? {...payload, ...storageData} : (payload || storageData);
-    const queryParams = query ? Object.entries(query).reduce((acc, [key, value]) => `${acc}&${key}=${value}`, "") : "";
+    const queryParams = query ? Object.entries(query).reduce((acc, [key, value]) => `${acc}&${key}=${String(value)}`, "") : "";
     const url = `${apiUrl}?${IS_HIDDEN_KEY}=all${queryParams}`;
     const { data: { data, ...pagination } } = await apiHandler.fetch<TPaginationData & { data: T[]; }>(url);
 

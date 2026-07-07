@@ -18,8 +18,8 @@ export type TExamplePayload = Omit<TExampleData, "id" | "introtext" | "createdAt
 
 export type TExampleState = TPositionState<TExampleData>;
 
-export type TExampleQueryData = TQueryData<keyof TExampleData>;
+export type TExampleQueryData = TQueryData<TExampleData>;
 
-export type TExampleStore = TPositionStore<TExamplePayload, TExampleQueryData, TExampleData>;
+export type TExampleStore = TPositionStore<TExamplePayload, TExampleData>;
 
-export type TExampleApi = TPositionApi<TExamplePayload, TExampleQueryData, TExampleData>;
+export type TExampleApi = TPositionApi<TExamplePayload, TExampleData>;

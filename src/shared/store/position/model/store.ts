@@ -9,15 +9,15 @@ const createInitialState = <T>(): TPositionState<T> => ({
   isLoading: false,
 });
 
-export const createStore = <P, Q, T extends { id: number }>(options: TPositionStoreOptions<P, Q, T>) => {
+export const createStore = <P, T extends { id: number }>(options: TPositionStoreOptions<P, T>) => {
   const { name, api, initialState = {} } = options;
 
   const defaultState = createInitialState<T>();
   const state: TPositionState<T> = { ...defaultState, ...initialState };
 
-  return create<TPositionStore<P, Q, T>>()(
+  return create<TPositionStore<P, T>>()(
     devtools(
-      (set, get): TPositionStore<P, Q, T> => ({
+      (set, get): TPositionStore<P, T> => ({
         ...state,
 
         fetchItems: async (payload = null) => {

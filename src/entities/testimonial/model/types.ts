@@ -17,8 +17,8 @@ export type TTestimonialPayload = Omit<TTestimonialData, "id" | "introtext" | "c
 
 export type TTestimonialState = TPositionState<TTestimonialData>;
 
-export type TTestimonialQueryData = TQueryData<keyof TTestimonialData>;
+export type TTestimonialQueryData = TQueryData<TTestimonialData>;
 
-export type TTestimonialStore = TPositionStore<TTestimonialPayload, TTestimonialQueryData, TTestimonialData>;
+export type TTestimonialStore = TPositionStore<TTestimonialPayload, TTestimonialData>;
 
-export type TTestimonialApi = TPositionApi<TTestimonialPayload, TTestimonialQueryData, TTestimonialData>;
+export type TTestimonialApi = TPositionApi<TTestimonialPayload, TTestimonialData>;

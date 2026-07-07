@@ -16,8 +16,8 @@ export type TPricelistPayload = Omit<TPricelistData, "id" | "introtext" | "creat
 
 export type TPricelistState = TPositionState<TPricelistData>;
 
-export type TPricelistQueryData = TQueryData<keyof TPricelistData>;
+export type TPricelistQueryData = TQueryData<TPricelistData>;
 
-export type TPricelistStore = TPositionStore<TPricelistPayload, TPricelistQueryData, TPricelistData>;
+export type TPricelistStore = TPositionStore<TPricelistPayload, TPricelistData>;
 
-export type TPricelistApi = TPositionApi<TPricelistPayload, TPricelistQueryData, TPricelistData>;
+export type TPricelistApi = TPositionApi<TPricelistPayload, TPricelistData>;

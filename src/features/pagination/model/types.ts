@@ -6,5 +6,5 @@ export interface IPaginationCounter {
 }
 
 export interface IPaginationNav<T> extends IPaginationCounter {
-  fetchItems: (data: T | null) => Promise<void>;
+  fetchItems: (data: T) => Promise<void>;
 }
