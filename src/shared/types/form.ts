@@ -10,3 +10,7 @@ export type TFormHandler<T> = {
   dispatchForm: (data: FormData) => void;
   isPending: boolean;
 }
+
+export type TInputItem = HTMLInputElement | HTMLTextAreaElement;
+
+export type TInputField = TInputItem | null;

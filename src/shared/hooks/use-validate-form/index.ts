@@ -5,12 +5,13 @@ import {
   TEXT_VALUE_LENGTH
 } from "@/shared/constants";
 import type { TInputErrors, TPwdData, TValidateForm } from "./model/types";
+import type { TInputField, TInputItem } from "@/shared/types";
 
 export const useValidateForm = (): TValidateForm => {
   const [inputErrors, setInputErrors] = useState<TInputErrors>({});
   const [pwdData, setPwdData] = useState<TPwdData>({});
 
-  const unsetInvalidData = (event: ChangeEvent<HTMLInputElement>) => {
+  const unsetInvalidData = (event: ChangeEvent<TInputItem>) => {
     const { name } = event.target;
 
     setInputErrors({
@@ -19,7 +20,7 @@ export const useValidateForm = (): TValidateForm => {
     });
   }
 
-  const validateNumberField = (event: FocusEvent<HTMLInputElement, Element>) => {
+  const validateNumberField = (event: FocusEvent<TInputItem, Element>) => {
     const { name, value } = event.target;
     const numValue = parseFloat(value);
     const validCharsRegex = /^[0-9.,]*$/;
@@ -31,7 +32,7 @@ export const useValidateForm = (): TValidateForm => {
     });
   }
 
-  const validatePlainField = (event: FocusEvent<HTMLInputElement, Element>) => {
+  const validatePlainField = (event: FocusEvent<TInputItem, Element>) => {
     const { name, value } = event.target;
 
     setInputErrors({
@@ -94,7 +95,7 @@ export const useValidateForm = (): TValidateForm => {
 
   const handleBtnDisabled = (): boolean => Object.values(inputErrors).reduce((acc, value) => acc || Boolean(value), false);
 
-  const resetFieldValue = (input: HTMLInputElement | null) => {
+  const resetFieldValue = (input: TInputField) => {
     if(!input) {
       return;
     }

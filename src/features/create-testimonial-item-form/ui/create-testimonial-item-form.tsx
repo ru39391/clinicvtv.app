@@ -15,6 +15,7 @@ import {
   RATING_KEY,
   IS_HIDDEN_KEY,
 } from "@/shared/constants";
+import type { TInputField } from "@/shared/types";
 
 const CreateTestimonialItemForm: FC = () => {
   const { formState, dispatchForm, isPending } = useCreateTestimonialItem();
@@ -64,7 +65,7 @@ const CreateTestimonialItemForm: FC = () => {
             key={name}
             isRequired
             {...{
-              defaultValue,
+              defaultValue: String(defaultValue),
               isTextarea,
               errorValue: inputErrors[name] || "",
               isBtnVisible:  inputErrors[name] !== undefined,
@@ -73,7 +74,7 @@ const CreateTestimonialItemForm: FC = () => {
               type: "text",
               handleBlur: [RATING_KEY].includes(name) ? validateNumberField : validatePlainField,
               handleChange: unsetInvalidData,
-              handleFieldValue: (input: HTMLInputElement | null) => resetFieldValue(input),
+              handleFieldValue: (input: TInputField) => resetFieldValue(input),
             }}
           >
             <CloseIcon />

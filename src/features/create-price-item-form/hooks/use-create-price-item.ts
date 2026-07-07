@@ -11,7 +11,7 @@ import {
   SUBDEPT_ID_KEY
 } from "@/shared/constants";
 
-export const useCreatePriceItem = (): TFormHandler<TPricelistPayload> => {
+export const useCreatePriceItem = (): TFormHandler<{ [k: string]: FormDataEntryValue; }> => {
   const { close: closeModal } = useModalStore();
   const { add: addNotification } = useNotificationStore();
   const {
@@ -46,7 +46,7 @@ export const useCreatePriceItem = (): TFormHandler<TPricelistPayload> => {
   const submitForm = () => async (
     _: unknown,
     formData: FormData
-  ): Promise<TFormState<TPricelistPayload>> => {
+  ): Promise<TFormState<{ [k: string]: FormDataEntryValue; }>> => {
     const formValues = Object.fromEntries(formData);
     const values = {
       [DEPT_ID_KEY]: Number(currPriceItem?.[DEPT_ID_KEY]) || 0,

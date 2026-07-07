@@ -15,6 +15,7 @@ import {
   RATING_KEY,
   IS_HIDDEN_KEY,
 } from "@/shared/constants";
+import type { TInputField } from "@/shared/types";
 
 const CreateExampleItemForm: FC = () => {
   const { formState, dispatchForm, isPending } = useCreateExampleItem();
@@ -57,7 +58,7 @@ const CreateExampleItemForm: FC = () => {
           key={name}
           isRequired
           {...{
-            defaultValue,
+            defaultValue: String(defaultValue),
             isTextarea,
             errorValue: inputErrors[name] || "",
             isBtnVisible:  inputErrors[name] !== undefined,
@@ -66,7 +67,7 @@ const CreateExampleItemForm: FC = () => {
             type: "text",
             handleBlur: [RATING_KEY].includes(name) ? validateNumberField : validatePlainField,
             handleChange: unsetInvalidData,
-            handleFieldValue: (input: HTMLInputElement | null) => resetFieldValue(input),
+            handleFieldValue: (input: TInputField) => resetFieldValue(input),
           }}
         >
           <CloseIcon />

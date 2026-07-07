@@ -9,7 +9,7 @@ import {
   SPEC_ID_KEY
 } from "@/shared/constants";
 
-export const useCreateTestimonialItem = (): TFormHandler<TTestimonialPayload> => {
+export const useCreateTestimonialItem = (): TFormHandler<{ [k: string]: FormDataEntryValue; }> => {
   const { close: closeModal } = useModalStore();
   const { add: addNotification } = useNotificationStore();
   const {
@@ -44,7 +44,7 @@ export const useCreateTestimonialItem = (): TFormHandler<TTestimonialPayload> =>
   const submitForm = () => async (
     _: unknown,
     formData: FormData
-  ): Promise<TFormState<TTestimonialPayload>> => {
+  ): Promise<TFormState<{ [k: string]: FormDataEntryValue; }>> => {
     const formValues = Object.fromEntries(formData);
     const values = {
       [RATING_KEY]: Number(currTestimonialData?.[RATING_KEY]) || 5,

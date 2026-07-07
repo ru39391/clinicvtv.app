@@ -1,10 +1,11 @@
 import type { ChangeEvent, FocusEvent, ReactNode } from "react";
+import type { TInputField, TInputItem } from "@/shared/types";
 
 export interface ITextFieldInput {
   defaultValue?: string;
-  handleBlur?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleFocus?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleBlur?: (event: FocusEvent<TInputItem>) => void;
+  handleChange?: (event: ChangeEvent<TInputItem>) => void;
+  handleFocus?: (event: FocusEvent<TInputItem>) => void;
   isRequired?: boolean;
   isTextarea?: boolean;
   name: string;
@@ -12,7 +13,7 @@ export interface ITextFieldInput {
 }
 
 export interface ITextField extends ITextFieldInput {
-  handleFieldValue?: (input: HTMLInputElement | HTMLTextAreaElement | null) => void;
+  handleFieldValue?: (input: TInputField) => void;
   children?: ReactNode;
   errorValue: string;
   icon?: ReactNode;

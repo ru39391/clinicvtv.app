@@ -9,7 +9,7 @@ import {
   SUBDEPT_ID_KEY
 } from "@/shared/constants";
 
-export const useCreateExampleItem = (): TFormHandler<TExamplePayload> => {
+export const useCreateExampleItem = (): TFormHandler<{ [k: string]: FormDataEntryValue; }> => {
   const { close: closeModal } = useModalStore();
   const { add: addNotification } = useNotificationStore();
   const {
@@ -44,7 +44,7 @@ export const useCreateExampleItem = (): TFormHandler<TExamplePayload> => {
   const submitForm = () => async (
     _: unknown,
     formData: FormData
-  ): Promise<TFormState<TExamplePayload>> => {
+  ): Promise<TFormState<{ [k: string]: FormDataEntryValue; }>> => {
     const formValues = Object.fromEntries(formData);
     const values = {
       [SPEC_ID_KEY]: Number(currExampleData?.[SPEC_ID_KEY]) || 0,

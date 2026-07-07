@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import { Form } from "@/entities/form";
+import { Form, FormRow } from "@/entities/form";
 import { Button, Checkbox, TextField, Loader } from "@/shared/ui";
 import { CloseIcon } from "@/shared/icons";
 import { usePricelistStore } from "@/entities/pricelist";
@@ -15,7 +15,7 @@ import {
   IS_HIDDEN_KEY,
   IS_MIN_VALUE_KEY,
 } from "@/shared/constants";
-import styles from "./create-price-item-form.module.css";
+import type { TInputField } from "@/shared/types";
 
 const CreatePriceItemForm: FC = () => {
   const { formState, dispatchForm, isPending } = useCreatePriceItem();
@@ -56,7 +56,7 @@ const CreatePriceItemForm: FC = () => {
           key={name}
           isRequired
           {...{
-            defaultValue,
+            defaultValue: String(defaultValue),
             errorValue: inputErrors[name] || "",
             isBtnVisible:  inputErrors[name] !== undefined,
             name,
@@ -64,7 +64,7 @@ const CreatePriceItemForm: FC = () => {
             type: "text",
             handleBlur: [PRICE_KEY].includes(name) ? validateNumberField : validatePlainField,
             handleChange: unsetInvalidData,
-            handleFieldValue: (input: HTMLInputElement | null) => resetFieldValue(input)
+            handleFieldValue: (input: TInputField) => resetFieldValue(input)
           }}
         >
           <CloseIcon />
@@ -88,7 +88,7 @@ const CreatePriceItemForm: FC = () => {
       }) => (
         <Checkbox key={name} {...{ caption, name, isChecked: Boolean(isChecked) }} />
       ))}
-      <div className={styles.row}>
+      <FormRow>
         <Button
           caption={!isPending ? "Сохранить" : ""}
           isDisabled={isPending || isBtnDisabled}
@@ -96,7 +96,7 @@ const CreatePriceItemForm: FC = () => {
         >
           <Loader isVisible={isPending} size="xs" />
         </Button>
-      </div>
+      </FormRow>
     </Form>
   )
 };

@@ -1,5 +1,6 @@
 import { forwardRef, useRef, type FC, type ForwardedRef } from "react";
 import type { ITextField, ITextFieldInput } from "../model/types";
+import type { TInputField } from "@/shared/types";
 import styles from './text-field.module.css';
 
 const TextFieldInput = forwardRef<HTMLInputElement | HTMLTextAreaElement, ITextFieldInput>(({
@@ -58,7 +59,7 @@ const TextField: FC<ITextField> = ({
   name,
   type
 }) => {
-  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
+  const inputRef = useRef<TInputField>(null);
   const fieldClassName = errorValue ? `${styles.field} ${styles.field_type_error}` : styles.field;
   const rowClassName = icon ? `${styles.field__row} ${styles.field__row_offset_y}` : styles.field__row;
   const input = (
