@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export type TUpdatePositionModal<T extends { id: number }> = {
   content: ReactNode;

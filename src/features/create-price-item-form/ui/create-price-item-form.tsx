@@ -86,7 +86,7 @@ const CreatePriceItemForm: FC = () => {
         isChecked,
         name
       }) => (
-        <Checkbox key={name} {...{ caption, name, isChecked }} />
+        <Checkbox key={name} {...{ caption, name, isChecked: Boolean(isChecked) }} />
       ))}
       <div className={styles.row}>
         <Button

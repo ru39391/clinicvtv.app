@@ -93,7 +93,7 @@ const CreateTestimonialItemForm: FC = () => {
         isChecked,
         name
       }) => (
-        <Checkbox key={name} {...{ caption, name, isChecked }} />
+        <Checkbox key={name} {...{ caption, name, isChecked: Boolean(isChecked) }} />
       ))}
       <FormRow>
         <Button

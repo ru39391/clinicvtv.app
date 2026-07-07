@@ -2,6 +2,6 @@ import type { ReactNode } from "react";
 
 export interface ITableRow {
   children: ReactNode;
-  type?: "examples" | "price" | "testimonials";
+  type?: "example" | "price" | "testimonial";
   isCaption?: boolean;
 }

@@ -6,3 +6,7 @@ export interface IExamplesList {
   setCurrData: TExampleStore["setCurrItemData"]
   showRemoveModal: ({ id, name }: Pick<TExampleData, "id" | "name">) => void;
 }
+
+export interface IExampleRows {
+  values: { key: keyof TExampleData; value: string; }[];
+}

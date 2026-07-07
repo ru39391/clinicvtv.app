@@ -6,3 +6,10 @@ export interface IPriceList {
   setCurrData: TPricelistStore["setCurrItemData"];
   showRemoveModal: ({ id, name }: Pick<TPricelistData, "id" | "name">) => void;
 }
+
+export interface IPriceRows {
+  values: (Record<string, 1 | 0> & {
+    key: keyof TPricelistData;
+    value: string;
+  })[];
+}

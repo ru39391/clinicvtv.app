@@ -1,4 +1,4 @@
-import { forwardRef, ForwardedRef, useRef, type FC } from "react";
+import { forwardRef, useRef, type FC, type ForwardedRef } from "react";
 import type { ITextField, ITextFieldInput } from "../model/types";
 import styles from './text-field.module.css';
 

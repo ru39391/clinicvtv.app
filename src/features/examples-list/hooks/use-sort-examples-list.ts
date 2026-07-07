@@ -6,7 +6,7 @@ import { INTRO_KEY, SPEC_ID_KEY } from "@/shared/constants";
 export const useSortExamplesList = () => {
   const [sortData, setSortData] = useState<TExampleQueryData | null>(null);
 
-  const sortExamples = async (sortby: TExampleQueryData["sortby"]): Promise<TExampleQueryData | null> => {
+  const sortExamples = async (sortby: keyof TExampleData): Promise<TExampleQueryData | null> => {
     const { data: examples } = useExampleStore.getState();
 
     const { arr, data } = await sortPositions<TExampleData>({ data: examples, sortby });
@@ -17,8 +17,8 @@ export const useSortExamplesList = () => {
   }
 
   const sortColValues = async (key: keyof TExampleData) => {
-    const sortby = key === INTRO_KEY ? SPEC_ID_KEY : key;
-    const data = await sortExamples(sortby as TExampleQueryData["sortby"]);
+    const sortby: keyof TExampleData = key === INTRO_KEY ? SPEC_ID_KEY : key;
+    const data = await sortExamples(sortby);
 
     setSortData(data);
   }

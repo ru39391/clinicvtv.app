@@ -18,17 +18,19 @@ import {
 } from "@/shared/constants";
 import { formatCurrency, formatDate, setItemHiddenCaption } from "@/shared/utils";
 import { type TPricelistData, type TPricelistQueryData } from "@/entities/pricelist";
-import type { IPriceList } from "../model/types";
+import { type IPriceList, type IPriceRows } from "../model/types";
 
-const PriceRows: FC<{ values: (Record<string, string> & { isMinValue: number; })[]; }> = ({ values }) => values.map(
-  ({ key, value, isMinValue }) => {
+const captions = {...PRICE_CAPTIONS as Record<keyof TPricelistData, string>};
+
+const PriceRows: FC<IPriceRows> = ({ values }) => values.map(
+  ({ key, value, ...data }) => {
     const caption = key === IS_HIDDEN_KEY ? setItemHiddenCaption(value) : formatDate(value, key);
-    const priceValue = `${isMinValue === 1 ? 'от ' : ''}${formatCurrency(value)}`;
+    const priceValue = `${data[IS_MIN_VALUE_KEY] === 1 ? 'от ' : ''}${formatCurrency(value)}`;
 
     return (
       <TableCell
         key={key}
-        caption={PRICE_CAPTIONS[key]}
+        caption={captions[key]}
         type={key}
       >
         {key === PRICE_KEY ? priceValue : caption}
@@ -45,7 +47,7 @@ const PriceList: FC<IPriceList> = ({
 }) => {
   // TODO: оформить в виде хука
   const [sortData, setSortData] = useState<TPricelistQueryData | null>(null);
-  const keys = [
+  const keys: (keyof TPricelistData)[] = [
     NAME_KEY,
     PRICE_KEY,
     DEPT_ID_KEY,
@@ -55,7 +57,7 @@ const PriceList: FC<IPriceList> = ({
   ];
 
   const sortColValues = async (key: keyof TPricelistData) => {
-    const data = await sortPricelist(key as TPricelistQueryData["sortby"]);
+    const data = await sortPricelist(key);
 
     setSortData(data);
   }
@@ -81,35 +83,35 @@ const PriceList: FC<IPriceList> = ({
               sortdir: sortData.sortdir
             })}
           >
-            {PRICE_CAPTIONS[key]}
+            {captions[key]}
           </TableCell>
         ))}
       </TableRow>
-      {arr.map(({ id, ...props }: TPricelistData) => {
+      {arr.map((data: TPricelistData) => {
         const values = keys.reduce(
           (acc, key) => ([
             ...acc,
             {
               key,
-              value: String(props[key as keyof TPricelistData]),
-              [IS_MIN_VALUE_KEY]: props[IS_MIN_VALUE_KEY]
-            }
+              value: String(data[key]),
+              [IS_MIN_VALUE_KEY as string]: data[IS_MIN_VALUE_KEY]
+            } as IPriceRows["values"][number]
           ]),
-          []
+          [] as IPriceRows["values"]
         );
 
         return (
-          <TableRow key={id.toString()} type="price">
+          <TableRow key={data.id.toString()} type="price">
             <PriceRows {...{ values }} />
             <TableCell type="btns">
               <Button
-                handleClick={() => setCurrData(id)}
+                handleClick={() => setCurrData(data.id)}
                 style="icon"
               >
                 <EditIcon />
               </Button>
               <Button
-                handleClick={() => showRemoveModal({ id, name: props.name })}
+                handleClick={() => showRemoveModal({ id: data.id, name: data.name })}
                 style="unstyled"
               >
                 <TrashBinIcon />

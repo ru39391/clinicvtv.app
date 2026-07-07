@@ -6,3 +6,7 @@ export interface ITestimonialsList {
   setCurrData: TTestimonialStore["setCurrItemData"]
   showRemoveModal: ({ id, name }: Pick<TTestimonialData, "id" | "name">) => void;
 }
+
+export interface ITestimonialRows {
+  values: { key: keyof TTestimonialData; value: string; }[];
+}

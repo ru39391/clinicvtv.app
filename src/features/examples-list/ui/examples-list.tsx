@@ -17,16 +17,18 @@ import {
 import { formatDate, setItemHiddenCaption } from "@/shared/utils";
 import { useSortExamplesList } from "../hooks/use-sort-examples-list";
 import { type TExampleData } from "@/entities/example";
-import { type IExamplesList } from "../model/types";
+import { type IExamplesList, type IExampleRows } from "../model/types";
 
-const ExampleRows: FC<{ values: Record<string, string>[]; }> = ({ values }) => values.map(
+const captions = {...EXAMPLE_CAPTIONS as Record<keyof TExampleData, string>};
+
+const ExampleRows: FC<IExampleRows> = ({ values }) => values.map(
   ({ key, value }) => {
     const caption = key === IS_HIDDEN_KEY ? setItemHiddenCaption(value) : formatDate(value, key);
 
     return (
       <TableCell
         key={key}
-        caption={EXAMPLE_CAPTIONS[key]}
+        caption={captions[key]}
         type={key}
       >
         {caption}
@@ -42,7 +44,7 @@ const ExamplesList: FC<IExamplesList> = ({
   showRemoveModal
 }) => {
   const { sortData, sortColValues } = useSortExamplesList();
-  const keys = [
+  const keys: (keyof TExampleData)[] = [
     NAME_KEY,
     DESC_KEY,
     IS_HIDDEN_KEY,
@@ -72,34 +74,31 @@ const ExamplesList: FC<IExamplesList> = ({
               sortdir: sortData.sortdir
             })}
           >
-            {EXAMPLE_CAPTIONS[key]}
+            {captions[key]}
           </TableCell>
         ))}
       </TableRow>
-      {arr.map(({ id, ...props }: TExampleData) => {
+      {arr.map((data: TExampleData) => {
         const values = keys.reduce(
           (acc, key) => ([
             ...acc,
-            {
-              key,
-              value: String(props[key as keyof TExampleData]),
-            }
+            { key, value: String(data[key]) }
           ]),
-          []
+          [] as IExampleRows["values"]
         );
 
         return (
-          <TableRow key={id.toString()} type="example">
+          <TableRow key={data.id.toString()} type="example">
             <ExampleRows {...{ values }} />
             <TableCell type="btns">
               <Button
-                handleClick={() => setCurrData(id)}
+                handleClick={() => setCurrData(data.id)}
                 style="icon"
               >
                 <EditIcon />
               </Button>
               <Button
-                handleClick={() => showRemoveModal({ id, name: props.name })}
+                handleClick={() => showRemoveModal({ id: data.id, name: data.name })}
                 style="unstyled"
               >
                 <TrashBinIcon />

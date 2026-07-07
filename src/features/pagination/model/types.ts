@@ -1,8 +1,8 @@
-import type { TPositionState } from "@/shared/types";
+import type { TPaginationData } from "@/shared/types";
 
 export interface IPaginationCounter {
-  isLoading: TPositionState["isLoading"];
-  pagination: TPositionState["pagination"];
+  isLoading: boolean;
+  pagination: TPaginationData | null;
 }
 
 export interface IPaginationNav<T> extends IPaginationCounter {

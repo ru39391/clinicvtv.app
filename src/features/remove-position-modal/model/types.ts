@@ -1,7 +1,7 @@
 import type { TItemData } from "@/shared/types";
 
 export type TRemoveItemOptions<T extends { id: number }> = Pick<TItemData, "id"> & {
-  removeItem: (id: T["id"]) => Promise<{ success: boolean }>;
+  removeItem: (id: T["id"]) => Promise<boolean>;
 }
 
 export type TRemovePositionModal<T extends { id: number }> = {
