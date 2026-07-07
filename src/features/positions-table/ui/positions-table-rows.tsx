@@ -4,19 +4,20 @@ import { formatDate, setItemHiddenCaption } from "@/shared/utils";
 import { type TPositionTableData } from "../model/types";
 import { type TItemData } from "@/shared/types";
 
-const PositionTableRows = <T extends TItemData, >({
+const PositionTableRows = <T extends TItemData,>({
   values,
   captions
 }: { values: TPositionTableData<T>[]; captions: Record<keyof T, string>; }) => (
   values.map(
     ({ key, value }) => {
-      const caption = key === IS_HIDDEN_KEY ? setItemHiddenCaption(value) : formatDate(value, key);
+      const type = String(key);
+      const caption = key === IS_HIDDEN_KEY ? setItemHiddenCaption(Number(value)) : formatDate(String(value), type);
 
       return (
         <TableCell
-          key={key}
+          key={type}
           caption={captions[key]}
-          type={key}
+          type={type}
         >
           {caption}
         </TableCell>

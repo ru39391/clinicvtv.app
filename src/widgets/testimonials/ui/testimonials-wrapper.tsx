@@ -5,7 +5,7 @@ import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
-import { PositionsTable, PositionsTableHeader, PositionsTableRows } from "@/features/positions-table";
+import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableData } from "@/features/positions-table";
 import { useModalStore } from "@/shared/store";
 import { useTestimonialStore, type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
 import {
@@ -85,7 +85,7 @@ const TestimonialsWrapper: FC = () => {
               type: "testimonial"
             }}
           >
-            <PositionsTable<TTestimonialData, TTestimonialData>
+            <PositionsTable<TTestimonialData, TPositionTableData<TTestimonialData>>
               {...{
                 arr,
                 keys,
@@ -96,7 +96,7 @@ const TestimonialsWrapper: FC = () => {
                 })
               }}
             >
-              {(values: TTestimonialData[]) => <PositionsTableRows {...{ captions, values }} />}
+              {(values: TPositionTableData<TTestimonialData>[]) => <PositionsTableRows {...{ captions, values }} />}
             </PositionsTable>
           </PositionsTableHeader>
       }

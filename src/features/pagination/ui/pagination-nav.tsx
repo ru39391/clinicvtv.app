@@ -3,7 +3,7 @@ import { Pagination } from "@/entities/pagination";
 import type { IPaginationNav } from "../model/types";
 import type { TQueryData } from "@/shared/types";
 
-const PaginationNav = <T, >({
+const PaginationNav = <T,>({
   fetchItems,
   isLoading,
   pagination

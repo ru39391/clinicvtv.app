@@ -9,7 +9,7 @@ import { useRemovePositionModal } from "../hooks/use-remove-position-modal";
 import type { IRemovePositionModal } from "../model/types";
 import styles from './remove-position-modal.module.css';
 
-const RemovePositionModal = <T extends { id: number }, >({
+const RemovePositionModal = <T extends { id: number },>({
   id,
   isLoading,
   name,

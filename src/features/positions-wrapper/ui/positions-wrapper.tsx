@@ -4,7 +4,7 @@ import { Wrapper } from "@/entities/wrapper";
 import { useUpdatePositionModal } from "../hooks/use-update-position-modal";
 import type { IPositionsWrapper } from "../model/types";
 
-const PositionsWrapper = <T extends { id: number }, >({
+const PositionsWrapper = <T extends { id: number },>({
   aside,
   children,
   currData,

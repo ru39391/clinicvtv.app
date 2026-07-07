@@ -4,7 +4,7 @@ import { Button } from "@/shared/ui";
 import { useModalStore } from "@/shared/store";
 import type { ICreatePositionBtn } from "../model/types";
 
-const CreatePositionBtn = <T extends { id: number }, >({
+const CreatePositionBtn = <T extends { id: number },>({
   children,
   setCurrData
 }: ICreatePositionBtn<T>) => {

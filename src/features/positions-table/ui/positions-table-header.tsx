@@ -17,12 +17,12 @@ const PositionsTableHeader = <T extends TItemData,>({
     <TableRow {...{ isCaption: true, type }}>
       {keys.map((key) => (
         key !== DESC_KEY && <TableCell
-          key={key}
+          key={String(key)}
           isCaption={true}
           handleClick={() => sortColValues(key)}
-          type={key}
+          type={String(key)}
           {...(sortData && {
-            sortby: sortData.sortby,
+            sortby: String(sortData.sortby),
             sortdir: sortData.sortdir
           })}
         >

@@ -3,7 +3,7 @@ import { ResetIcon } from "@/shared/icons";
 import { resetPositions } from "../lib/reset-positions";
 import type { IResetPositionsBtn } from "../model/types";
 
-const ResetPositionsBtn = <T, >({
+const ResetPositionsBtn = <T,>({
   isLoading,
   fetchItems
 }: IResetPositionsBtn<T>) => (
