@@ -17,7 +17,6 @@ export const CAPTIONS = {
   [ID_KEY]: "ID",
   [NAME_KEY]: "Наименование",
   [DEPT_ID_KEY]: "Отделение",
-  //[SUBDEPT_ID_KEY]: "Специализация",
   [IS_HIDDEN_KEY]: "Скрыто",
   [CREATED_AT_KEY]: "Дата создания",
   [UPDATED_AT_KEY]: "Дата изменения"

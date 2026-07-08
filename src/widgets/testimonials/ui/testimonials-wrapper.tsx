@@ -7,7 +7,7 @@ import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { useModalStore } from "@/shared/store";
-import { useTestimonialStore, type TTestimonialData, type TTestimonialQueryData } from "@/entities/testimonial";
+import { useTestimonialStore, type TTestimonialData } from "@/entities/testimonial";
 import {
   LIST_IS_EMPTY,
   TESTIMONIAL_CAPTIONS,
@@ -56,7 +56,7 @@ const TestimonialsWrapper: FC = () => {
       {...{
         aside: (
           <>
-            <ResetPositionsBtn<TTestimonialQueryData> {...{ fetchItems, isLoading }} />
+            <ResetPositionsBtn<TTestimonialData> {...{ fetchItems, isLoading }} />
             <CreatePositionBtn<TTestimonialData> {...{ setCurrData }}>
               <CreateTestimonialItemForm />
             </CreatePositionBtn>

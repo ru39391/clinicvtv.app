@@ -7,7 +7,7 @@ import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { useModalStore } from "@/shared/store";
-import { useExampleStore, type TExampleData, type TExampleQueryData } from "@/entities/example";
+import { useExampleStore, type TExampleData } from "@/entities/example";
 import {
   LIST_IS_EMPTY,
   EXAMPLE_CAPTIONS,
@@ -51,7 +51,7 @@ const ExamplesWrapper: FC = () => {
       {...{
         aside: (
           <>
-            <ResetPositionsBtn<TExampleQueryData> {...{ fetchItems, isLoading }} />
+            <ResetPositionsBtn<TExampleData> {...{ fetchItems, isLoading }} />
             <CreatePositionBtn<TExampleData> {...{ setCurrData }}>
               <CreateExampleItemForm />
             </CreatePositionBtn>

@@ -7,7 +7,7 @@ import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { useModalStore } from "@/shared/store";
-import { usePricelistStore, type TPricelistData, type TPricelistQueryData } from "@/entities/pricelist";
+import { usePricelistStore, type TPricelistData } from "@/entities/pricelist";
 import {
   LIST_IS_EMPTY,
   NAME_KEY,
@@ -51,7 +51,7 @@ const PricelistWrapper: FC = () => {
       {...{
         aside: (
           <>
-            <ResetPositionsBtn<TPricelistQueryData> {...{ fetchItems, isLoading }} />
+            <ResetPositionsBtn<TPricelistData> {...{ fetchItems, isLoading }} />
             <CreatePositionBtn<TPricelistData> {...{ setCurrData }}>
               <CreatePriceItemForm />
             </CreatePositionBtn>

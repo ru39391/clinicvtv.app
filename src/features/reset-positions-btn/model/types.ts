@@ -1,4 +1,6 @@
+import type { TQueryData } from "@/shared/types";
+
 export interface IResetPositionsBtn<T> {
-  fetchItems: (data: T | null) => Promise<void>;
+  fetchItems: (data: TQueryData<T>) => Promise<void>;
   isLoading: boolean;
 }
