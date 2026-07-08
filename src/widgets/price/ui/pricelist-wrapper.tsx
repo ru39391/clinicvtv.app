@@ -2,11 +2,10 @@ import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreatePriceItemForm } from "@/features/create-price-item-form";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
+import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableData } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
-import { PriceRows, PriceList, type IPriceRows } from "@/features/price-list";
-import { PositionsTable } from "@/features/positions-table";
 import { useModalStore } from "@/shared/store";
 import { usePricelistStore, type TPricelistData, type TPricelistQueryData } from "@/entities/pricelist";
 import {
@@ -19,9 +18,11 @@ import {
   UPDATED_AT_KEY,
   PRICE_CAPTIONS
 } from "@/shared/constants";
+import { useSortPriceList } from "../hooks/use-sort-price-list";
 
 const PricelistWrapper: FC = () => {
   const { open } = useModalStore();
+    const { sortData, sortColValues } = useSortPriceList();
   const {
     data: arr,
     current: currData,
@@ -70,8 +71,16 @@ const PricelistWrapper: FC = () => {
     >
       {!isLoading && !arr.length
         ? LIST_IS_EMPTY
-        : <PriceList {...{ captions, keys }}>
-            <PositionsTable<TPricelistData, IPriceRows["values"][number]>
+        : <PositionsTableHeader<TPricelistData>
+            {...{
+              captions,
+              keys,
+              sortData,
+              sortColValues,
+              type: "price"
+            }}
+          >
+            <PositionsTable<TPricelistData, TPositionTableData<TPricelistData>>
               {...{
                 arr,
                 keys,
@@ -82,9 +91,9 @@ const PricelistWrapper: FC = () => {
                 })
               }}
             >
-              {(values: IPriceRows["values"]) => <PriceRows {...{ captions, values }} />}
+              {(values: TPositionTableData<TPricelistData>[]) => <PositionsTableRows {...{ captions, values }} />}
             </PositionsTable>
-          </PriceList>
+          </PositionsTableHeader>
       }
     </PositionsWrapper>
   )

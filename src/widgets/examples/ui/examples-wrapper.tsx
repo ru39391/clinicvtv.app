@@ -22,7 +22,7 @@ import { useSortExamplesList } from "../hooks/use-sort-examples-list";
 
 const ExamplesWrapper: FC = () => {
   const { open } = useModalStore();
-    const { sortData, sortColValues } = useSortExamplesList();
+  const { sortData, sortColValues } = useSortExamplesList();
   const {
     data: arr,
     current: currData,
