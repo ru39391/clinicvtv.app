@@ -39,3 +39,6 @@ export const REMOVE_POSITION_SUCCEED = "Элемент успешно удалё
 export const LIST_IS_EMPTY = "Записи не найдены";
 
 export const CONFIRM_KEY = "Вы действительно хотите";
+
+export const EXAMPLE_KEY = "example";
+export const TESTIMONIAL_KEY = "testimonial";

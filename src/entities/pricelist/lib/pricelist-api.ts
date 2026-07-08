@@ -1,5 +1,6 @@
 import { createPositionApi } from "@/shared/store";
 import { routes } from "@/shared/constants";
+import { PRICE_KEY } from "@/shared/constants";
 import type { TPricelistApi, TPricelistData, TPricelistPayload } from "../model/types";
 
-export const pricelistApi: TPricelistApi = createPositionApi<TPricelistPayload, TPricelistData>(routes.api.price);
+export const pricelistApi: TPricelistApi = createPositionApi<TPricelistPayload, TPricelistData>(routes.api[PRICE_KEY], PRICE_KEY);

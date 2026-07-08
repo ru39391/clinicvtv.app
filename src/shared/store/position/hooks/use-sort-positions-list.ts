@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { sortPositions } from "@/shared/utils";
-import { INTRO_KEY, SPEC_ID_KEY } from "@/shared/constants";
+import { INTRO_KEY, SPEC_ID_KEY, QUERY_KEY } from "@/shared/constants";
 import type { TItemData, TQueryData } from "@/shared/types";
 import { type UseBoundStore, type StoreApi } from "zustand";
 import { type TPositionStore } from "../model/types";
@@ -10,7 +10,8 @@ type TBaseStoreData = TItemData & Partial<Record<typeof SPEC_ID_KEY, number> & R
 type TCurrentStore<P, T extends TBaseStoreData> = UseBoundStore<StoreApi<TPositionStore<P, T>>>;
 
 export const createSortPositionsList = <P, T extends TBaseStoreData>(
-  store: TCurrentStore<P, T>
+  store: TCurrentStore<P, T>,
+  queryKey: string = QUERY_KEY
 ) => {
   return () => {
     const [sortData, setSortData] = useState<TQueryData<T>>(null);
@@ -19,7 +20,7 @@ export const createSortPositionsList = <P, T extends TBaseStoreData>(
       const state = store.getState();
       const positions = state.data;
 
-      const { arr, data } = await sortPositions<T>({ data: positions, sortby });
+      const { arr, data } = await sortPositions<T>({ data: positions, sortby }, queryKey);
 
       store.setState({ ...state, data: arr });
 

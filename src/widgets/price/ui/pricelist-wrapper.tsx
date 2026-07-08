@@ -51,7 +51,7 @@ const PricelistWrapper: FC = () => {
       {...{
         aside: (
           <>
-            <ResetPositionsBtn<TPricelistData> {...{ fetchItems, isLoading }} />
+            <ResetPositionsBtn<TPricelistData> {...{ fetchItems, isLoading, type: PRICE_KEY }} />
             <CreatePositionBtn<TPricelistData> {...{ setCurrData }}>
               <CreatePriceItemForm />
             </CreatePositionBtn>
@@ -77,14 +77,14 @@ const PricelistWrapper: FC = () => {
               keys,
               sortData,
               sortColValues,
-              type: "price"
+              type: PRICE_KEY
             }}
           >
             <PositionsTable<TPricelistData, TPositionTableData<TPricelistData>>
               {...{
                 arr,
                 keys,
-                type: "price",
+                type: PRICE_KEY,
                 setCurrData,
                 showRemoveModal: ({ id, name }: Pick<TPricelistData, "id" | "name">) => open({
                   content: <RemovePositionModal<TPricelistData> {...{ id, isLoading, name, removeItem }} />

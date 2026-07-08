@@ -5,12 +5,13 @@ import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableData } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
-import { ResetPositionsBtn } from "@/features/reset-positions-btn";
+import { ResetPositionsBtn } from "@/features/reset-positions-btn";//resetPositions,
 import { useModalStore } from "@/shared/store";
 import { useTestimonialStore, type TTestimonialData } from "@/entities/testimonial";
 import {
   LIST_IS_EMPTY,
   TESTIMONIAL_CAPTIONS,
+  TESTIMONIAL_KEY,
   NAME_KEY,
   DESC_KEY,
   INTRO_KEY,
@@ -46,9 +47,6 @@ const TestimonialsWrapper: FC = () => {
 
   useEffect(() => {
     fetchItems(null);
-    return () => {
-      console.log('Компонент размонтирован');
-    };
   }, []);
 
   return (
@@ -56,7 +54,7 @@ const TestimonialsWrapper: FC = () => {
       {...{
         aside: (
           <>
-            <ResetPositionsBtn<TTestimonialData> {...{ fetchItems, isLoading }} />
+            <ResetPositionsBtn<TTestimonialData> {...{ fetchItems, isLoading, type: TESTIMONIAL_KEY }} />
             <CreatePositionBtn<TTestimonialData> {...{ setCurrData }}>
               <CreateTestimonialItemForm />
             </CreatePositionBtn>
@@ -82,14 +80,14 @@ const TestimonialsWrapper: FC = () => {
               keys,
               sortData,
               sortColValues,
-              type: "testimonial"
+              type: TESTIMONIAL_KEY
             }}
           >
             <PositionsTable<TTestimonialData, TPositionTableData<TTestimonialData>>
               {...{
                 arr,
                 keys,
-                type: "testimonial",
+                type: TESTIMONIAL_KEY,
                 setCurrData,
                 showRemoveModal: ({ id, name }: Pick<TTestimonialData, "id" | "name">) => open({
                   content: <RemovePositionModal<TTestimonialData> {...{ id, isLoading, name, removeItem }} />

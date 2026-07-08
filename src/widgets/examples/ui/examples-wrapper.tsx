@@ -11,6 +11,7 @@ import { useExampleStore, type TExampleData } from "@/entities/example";
 import {
   LIST_IS_EMPTY,
   EXAMPLE_CAPTIONS,
+  EXAMPLE_KEY,
   NAME_KEY,
   DESC_KEY,
   INTRO_KEY,
@@ -51,7 +52,7 @@ const ExamplesWrapper: FC = () => {
       {...{
         aside: (
           <>
-            <ResetPositionsBtn<TExampleData> {...{ fetchItems, isLoading }} />
+            <ResetPositionsBtn<TExampleData> {...{ fetchItems, isLoading, type: EXAMPLE_KEY }} />
             <CreatePositionBtn<TExampleData> {...{ setCurrData }}>
               <CreateExampleItemForm />
             </CreatePositionBtn>
@@ -77,14 +78,14 @@ const ExamplesWrapper: FC = () => {
               keys,
               sortData,
               sortColValues,
-              type: "example"
+              type: EXAMPLE_KEY
             }}
           >
             <PositionsTable<TExampleData, TPositionTableData<TExampleData>>
               {...{
                 arr,
                 keys,
-                type: "example",
+                type: EXAMPLE_KEY,
                 setCurrData,
                 showRemoveModal: ({ id, name }: Pick<TExampleData, "id" | "name">) => open({
                   content: <RemovePositionModal<TExampleData> {...{ id, isLoading, name, removeItem }} />

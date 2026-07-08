@@ -4,11 +4,12 @@ import { resetPositions } from "../lib/reset-positions";
 import type { IResetPositionsBtn } from "../model/types";
 
 const ResetPositionsBtn = <T,>({
+  fetchItems,
   isLoading,
-  fetchItems
+  type
 }: IResetPositionsBtn<T>) => (
   <Button
-    handleClick={() => resetPositions(fetchItems)}
+    handleClick={() => resetPositions(fetchItems, type)}
     isDisabled={isLoading}
     style="plain"
   >

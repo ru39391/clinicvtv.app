@@ -9,9 +9,10 @@ import {
 import type { TQueryData } from "../types";
 
 export const sortPositions = async <T>(
-  { sortby, ...payload }: { data: T[]; sortby: keyof T; }
+  { sortby, ...payload }: { data: T[]; sortby: keyof T; },
+  queryKey: string = QUERY_KEY
 ): Promise<{ arr: T[]; data: TQueryData<T>; }> => {
-  const storageData = StorageHandler.getData<TQueryData<T>>(QUERY_KEY);
+  const storageData = StorageHandler.getData<TQueryData<T>>(queryKey);
   const { search, sortdir } = storageData || { sortdir: "DESC" };
   const currSortdir = sortdir === "DESC" ? "ASC" : "DESC";
 
@@ -19,7 +20,7 @@ export const sortPositions = async <T>(
     sortby,
     sortdir: storageData ? currSortdir : sortdir,
     ...( search && { search } )
-  }, QUERY_KEY);
+  }, queryKey);
 
   if(!success || !data) {
     return {

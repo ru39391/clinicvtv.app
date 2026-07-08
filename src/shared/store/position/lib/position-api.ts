@@ -5,10 +5,11 @@ import type { TPaginationData, TQueryData } from "@/shared/types";
 import type { TPositionApi } from "../model/types";
 
 export const createPositionApi = <P, T extends { id: number }>(
-  apiUrl: string
+  apiUrl: string,
+  queryKey: string = QUERY_KEY
 ): TPositionApi<P, T> => ({
   fetchData: async (payload = null) => {
-    const storageData = StorageHandler.getData<TQueryData<T>>(QUERY_KEY);
+    const storageData = StorageHandler.getData<TQueryData<T>>(queryKey);
     const query = payload && storageData ? {...payload, ...storageData} : (payload || storageData);
     const queryParams = query ? Object.entries(query).reduce((acc, [key, value]) => `${acc}&${key}=${String(value)}`, "") : "";
     const url = `${apiUrl}?${IS_HIDDEN_KEY}=all${queryParams}`;

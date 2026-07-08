@@ -11,7 +11,7 @@ const resetStorageData = (key: string): Promise<{ success: boolean; }> => {
     }, 200);
   });
 };
-// TODO: проверить
+
 export const resetPositions = async <T>(
   fetchItems: (data: TQueryData<T>) => Promise<void>,
   key: string = QUERY_KEY

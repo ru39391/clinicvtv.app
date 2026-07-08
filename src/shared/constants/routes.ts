@@ -1,14 +1,16 @@
+import { EXAMPLE_KEY, PRICE_KEY, TESTIMONIAL_KEY } from "./position";
+
 export const routes = {
   protected: {
-    examples: "/examples",
-    price: "/price",
-    testimonials: "/testimonials",
+    [EXAMPLE_KEY]: "/examples",
+    [PRICE_KEY]: "/price",
+    [TESTIMONIAL_KEY]: "/testimonials",
   },
   api: {
-    examples: "/examples",
-    price: "/pricelist",
+    [EXAMPLE_KEY]: "/examples",
+    [PRICE_KEY]: "/pricelist",
     team: "/team",
-    testimonials: "/testimonials",
+    [TESTIMONIAL_KEY]: "/testimonials",
   },
 } as const;
 

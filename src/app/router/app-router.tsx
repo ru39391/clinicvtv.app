@@ -5,27 +5,31 @@ import {
   Price,
   Testimonials,
 } from "@/pages";
-
-import { routes } from "@/shared/constants";
+import {
+  routes,
+  EXAMPLE_KEY,
+  PRICE_KEY,
+  TESTIMONIAL_KEY
+} from "@/shared/constants";
 
 const AppRouter: FC = () => {
   return (
     <Routes>
       <Route
         path="/"
-        element={<Navigate to={routes.protected.price} replace />}
+        element={<Navigate to={routes.protected[PRICE_KEY]} replace />}
       />
       {[
         {
-          path: routes.protected.examples,
+          path: routes.protected[EXAMPLE_KEY],
           element: <Examples />,
         },
         {
-          path: routes.protected.price,
+          path: routes.protected[PRICE_KEY],
           element: <Price />,
         },
         {
-          path: routes.protected.testimonials,
+          path: routes.protected[TESTIMONIAL_KEY],
           element: <Testimonials />,
         },
       ].map((props, index) => (
