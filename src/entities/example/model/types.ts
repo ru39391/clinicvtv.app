@@ -14,7 +14,7 @@ import type {
 
 export type TExampleData = TItemData & TIntroData & TDatesData & TDeptsData & Record<"img_before" | "img_after", TPicsData>;
 
-export type TExamplePayload = Omit<TExampleData, "id" | "introtext" | "createdAt" | "updatedAt" | "img_before" | "img_after"> & Record<"img_before" | "img_after", string>;
+export type TExamplePayload = Omit<TExampleData, "id" | "introtext" | "createdAt" | "updatedAt" | "img_before" | "img_after"> & Partial<Record<"img_before" | "img_after", string>>;
 
 export type TExampleState = TPositionState<TExampleData>;
 

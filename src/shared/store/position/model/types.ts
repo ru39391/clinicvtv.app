@@ -12,7 +12,7 @@ export type TPositionResponse<T> = Omit<TPositionState<T>, "isLoading" | "curren
 export type TPositionStore<P, T extends { id: number }> = TPositionState<T> & {
   fetchItems: (data: TQueryData<T> | null) => Promise<void>;
   createItem: (data: P) => Promise<boolean>;
-  updateItem: (data: T) => Promise<boolean>;
+  updateItem: (data: P & { id?: T["id"] }) => Promise<boolean>; // TODO: проверить
   removeItem: (id: T["id"]) => Promise<boolean>;
   setCurrItemData: (id: T["id"] | null) => void;
 }
@@ -25,7 +25,7 @@ export type TPositionApi<P, T extends { id: number }> = {
     pagination: TPositionState<T>["pagination"];
   }) => Promise<TPositionResponse<T>>;
   updateData: ({ item, arr }: {
-    item: T;
+    item: P & { id?: T["id"] };
     arr: T[];
   }) => Promise<Pick<TPositionState<T>, "data"> & { success: boolean }>;
   removeData: ({ id, arr, pagination }: {

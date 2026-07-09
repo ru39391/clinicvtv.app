@@ -37,6 +37,7 @@ export const ADD_POSITION_SUCCEED = "Данные успешно сохране�
 export const EDIT_POSITION_SUCCEED = "Элемент успешно отредактирован";
 export const REMOVE_POSITION_SUCCEED = "Элемент успешно удалён";
 export const LIST_IS_EMPTY = "Записи не найдены";
+export const POSITION_EXISTS = "Вы пытаетесь сохранить текущие данные";
 
 export const CONFIRM_KEY = "Вы действительно хотите";
 

@@ -34,7 +34,7 @@ export const createPositionApi = <P, T extends { id: number }>(
     };
   },
   updateData: async ({ item, arr }) => {
-    const { data } = await apiHandler.update<T, T & { success: boolean }>(`${apiUrl}/${item.id}`, item);
+    const { data } = await apiHandler.update<P & { id?: T["id"] }, T & { success: boolean }>(`${apiUrl}/${item.id}`, item);
     const { success, ...position } = data;
 
     return {

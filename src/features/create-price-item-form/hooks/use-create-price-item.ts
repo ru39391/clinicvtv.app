@@ -8,6 +8,7 @@ import {
   IS_HIDDEN_KEY,
   IS_MIN_VALUE_KEY,
   DEPT_ID_KEY,
+  POSITION_EXISTS,
   SUBDEPT_ID_KEY
 } from "@/shared/constants";
 
@@ -35,7 +36,7 @@ export const useCreatePriceItem = (): TFormHandler<{ [k: string]: FormDataEntryV
     );
 
     if(isValueDataEqual) {
-      addNotification({ title: "Вы пытаетесь сохранить текущие данные" });
+      addNotification({ title: POSITION_EXISTS });
 
       return !isValueDataEqual;
     };

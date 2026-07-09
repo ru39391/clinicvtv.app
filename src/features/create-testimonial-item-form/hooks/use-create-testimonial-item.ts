@@ -5,6 +5,7 @@ import type { TFormHandler, TFormState } from "@/shared/types";
 import {
   ADD_POSITION_SUCCEED,
   IS_HIDDEN_KEY,
+  POSITION_EXISTS,
   RATING_KEY,
   SPEC_ID_KEY
 } from "@/shared/constants";
@@ -33,7 +34,7 @@ export const useCreateTestimonialItem = (): TFormHandler<{ [k: string]: FormData
     );
 
     if(isValueDataEqual) {
-      addNotification({ title: "Вы пытаетесь сохранить текущие данные" });
+      addNotification({ title: POSITION_EXISTS });
 
       return !isValueDataEqual;
     };
