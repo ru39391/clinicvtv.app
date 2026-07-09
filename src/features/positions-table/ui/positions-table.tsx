@@ -3,10 +3,9 @@ import { EditIcon, TrashBinIcon } from "@/shared/icons";
 import { TableCell } from "@/entities/table-cell";
 import { TableRow } from "@/entities/table-row";
 import { IMG_AFTER_KEY, IS_MIN_VALUE_KEY, THUMB_KEY } from "@/shared/constants";
-import { type TItemData } from "@/shared/types";
-import type { IPositionsTable, TPositionTableData } from "../model/types";
+import type { IPositionsTable, TPositionTableData, TPositionTableOptions } from "../model/types";
 
-const PositionsTable = <T extends TItemData & Partial<Record<typeof IS_MIN_VALUE_KEY, 1 | 0> & Record<typeof IMG_AFTER_KEY, Record<typeof THUMB_KEY, string>>>, R extends TPositionTableData<T>>({
+const PositionsTable = <T extends TPositionTableData, R extends TPositionTableOptions<T>>({
   arr,
   children,
   keys,
@@ -30,7 +29,7 @@ const PositionsTable = <T extends TItemData & Partial<Record<typeof IS_MIN_VALUE
 
     return (
       <TableRow key={data.id.toString()} type={type}>
-        {children(values)}
+        {children({ id: data.id, values })}
         <TableCell type="btns">
           <Button
             handleClick={() => setCurrData(data.id)}

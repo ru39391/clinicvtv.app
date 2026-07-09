@@ -2,7 +2,7 @@ import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreatePriceItemForm } from "@/features/create-price-item-form";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
-import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableData } from "@/features/positions-table";
+import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableOptions } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
@@ -80,7 +80,7 @@ const PricelistWrapper: FC = () => {
               type: PRICE_KEY
             }}
           >
-            <PositionsTable<TPricelistData, TPositionTableData<TPricelistData>>
+            <PositionsTable<TPricelistData, TPositionTableOptions<TPricelistData>>
               {...{
                 arr,
                 keys,
@@ -91,7 +91,7 @@ const PricelistWrapper: FC = () => {
                 })
               }}
             >
-              {(values: TPositionTableData<TPricelistData>[]) => <PositionsTableRows {...{ captions, values }} />}
+              {({ values }: { values: TPositionTableOptions<TPricelistData>[] }) => <PositionsTableRows {...{ captions, values }} />}
             </PositionsTable>
           </PositionsTableHeader>
       }

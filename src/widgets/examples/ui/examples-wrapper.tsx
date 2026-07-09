@@ -2,7 +2,7 @@ import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreateExampleItemForm } from "@/features/create-example-item-form";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
-import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableData } from "@/features/positions-table";
+import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableOptions } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
@@ -22,7 +22,7 @@ import {
 import { useSortExamplesList } from "../hooks/use-sort-examples-list";
 
 const ExamplesWrapper: FC = () => {
-  const { open } = useModalStore();
+  const { open, updateContent } = useModalStore();
   const { sortData, sortColValues } = useSortExamplesList();
   const {
     data: arr,
@@ -81,7 +81,7 @@ const ExamplesWrapper: FC = () => {
               type: EXAMPLE_KEY
             }}
           >
-            <PositionsTable<TExampleData, TPositionTableData<TExampleData>>
+            <PositionsTable<TExampleData, TPositionTableOptions<TExampleData>>
               {...{
                 arr,
                 keys,
@@ -92,7 +92,18 @@ const ExamplesWrapper: FC = () => {
                 })
               }}
             >
-              {(values: TPositionTableData<TExampleData>[]) => <PositionsTableRows {...{ captions, values }} />}
+              {({ id, values }: { id: number; values: TPositionTableOptions<TExampleData>[]; }) => (
+                <PositionsTableRows
+                  {...{
+                    captions,
+                    values,
+                    handleClick: () => {
+                      console.log(id);
+                      if(currData) updateContent(<>тут форма {currData?.id}</>);
+                    }
+                  }}
+                />
+              )}
             </PositionsTable>
           </PositionsTableHeader>
       }

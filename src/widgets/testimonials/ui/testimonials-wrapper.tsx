@@ -2,10 +2,10 @@ import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreateTestimonialItemForm } from "@/features/create-testimonial-item-form";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
-import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableData } from "@/features/positions-table";
+import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableOptions } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
-import { ResetPositionsBtn } from "@/features/reset-positions-btn";//resetPositions,
+import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { useModalStore } from "@/shared/store";
 import { useTestimonialStore, type TTestimonialData } from "@/entities/testimonial";
 import {
@@ -83,7 +83,7 @@ const TestimonialsWrapper: FC = () => {
               type: TESTIMONIAL_KEY
             }}
           >
-            <PositionsTable<TTestimonialData, TPositionTableData<TTestimonialData>>
+            <PositionsTable<TTestimonialData, TPositionTableOptions<TTestimonialData>>
               {...{
                 arr,
                 keys,
@@ -94,7 +94,7 @@ const TestimonialsWrapper: FC = () => {
                 })
               }}
             >
-              {(values: TPositionTableData<TTestimonialData>[]) => <PositionsTableRows {...{ captions, values }} />}
+              {({ values }: { values: TPositionTableOptions<TTestimonialData>[] }) => <PositionsTableRows {...{ captions, values }} />}
             </PositionsTable>
           </PositionsTableHeader>
       }

@@ -79,6 +79,10 @@
   color: var(--color-border-dark);
 }
 
+.col_type_name .col__title {
+  display: none;
+}
+
 @media (--md-min-value) {
   .col__title {
     display: none;

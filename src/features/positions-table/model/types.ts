@@ -1,8 +1,11 @@
+import { IMG_AFTER_KEY, IS_MIN_VALUE_KEY, THUMB_KEY } from "@/shared/constants";
 import type { ReactNode } from "react";
 import type { TItemData, TQueryData } from "@/shared/types";
 import type { ITableRow } from "@/entities/table-row";
 
-export type TPositionTableData<T extends TItemData> = {
+export type TPositionTableData = TItemData & Partial<Record<typeof IS_MIN_VALUE_KEY, 1 | 0> & Record<typeof IMG_AFTER_KEY, Record<typeof THUMB_KEY, string>>>;
+
+export type TPositionTableOptions<T extends TItemData> = {
   key: keyof T;
   value: T[keyof T];
 } & Partial<Record<string, 0 | 1> & Record<string, string>>;
@@ -16,9 +19,9 @@ export interface IPositionsTableHeader<T extends TItemData> {
   type: ITableRow["type"];
 }
 
-export interface IPositionsTable<T extends TItemData, R extends TPositionTableData<T>> {
+export interface IPositionsTable<T extends TItemData, R extends TPositionTableOptions<T>> {
   arr: T[];
-  children: (values: R[]) => ReactNode;
+  children: (data: { id: number; values: R[]; }) => ReactNode;
   keys: IPositionsTableHeader<T>["keys"];
   type: IPositionsTableHeader<T>["type"];
   setCurrData: (id: T["id"]) => void;
