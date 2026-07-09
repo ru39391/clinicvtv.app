@@ -4,7 +4,7 @@ import { CloseIcon } from "@/shared/icons";
 import styles from './modal.module.css';
 
 const Modal: FC = () => {
-  const { content, isOpen, close } = useModalStore();
+  const { content, isOpen, type, close } = useModalStore();
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -29,7 +29,7 @@ const Modal: FC = () => {
   };
 
   return (
-    <div className={styles.modal} onClick={handleOverlayClick}>
+    <div className={type ? `${styles.modal} ${styles[`modal_type_${type}`]}` : styles.modal} onClick={handleOverlayClick}>
       <button className={styles.modal__close} onClick={() => close()} type="button">
         <CloseIcon />
       </button>

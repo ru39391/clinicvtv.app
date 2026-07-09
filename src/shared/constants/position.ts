@@ -29,6 +29,8 @@ export const CAPTIONS_EXT = {
 };
 
 export const POSITION_KEY = "запись";
+export const CLOSE_KEY = "Закрыть";
+export const SAVE_POSITION_KEY = "Сохранить";
 export const ADD_POSITION_KEY = "Добавить";
 export const EDIT_POSITION_KEY = "Редактировать";
 export const REMOVE_POSITION_KEY = "Удалить";
@@ -42,4 +44,5 @@ export const POSITION_EXISTS = "Вы пытаетесь сохранить те�
 export const CONFIRM_KEY = "Вы действительно хотите";
 
 export const EXAMPLE_KEY = "example";
+export const EXAMPLE_PIC_KEY = "examplePic";
 export const TESTIMONIAL_KEY = "testimonial";

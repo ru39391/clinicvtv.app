@@ -3,8 +3,9 @@ import { devtools } from "zustand/middleware";
 import type { TModalStore, TModal } from "./types";
 
 const initialState: TModal = {
-  isOpen: false,
   content: "",
+  type: null,
+  isOpen: false,
 };
 
 export const useModalStore = create<TModalStore>()(
@@ -15,11 +16,14 @@ export const useModalStore = create<TModalStore>()(
       open: (config) => {
         set({
           isOpen: true,
-          ...(config && { content: config.content }),
+          ...(config && {
+            content: config.content,
+            ...(config.type && { type: config.type })
+          }),
         });
       },
 
-      close: () => set({ isOpen: false, content: "" }),
+      close: () => set({ content: "", type: null, isOpen: false }),
 
       toggle: () => set({ isOpen: !get().isOpen }),
 

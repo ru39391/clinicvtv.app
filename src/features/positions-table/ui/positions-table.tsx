@@ -29,7 +29,7 @@ const PositionsTable = <T extends TPositionTableData, R extends TPositionTableOp
 
     return (
       <TableRow key={data.id.toString()} type={type}>
-        {children({ id: data.id, values })}
+        {children({ data, values })}
         <TableCell type="btns">
           <Button
             handleClick={() => setCurrData(data.id)}

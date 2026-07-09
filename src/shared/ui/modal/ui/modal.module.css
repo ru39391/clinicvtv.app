@@ -18,6 +18,10 @@
   max-width: 660px;
 }
 
+.modal_type_lg .modal__wrapper {
+  max-width: unset;
+}
+
 .modal__close {
   position: absolute;
   top: 16px;

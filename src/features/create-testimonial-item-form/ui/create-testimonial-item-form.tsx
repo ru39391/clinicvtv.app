@@ -14,6 +14,7 @@ import {
   DESC_KEY,
   RATING_KEY,
   IS_HIDDEN_KEY,
+  SAVE_POSITION_KEY
 } from "@/shared/constants";
 import type { TInputField } from "@/shared/types";
 
@@ -98,7 +99,7 @@ const CreateTestimonialItemForm: FC = () => {
       ))}
       <FormRow>
         <Button
-          caption={!isPending ? "Сохранить" : ""}
+          caption={!isPending ? SAVE_POSITION_KEY : ""}
           isDisabled={isPending || isBtnDisabled}
           type="submit"
         >

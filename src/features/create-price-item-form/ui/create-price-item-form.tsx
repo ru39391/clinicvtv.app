@@ -14,6 +14,7 @@ import {
   PRICE_KEY,
   IS_HIDDEN_KEY,
   IS_MIN_VALUE_KEY,
+  SAVE_POSITION_KEY
 } from "@/shared/constants";
 import type { TInputField } from "@/shared/types";
 
@@ -90,7 +91,7 @@ const CreatePriceItemForm: FC = () => {
       ))}
       <FormRow>
         <Button
-          caption={!isPending ? "Сохранить" : ""}
+          caption={!isPending ? SAVE_POSITION_KEY : ""}
           isDisabled={isPending || isBtnDisabled}
           type="submit"
         >

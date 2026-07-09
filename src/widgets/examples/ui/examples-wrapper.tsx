@@ -6,6 +6,7 @@ import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositio
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
+import { SelectExamplePicModal } from "@/features/select-example-pic-modal";
 import { useModalStore } from "@/shared/store";
 import { useExampleStore, type TExampleData } from "@/entities/example";
 import {
@@ -22,7 +23,7 @@ import {
 import { useSortExamplesList } from "../hooks/use-sort-examples-list";
 
 const ExamplesWrapper: FC = () => {
-  const { open, updateContent } = useModalStore();
+  const { open } = useModalStore();
   const { sortData, sortColValues } = useSortExamplesList();
   const {
     data: arr,
@@ -92,15 +93,15 @@ const ExamplesWrapper: FC = () => {
                 })
               }}
             >
-              {({ id, values }: { id: number; values: TPositionTableOptions<TExampleData>[]; }) => (
+              {({ data, values }: { data: TExampleData; values: TPositionTableOptions<TExampleData>[]; }) => (
                 <PositionsTableRows
                   {...{
                     captions,
                     values,
-                    handleClick: () => {
-                      console.log(id);
-                      if(currData) updateContent(<>тут форма {currData?.id}</>);
-                    }
+                    handleClick: () => open({
+                      content: <SelectExamplePicModal {...{ data, isLoading }} />,
+                      type: "lg"
+                    })
                   }}
                 />
               )}

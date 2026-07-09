@@ -21,7 +21,7 @@ export interface IPositionsTableHeader<T extends TItemData> {
 
 export interface IPositionsTable<T extends TItemData, R extends TPositionTableOptions<T>> {
   arr: T[];
-  children: (data: { id: number; values: R[]; }) => ReactNode;
+  children: ({ data, values }: { data: T; values: R[]; }) => ReactNode;
   keys: IPositionsTableHeader<T>["keys"];
   type: IPositionsTableHeader<T>["type"];
   setCurrData: (id: T["id"]) => void;
