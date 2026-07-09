@@ -5,7 +5,7 @@ import type { ITableRow } from "@/entities/table-row";
 export type TPositionTableData<T extends TItemData> = {
   key: keyof T;
   value: T[keyof T];
-} & Partial<Record<string, 0 | 1>>;
+} & Partial<Record<string, 0 | 1> & Record<string, string>>;
 
 export interface IPositionsTableHeader<T extends TItemData> {
   captions: Record<keyof T, string>;
