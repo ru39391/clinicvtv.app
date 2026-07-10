@@ -2,10 +2,10 @@ import { type FC } from "react";
 import { type IPositionMeta } from "../model/types";
 import styles from './position-meta.module.css';
 
-const PositionMeta: FC<IPositionMeta> = ({ caption, onClick, thumb }) => (
+const PositionMeta: FC<IPositionMeta> = ({ caption, onClick, thumb, type }) => (
   thumb === undefined
     ? caption
-    : <div className={styles.meta}>
+    : <div className={type ? `${styles.meta} ${styles[`meta_type_${type}`]}` : styles.meta}>
         <div className={styles.meta__row}>
           <div className={styles.meta__picture} {...( onClick && { onClick: onClick } )}>
             {Boolean(thumb) && <img className={styles.meta__img} src={thumb} alt={caption} />}

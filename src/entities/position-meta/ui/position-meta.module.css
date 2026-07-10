@@ -20,6 +20,26 @@
   display: block;
 }
 
+.meta_type_col {
+  grid-area: unset;
+  align-items: flex-start;
+}
+
+.meta_type_col .meta__row {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta_type_col .meta__title {
+  line-height: var(--line-height-xl);
+  word-break: break-word;
+}
+
+.meta_type_col .meta__picture {
+  width: 100%;
+  height: auto;
+}
+
 .meta__toggler {
   position: absolute;
   width: 0;

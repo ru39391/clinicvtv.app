@@ -9,7 +9,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 22px 16px;
+  padding: 48px 16px;
   background-color: rgba(0, 0, 0, .55);
 }
 
@@ -20,6 +20,7 @@
 
 .modal_type_lg .modal__wrapper {
   max-width: unset;
+  height: 100%;
 }
 
 .modal__close {

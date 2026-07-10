@@ -1,0 +1,13 @@
+.cards {
+  gap: 16px 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (--md-min-value) {
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
