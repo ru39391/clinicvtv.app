@@ -17,6 +17,7 @@
   --color-danger: #ff355b;
   --color-success: #47D764;
   --color-warning: #FFC021;
+  --color-transp: rgba(0,0,0,0);
 
   --font-size-xxl: 40px;
   --font-size-xl: 24px;

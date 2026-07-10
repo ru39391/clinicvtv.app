@@ -23,6 +23,12 @@
     max-width: unset;
     padding: 24px 24px 32px;
   }
+
+  .card_size_lg {
+    height: 100%;
+    max-width: unset;
+    padding: 24px 16px;
+  }
 }
 
 .card__header {
@@ -30,6 +36,10 @@
   flex-direction: column;
   flex-grow: 1;
   gap: 12px 0;
+}
+
+.card_size_lg .card__header {
+  flex-grow: 0;
 }
 
 .card__title {

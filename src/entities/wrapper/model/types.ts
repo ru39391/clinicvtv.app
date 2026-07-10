@@ -5,4 +5,5 @@ export interface IWrapper {
   children: ReactNode;
   footer?: ReactNode;
   title: string;
+  type?: "cards";
 }

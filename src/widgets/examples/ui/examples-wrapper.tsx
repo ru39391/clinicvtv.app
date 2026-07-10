@@ -9,6 +9,7 @@ import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { SelectExamplePicModal } from "@/features/select-example-pic-modal";
 import { useModalStore } from "@/shared/store";
 import { useExampleStore, type TExampleData } from "@/entities/example";
+import { type TExamplePicData } from "@/entities/example-picture";
 import {
   LIST_IS_EMPTY,
   EXAMPLE_CAPTIONS,
@@ -99,7 +100,13 @@ const ExamplesWrapper: FC = () => {
                     captions,
                     values,
                     handleClick: () => open({
-                      content: <SelectExamplePicModal {...{ data, isLoading }} />,
+                      content: (
+                        <SelectExamplePicModal {...{ data, isLoading }}>
+                          {/* // TODO: настроить рендеринг */}
+                          <PaginationCounter {...{ isLoading, pagination }} />
+                          <PaginationNav<TExamplePicData> {...{ fetchItems, isLoading, pagination }} />
+                        </SelectExamplePicModal>
+                      ),
                       type: "lg"
                     })
                   }}

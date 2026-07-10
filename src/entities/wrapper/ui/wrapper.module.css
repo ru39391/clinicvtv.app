@@ -15,6 +15,22 @@
   }
 }
 
+.wrapper_type_cards {
+  flex-grow: 1;
+  padding: 0;
+  border-radius: 0;
+  background-color: var(--color-transp);
+}
+
+.wrapper_type_cards .wrapper__heading {
+  display: none;
+}
+
+.wrapper_type_cards .wrapper__container {
+  display: block;
+  position: relative;
+}
+
 .wrapper__heading {
   display: flex;
   flex-direction: column;
