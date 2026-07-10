@@ -6,7 +6,7 @@ import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositio
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
-import { SelectExamplePicModal } from "@/features/select-example-pic-modal";
+import { SelectExamplePicModal, type IExamplePicsPagination } from "@/features/select-example-pic-modal";
 import { useModalStore } from "@/shared/store";
 import { useExampleStore, type TExampleData } from "@/entities/example";
 import { type TExamplePicData } from "@/entities/example-picture";
@@ -22,6 +22,17 @@ import {
   UPDATED_AT_KEY
 } from "@/shared/constants";
 import { useSortExamplesList } from "../hooks/use-sort-examples-list";
+
+const ExamplePicsPagination: FC<IExamplePicsPagination> = ({
+  fetchExamplePics: fetchItems,
+  isPicsDataLoading: isLoading,
+  picsPagination: pagination
+}) => (
+  <>
+    <PaginationCounter {...{ isLoading, pagination }} />
+    <PaginationNav<TExamplePicData> {...{ fetchItems, isLoading, pagination }} />
+  </>
+);
 
 const ExamplesWrapper: FC = () => {
   const { open } = useModalStore();
@@ -102,9 +113,7 @@ const ExamplesWrapper: FC = () => {
                     handleClick: () => open({
                       content: (
                         <SelectExamplePicModal {...{ data, isLoading }}>
-                          {/* // TODO: настроить рендеринг */}
-                          <PaginationCounter {...{ isLoading, pagination }} />
-                          <PaginationNav<TExamplePicData> {...{ fetchItems, isLoading, pagination }} />
+                          {(props: IExamplePicsPagination) => <ExamplePicsPagination {...props} />}
                         </SelectExamplePicModal>
                       ),
                       type: "lg"

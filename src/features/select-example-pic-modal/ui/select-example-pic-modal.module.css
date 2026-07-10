@@ -1,0 +1,11 @@
+.controllers {
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (--xs-min-value) {
+  .controllers {
+    flex-direction: row;
+  }
+}

@@ -1,44 +1,80 @@
 import { useEffect, type FC } from "react";
-import { Button, Card, Loader } from "@/shared/ui";
+import { Card, Loader } from "@/shared/ui";
 import { PositionMeta, PositionMetaWrapper } from "@/entities/position-meta";
 import { Wrapper } from "@/entities/wrapper";
 import { useExamplePicStore, type TExamplePicData } from "@/entities/example-picture";
 import { useModalStore } from "@/shared/store";
+import { useSelectExamplePic } from "../hooks/use-select-example-pic";
 import {
-  CLOSE_KEY,
+  EDIT_POSITION_KEY,
+  IMG_AFTER_KEY,
+  IMG_BEFORE_KEY,
   LIST_IS_EMPTY,
-  SAVE_POSITION_KEY,
+  POSITION_KEY,
+  THUMB_KEY,
   UPDATED_AT_KEY
 } from "@/shared/constants";
 import { formatDate } from "@/shared/utils";
 import { type ISelectExamplePicModal } from "../model/types";
-import styles from './remove-position-modal.module.css';
+import styles from './select-example-pic-modal.module.css';
 
 const SelectExamplePicModal: FC<ISelectExamplePicModal> = ({ children, data }) => {
-  const { close } = useModalStore();
+  //const { close } = useModalStore();
   const {
     data: pictures,
     fetchItems,
     isLoading,
     pagination
   } = useExamplePicStore();
-  //const { handleRemoveItem } = useRemovePositionModal<T>();
+  const {
+    currPicType,
+    currPicsData,
+    setCurrPicType,
+    handlePicsData
+  } = useSelectExamplePic();
 
   useEffect(() => {
-    fetchItems(null);
+    fetchItems({ perPage: 20 });
   }, []);
 
   return (
     <Card
       {...{
-        title: data.name,
-        subtitle: data.desc,
+        title: `${EDIT_POSITION_KEY} ${POSITION_KEY}`,
         type: ["lg"]
       }}
     >
+      <div className={styles.controllers}>
+        <PositionMeta
+          {...{
+            alt: "До",
+            caption: "",
+            thumb: currPicsData?.[IMG_BEFORE_KEY] || data[IMG_BEFORE_KEY][THUMB_KEY],
+            type: "row",
+            isActive: currPicType === IMG_BEFORE_KEY,
+            onClick: () => setCurrPicType(IMG_BEFORE_KEY)
+          }}
+        />
+        <PositionMeta
+          {...{
+            alt: "После",
+            caption: data.name,
+            thumb: currPicsData?.[IMG_AFTER_KEY] || data[IMG_AFTER_KEY][THUMB_KEY],
+            type: "row",
+            isActive: currPicType === IMG_AFTER_KEY,
+            onClick: () => setCurrPicType(IMG_AFTER_KEY)
+          }}
+        >
+          {data.desc}
+        </PositionMeta>
+      </div>
       <Wrapper
         {...{
-          footer: children,
+          footer: children({
+            fetchExamplePics: fetchItems,
+            isPicsDataLoading: isLoading,
+            picsPagination: pagination
+          }),
           title: "Выберите изображение",
           type: "cards"
         }}
@@ -57,8 +93,8 @@ const SelectExamplePicModal: FC<ISelectExamplePicModal> = ({ children, data }) =
                       {...{
                         caption: name,
                         thumb: url,
-                        type: "col",
-                        onClick: () => console.log(url)
+                        type: "row",
+                        onClick: () => handlePicsData({ [currPicType]: url })
                       }}
                     >
                       <p>Дата загрузки: {formatDate(updatedAt, UPDATED_AT_KEY, true)}</p>

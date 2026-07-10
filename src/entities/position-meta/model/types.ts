@@ -1,9 +1,12 @@
 import { type ReactNode } from "react";
 
 export interface IPositionMeta {
+  alt?: string;
   caption: string;
+  children: ReactNode;
+  isActive?: boolean;
   thumb?: string;
-  type?: "col";
+  type?: "row";
   onClick?: () => void;
 }
 
