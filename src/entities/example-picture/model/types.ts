@@ -7,6 +7,6 @@ export type TExamplePicState = TPositionState<TExamplePicData>;
 
 export type TExamplePicQueryData = TQueryData<Pick<TExamplePicData, "name" | "size" | "date">>;
 
-export type TExamplePicStore = Pick<TPositionStore<null, TExamplePicData>, "fetchItems">;
+export type TExamplePicStore = TPositionStore<null, TExamplePicData>;
 
-export type TExamplePicApi = Pick<TPositionApi<null, TExamplePicData>, "fetchData">;
+export type TExamplePicApi = TPositionApi<null, TExamplePicData>;
