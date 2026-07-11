@@ -112,7 +112,7 @@ const ExamplesWrapper: FC = () => {
                     values,
                     handleClick: () => open({
                       content: (
-                        <SelectExamplePicModal {...{ data, isLoading }}>
+                        <SelectExamplePicModal {...{ data }}>
                           {(props: IExamplePicsPagination) => <ExamplePicsPagination {...props} />}
                         </SelectExamplePicModal>
                       ),

@@ -1,25 +1,26 @@
 import { useEffect, type FC } from "react";
-import { Card, Loader } from "@/shared/ui";
+import { Button, Card, CardRow, Loader } from "@/shared/ui";
 import { PositionMeta, PositionMetaWrapper } from "@/entities/position-meta";
 import { Wrapper } from "@/entities/wrapper";
 import { useExamplePicStore, type TExamplePicData } from "@/entities/example-picture";
 import { useModalStore } from "@/shared/store";
 import { useSelectExamplePic } from "../hooks/use-select-example-pic";
 import {
-  EDIT_POSITION_KEY,
+  CLOSE_KEY,
   IMG_AFTER_KEY,
   IMG_BEFORE_KEY,
   LIST_IS_EMPTY,
-  POSITION_KEY,
+  SAVE_POSITION_KEY,
   THUMB_KEY,
   UPDATED_AT_KEY
 } from "@/shared/constants";
 import { formatDate } from "@/shared/utils";
-import { type ISelectExamplePicModal } from "../model/types";
+import type { TExampleData } from "@/entities/example";
+import type { ISelectExamplePic, ISelectExamplePicModal } from "../model/types";
 import styles from './select-example-pic-modal.module.css';
 
 const SelectExamplePicModal: FC<ISelectExamplePicModal> = ({ children, data }) => {
-  //const { close } = useModalStore();
+  const { close } = useModalStore();
   const {
     data: pictures,
     fetchItems,
@@ -29,8 +30,10 @@ const SelectExamplePicModal: FC<ISelectExamplePicModal> = ({ children, data }) =
   const {
     currPicType,
     currPicsData,
+    isItemsLoading,
     setCurrPicType,
-    handlePicsData
+    handlePicsData,
+    saveExampleData
   } = useSelectExamplePic();
 
   useEffect(() => {
@@ -40,42 +43,70 @@ const SelectExamplePicModal: FC<ISelectExamplePicModal> = ({ children, data }) =
   return (
     <Card
       {...{
-        title: `${EDIT_POSITION_KEY} ${POSITION_KEY}`,
+        title: "Выберите изображения",
         type: ["lg"]
       }}
     >
       <div className={styles.controllers}>
-        <PositionMeta
-          {...{
-            alt: "До",
-            caption: "",
-            thumb: currPicsData?.[IMG_BEFORE_KEY] || data[IMG_BEFORE_KEY][THUMB_KEY],
-            type: "row",
-            isActive: currPicType === IMG_BEFORE_KEY,
-            onClick: () => setCurrPicType(IMG_BEFORE_KEY)
-          }}
-        />
-        <PositionMeta
-          {...{
-            alt: "После",
-            caption: data.name,
-            thumb: currPicsData?.[IMG_AFTER_KEY] || data[IMG_AFTER_KEY][THUMB_KEY],
-            type: "row",
-            isActive: currPicType === IMG_AFTER_KEY,
-            onClick: () => setCurrPicType(IMG_AFTER_KEY)
-          }}
-        >
-          {data.desc}
-        </PositionMeta>
+        {[{
+          alt: "До",
+          caption: "",
+          desc: "",
+          key: IMG_BEFORE_KEY
+        }, {
+          alt: "После",
+          caption: data.name,
+          desc: data.desc,
+          key: IMG_AFTER_KEY
+        }].map(({ alt, caption, desc, key }: {
+          alt: string;
+          caption: TExampleData["name"];
+          desc: TExampleData["desc"];
+          key: ISelectExamplePic["currPicType"];
+        }) => (
+          <PositionMeta
+            key={key}
+            {...{
+              alt,
+              caption,
+              type: "row",
+              thumb: currPicsData?.[key] || data[key][THUMB_KEY],
+              isActive: currPicType === key,
+              onClick: () => setCurrPicType(key)
+            }}
+          >
+            {desc}
+          </PositionMeta>
+        ))}
       </div>
       <Wrapper
         {...{
-          footer: children({
-            fetchExamplePics: fetchItems,
-            isPicsDataLoading: isLoading,
-            picsPagination: pagination
-          }),
-          title: "Выберите изображение",
+          footer: (
+            <>
+              {children({
+                fetchExamplePics: fetchItems,
+                isPicsDataLoading: isLoading,
+                picsPagination: pagination
+              })}
+              <CardRow justify="start">
+                <Button
+                  handleClick={() => saveExampleData(data)}
+                  isDisabled={isItemsLoading}
+                  style={isItemsLoading ? "plain" : "row"}
+                >
+                  {isItemsLoading ? <Loader isVisible={isItemsLoading} size="xs" /> : SAVE_POSITION_KEY}
+                </Button>
+                <Button
+                  handleClick={() => close()}
+                  isDisabled={isItemsLoading}
+                  style="plain"
+                >
+                  {CLOSE_KEY}
+                </Button>
+              </CardRow>
+            </>
+          ),
+          title: "Выберите изображения",
           type: "cards"
         }}
       >
@@ -107,24 +138,6 @@ const SelectExamplePicModal: FC<ISelectExamplePicModal> = ({ children, data }) =
           </PositionMetaWrapper>
         </Loader>
       </Wrapper>
-      {/*
-      <div className={styles.row}>
-        <Button
-          handleClick={() => console.log(data)}
-          isDisabled={isLoading}
-          style={isLoading ? "plain" : "row"}
-        >
-          {isLoading ? <Loader isVisible={isLoading} size="xs" /> : SAVE_POSITION_KEY}
-        </Button>
-        <Button
-          handleClick={() => close()}
-          isDisabled={isLoading}
-          style="plain"
-        >
-          {CLOSE_KEY}
-        </Button>
-      </div>
-      */}
     </Card>
   )
 };

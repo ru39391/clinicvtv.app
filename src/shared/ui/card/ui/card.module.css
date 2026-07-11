@@ -63,3 +63,13 @@
   text-align: center;
   color: var(--color-grey);
 }
+
+.row {
+  gap: 0 12px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.row_js_start {
+  justify-content: flex-start;
+}

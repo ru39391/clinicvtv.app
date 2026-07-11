@@ -1,4 +1,4 @@
-import { Button, Card, Loader } from "@/shared/ui";
+import { Button, Card, CardRow, Loader } from "@/shared/ui";
 import { useModalStore } from "@/shared/store";
 import {
   REMOVE_POSITION_KEY,
@@ -7,7 +7,6 @@ import {
 } from "@/shared/constants";
 import { useRemovePositionModal } from "../hooks/use-remove-position-modal";
 import type { IRemovePositionModal } from "../model/types";
-import styles from './remove-position-modal.module.css';
 
 const RemovePositionModal = <T extends { id: number },>({
   id,
@@ -26,7 +25,7 @@ const RemovePositionModal = <T extends { id: number },>({
         type: ["md"]
       }}
     >
-      <div className={styles.row}>
+      <CardRow>
         <Button
           handleClick={() => handleRemoveItem({ id, removeItem })}
           isDisabled={isLoading}
@@ -41,7 +40,7 @@ const RemovePositionModal = <T extends { id: number },>({
         >
           Нет
         </Button>
-      </div>
+      </CardRow>
     </Card>
   )
 };
