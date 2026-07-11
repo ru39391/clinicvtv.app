@@ -3,7 +3,7 @@ import { type ReactNode } from "react";
 export interface IPositionMeta {
   alt?: string;
   caption: string;
-  children: ReactNode;
+  children?: ReactNode;
   isActive?: boolean;
   thumb?: string;
   type?: "row";

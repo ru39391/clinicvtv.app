@@ -8,7 +8,6 @@ import {
   IS_HIDDEN_KEY,
   SPEC_ID_KEY,
   DEPT_ID_KEY,
-  IMG_AFTER_KEY,
   IMG_BEFORE_KEY
 } from "@/shared/constants";
 import { useExampleStore, type TExampleData, type TExamplePayload } from "@/entities/example";
@@ -28,7 +27,7 @@ export const useSelectExamplePic = (): ISelectExamplePic => {
     DEPT_ID_KEY
   ];
 
-  const handlePicsData = (data: Record<typeof IMG_BEFORE_KEY | typeof IMG_AFTER_KEY, string>) => {
+  const handlePicsData = (data: Record<ISelectExamplePic["currPicType"], string>) => {
     if(!currPicsData) {
       setCurrPicsData(data);
       return;

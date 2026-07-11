@@ -4,5 +4,6 @@ import type { TExamplePicData } from "../model/types";
 
 export const useExamplePicStore = createStore<null, TExamplePicData>({
   name: "ExamplePictureStore",
-  api: examplePictureApi
+  api: examplePictureApi,
+  methods: { fetching: true }
 });

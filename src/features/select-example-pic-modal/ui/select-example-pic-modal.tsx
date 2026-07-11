@@ -52,12 +52,12 @@ const SelectExamplePicModal: FC<ISelectExamplePicModal> = ({ children, data }) =
           alt: "До",
           caption: "",
           desc: "",
-          key: IMG_BEFORE_KEY
+          key: IMG_BEFORE_KEY as ISelectExamplePic["currPicType"]
         }, {
           alt: "После",
           caption: data.name,
           desc: data.desc,
-          key: IMG_AFTER_KEY
+          key: IMG_AFTER_KEY as ISelectExamplePic["currPicType"]
         }].map(({ alt, caption, desc, key }: {
           alt: string;
           caption: TExampleData["name"];
@@ -125,7 +125,7 @@ const SelectExamplePicModal: FC<ISelectExamplePicModal> = ({ children, data }) =
                         caption: name,
                         thumb: url,
                         type: "row",
-                        onClick: () => handlePicsData({ [currPicType]: url })
+                        onClick: () => handlePicsData({ [currPicType]: url } as Record<ISelectExamplePic["currPicType"], string>)
                       }}
                     >
                       <p>Дата загрузки: {formatDate(updatedAt, UPDATED_AT_KEY, true)}</p>
