@@ -1,11 +1,13 @@
 import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreatePriceItemForm } from "@/features/create-price-item-form";
+import { DeptSelectField } from "@/features/dept-select-field";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableOptions } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
+import { useDeptStore } from "@/entities/dept";
 import { useModalStore } from "@/shared/store";
 import { usePricelistStore, type TPricelistData } from "@/entities/pricelist";
 import {
@@ -21,8 +23,13 @@ import {
 import { useSortPriceList } from "../hooks/use-sort-price-list";
 
 const PricelistWrapper: FC = () => {
+  const {
+    data: depts,
+    fetchItems: fetchDepts,
+    isLoading: isDeptsLoading
+  } = useDeptStore();
   const { open } = useModalStore();
-    const { sortData, sortColValues } = useSortPriceList();
+  const { sortData, sortColValues } = useSortPriceList();
   const {
     data: arr,
     current: currData,
@@ -42,8 +49,13 @@ const PricelistWrapper: FC = () => {
   ];
   const captions = {...PRICE_CAPTIONS as Record<keyof TPricelistData, string>};
 
-  useEffect(() => {
+  const fetchData = async () => {
+    await fetchDepts(null);
     fetchItems(null);
+  }
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (
@@ -53,12 +65,29 @@ const PricelistWrapper: FC = () => {
           <>
             <ResetPositionsBtn<TPricelistData> {...{ fetchItems, isLoading, type: PRICE_KEY }} />
             <CreatePositionBtn<TPricelistData> {...{ setCurrData }}>
-              <CreatePriceItemForm />
+              <CreatePriceItemForm>
+                <DeptSelectField
+                  {...{
+                    depts,
+                    isLoading: isDeptsLoading
+                  }}
+                />
+              </CreatePriceItemForm>
             </CreatePositionBtn>
           </>
         ),
         currData,
-        form: <CreatePriceItemForm />,
+        form: (
+          <CreatePriceItemForm>
+            {currData && <DeptSelectField
+              {...{
+                current: currData?.[DEPT_ID_KEY] || 0,
+                depts,
+                isLoading: isDeptsLoading
+              }}
+            />}
+          </CreatePriceItemForm>
+        ),
         footer: (
           <>
             <PaginationCounter {...{ isLoading, pagination }} />
@@ -83,6 +112,7 @@ const PricelistWrapper: FC = () => {
             <PositionsTable<TPricelistData, TPositionTableOptions<TPricelistData>>
               {...{
                 arr,
+                depts,
                 keys,
                 type: PRICE_KEY,
                 setCurrData,

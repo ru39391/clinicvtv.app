@@ -1,5 +1,6 @@
 import { IMG_AFTER_KEY, IS_MIN_VALUE_KEY, THUMB_KEY } from "@/shared/constants";
 import type { ReactNode } from "react";
+import type { TDeptData } from "@/entities/dept";
 import type { TItemData, TQueryData } from "@/shared/types";
 import type { ITableRow } from "@/entities/table-row";
 
@@ -22,6 +23,7 @@ export interface IPositionsTableHeader<T extends TItemData> {
 export interface IPositionsTable<T extends TItemData, R extends TPositionTableOptions<T>> {
   arr: T[];
   children: ({ data, values }: { data: T; values: R[]; }) => ReactNode;
+  depts: TDeptData[];
   keys: IPositionsTableHeader<T>["keys"];
   type: IPositionsTableHeader<T>["type"];
   setCurrData: (id: T["id"]) => void;

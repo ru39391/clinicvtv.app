@@ -65,7 +65,7 @@ const TestimonialsWrapper: FC = () => {
         currData,
         form: (
           <CreateTestimonialItemForm>
-            <SpecSelectField current={currData?.[SPEC_ID_KEY] || 0} />
+            {currData && <SpecSelectField current={currData?.[SPEC_ID_KEY] || 0} />}
           </CreateTestimonialItemForm>
         ),
         footer: (

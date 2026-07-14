@@ -10,6 +10,7 @@ export const routes = {
     [EXAMPLE_KEY]: "/examples",
     [PRICE_KEY]: "/pricelist",
     team: "/team",
+    dept: "/depts",
     [EXAMPLE_PIC_KEY]: "/examplepics",
     [TESTIMONIAL_KEY]: "/testimonials",
   },

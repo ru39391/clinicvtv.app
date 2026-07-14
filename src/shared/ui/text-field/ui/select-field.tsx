@@ -21,7 +21,7 @@ const OptionsList = forwardRef<HTMLSelectElement, IOptionsList>(({
     ...(handleChange && { onChange: handleChange }),
     ...(handleFocus && { onFocus: handleFocus }),
     ...(isRequired && { required: isRequired })
-  }
+  };
 
   return (
     <select
@@ -73,6 +73,10 @@ const SelectField: FC<ISelectField> = ({
       }}
     />
   );
+
+  if(!options.length) {
+    return "";
+  }
 
   return (
     <div className={fieldClassName}>
