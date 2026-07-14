@@ -3,6 +3,7 @@ import type { IOptionsList, ISelectField } from "../model/types";
 import styles from './text-field.module.css';
 
 const OptionsList = forwardRef<HTMLSelectElement, IOptionsList>(({
+  current,
   isDisabled,
   handleBlur,
   handleChange,
@@ -26,13 +27,23 @@ const OptionsList = forwardRef<HTMLSelectElement, IOptionsList>(({
     <select
       {...props}
       ref={ref as ForwardedRef<HTMLSelectElement>}
+      defaultValue={String(current)}
     >
-      {options.map(({ id, value }) => <option key={id} value={id}>{value}</option>)}
+      <option value="0">Ничего не выбрано</option>
+      {options.map(({ id, value }) => (
+        <option
+          key={id}
+          value={id}
+        >
+          {value}
+        </option>
+      ))}
     </select>
   );
 });
 
 const SelectField: FC<ISelectField> = ({
+  current,
   errorValue,
   handleBlur,
   handleChange,
@@ -51,6 +62,7 @@ const SelectField: FC<ISelectField> = ({
     <OptionsList
       ref={optionsRef}
       {...{
+        current,
         isDisabled,
         handleBlur,
         handleChange,

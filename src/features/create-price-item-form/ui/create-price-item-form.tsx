@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import type { FC, ReactNode } from "react";
 import { Form, FormRow } from "@/entities/form";
 import { Button, Checkbox, TextField, Loader } from "@/shared/ui";
 import { CloseIcon } from "@/shared/icons";
@@ -18,7 +18,7 @@ import {
 } from "@/shared/constants";
 import type { TInputField } from "@/shared/types";
 
-const CreatePriceItemForm: FC = () => {
+const CreatePriceItemForm: FC<{ children: ReactNode; }> = ({ children }) => {
   const { formState, dispatchForm, isPending } = useCreatePriceItem();
   const { current: currPriceItem } = usePricelistStore();
   const {
@@ -71,6 +71,7 @@ const CreatePriceItemForm: FC = () => {
           <CloseIcon />
         </TextField>
       ))}
+      {children}
       {[
         {
           name: IS_HIDDEN_KEY,

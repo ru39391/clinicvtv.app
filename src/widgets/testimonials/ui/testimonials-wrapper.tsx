@@ -19,6 +19,7 @@ import {
   RATING_KEY,
   IS_HIDDEN_KEY,
   CREATED_AT_KEY,
+  SPEC_ID_KEY,
   UPDATED_AT_KEY
 } from "@/shared/constants";
 import { useSortTestimonialsList } from "../hooks/use-sort-testimonials-list";
@@ -62,7 +63,11 @@ const TestimonialsWrapper: FC = () => {
           </>
         ),
         currData,
-        form: <CreateTestimonialItemForm><SpecSelectField /></CreateTestimonialItemForm>,
+        form: (
+          <CreateTestimonialItemForm>
+            <SpecSelectField current={currData?.[SPEC_ID_KEY] || 0} />
+          </CreateTestimonialItemForm>
+        ),
         footer: (
           <>
             <PaginationCounter {...{ isLoading, pagination }} />

@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import type { FC, ReactNode } from "react";
 import { Form, FormRow } from "@/entities/form";
 import { Button, Checkbox, TextField, Loader } from "@/shared/ui";
 import { CloseIcon } from "@/shared/icons";
@@ -18,7 +18,7 @@ import {
 } from "@/shared/constants";
 import type { TInputField } from "@/shared/types";
 
-const CreateExampleItemForm: FC = () => {
+const CreateExampleItemForm: FC<{ children: ReactNode; }> = ({ children }) => {
   const { formState, dispatchForm, isPending } = useCreateExampleItem();
   const { current: currExampleData } = useExampleStore();
   const {
@@ -74,6 +74,7 @@ const CreateExampleItemForm: FC = () => {
           <CloseIcon />
         </TextField>
       ))}
+      {children}
       {[
         {
           name: IS_HIDDEN_KEY,

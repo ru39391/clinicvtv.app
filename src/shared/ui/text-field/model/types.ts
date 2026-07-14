@@ -2,6 +2,7 @@ import type { ChangeEvent, FocusEvent, ReactNode } from "react";
 import type { TInputField, TInputItem } from "@/shared/types";
 
 export interface ITextFieldInput {
+  current?: number;
   defaultValue?: string;
   handleBlur?: (event: FocusEvent<TInputItem>) => void;
   handleChange?: (event: ChangeEvent<TInputItem>) => void;

@@ -7,6 +7,7 @@ import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
 import { SelectExamplePicModal, type IExamplePicsPagination } from "@/features/select-example-pic-modal";
+import { SpecSelectField } from "@/features/spec-select-field";
 import { useModalStore } from "@/shared/store";
 import { useExampleStore, type TExampleData } from "@/entities/example";
 import { type TExamplePicData } from "@/entities/example-picture";
@@ -19,6 +20,7 @@ import {
   INTRO_KEY,
   IS_HIDDEN_KEY,
   CREATED_AT_KEY,
+  SPEC_ID_KEY,
   UPDATED_AT_KEY
 } from "@/shared/constants";
 import { useSortExamplesList } from "../hooks/use-sort-examples-list";
@@ -67,12 +69,16 @@ const ExamplesWrapper: FC = () => {
           <>
             <ResetPositionsBtn<TExampleData> {...{ fetchItems, isLoading, type: EXAMPLE_KEY }} />
             <CreatePositionBtn<TExampleData> {...{ setCurrData }}>
-              <CreateExampleItemForm />
+              <CreateExampleItemForm><SpecSelectField /></CreateExampleItemForm>
             </CreatePositionBtn>
           </>
         ),
         currData,
-        form: <CreateExampleItemForm />,
+        form: (
+          <CreateExampleItemForm>
+            <SpecSelectField current={currData?.[SPEC_ID_KEY] || 0} />
+          </CreateExampleItemForm>
+        ),
         footer: (
           <>
             <PaginationCounter {...{ isLoading, pagination }} />
