@@ -1,6 +1,6 @@
-import { type FC } from "react";
+import type { FC, ReactNode } from "react";
 import { Form, FormRow } from "@/entities/form";
-import { Button, Checkbox, TextField, Loader } from "@/shared/ui";
+import { Button, Checkbox, Loader, TextField } from "@/shared/ui";
 import { CloseIcon } from "@/shared/icons";
 import { useTestimonialStore } from "@/entities/testimonial";
 import { useValidateForm } from "@/shared/hooks";
@@ -14,11 +14,12 @@ import {
   DESC_KEY,
   RATING_KEY,
   IS_HIDDEN_KEY,
-  SAVE_POSITION_KEY
+  SAVE_POSITION_KEY,
+  SPEC_ID_KEY
 } from "@/shared/constants";
 import type { TInputField } from "@/shared/types";
 
-const CreateTestimonialItemForm: FC = () => {
+const CreateTestimonialItemForm: FC<{ children: ReactNode; }> = ({ children }) => {
   const { formState, dispatchForm, isPending } = useCreateTestimonialItem();
   const { current: currTestimonialData } = useTestimonialStore();
   const {
@@ -84,6 +85,7 @@ const CreateTestimonialItemForm: FC = () => {
 
         return isTextarea ? <FormRow key={name}>{textField}</FormRow> : textField;
       })}
+      {children}
       {[
         {
           name: IS_HIDDEN_KEY,

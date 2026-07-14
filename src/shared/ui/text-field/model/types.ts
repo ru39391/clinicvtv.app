@@ -20,3 +20,14 @@ export interface ITextField extends ITextFieldInput {
   isBtnVisible: boolean;
   label?: string;
 }
+
+export interface IOptionsList extends Omit<ITextFieldInput, "defaultValue" | "isTextarea" | "type"> {
+  isDisabled?: boolean;
+  options: Record<"id" | "value", string>[];
+}
+
+export interface ISelectField extends IOptionsList {
+  errorValue: string;
+  icon?: ReactNode;
+  label?: string;
+}

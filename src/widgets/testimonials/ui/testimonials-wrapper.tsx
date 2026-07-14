@@ -6,6 +6,7 @@ import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositio
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
+import { SpecSelectField } from "@/features/spec-select-field";
 import { useModalStore } from "@/shared/store";
 import { useTestimonialStore, type TTestimonialData } from "@/entities/testimonial";
 import {
@@ -56,12 +57,12 @@ const TestimonialsWrapper: FC = () => {
           <>
             <ResetPositionsBtn<TTestimonialData> {...{ fetchItems, isLoading, type: TESTIMONIAL_KEY }} />
             <CreatePositionBtn<TTestimonialData> {...{ setCurrData }}>
-              <CreateTestimonialItemForm />
+              <CreateTestimonialItemForm><SpecSelectField /></CreateTestimonialItemForm>
             </CreatePositionBtn>
           </>
         ),
         currData,
-        form: <CreateTestimonialItemForm />,
+        form: <CreateTestimonialItemForm><SpecSelectField /></CreateTestimonialItemForm>,
         footer: (
           <>
             <PaginationCounter {...{ isLoading, pagination }} />
