@@ -12,6 +12,7 @@ const Button: FC<IButton> = ({ caption = "", children, href, handleClick, isDisa
       <Link
         className={style ? `${btnClassName} ${styles[classNameMod]}` : btnClassName}
         to={href}
+        target="_blank"
       >
         {children || ""}{caption}
       </Link>

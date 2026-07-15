@@ -5,11 +5,11 @@ import type { TQueryData } from "@/shared/types";
 import type { ISearchForm, TSearchForm } from "../model/types";
 
 export const useSearchForm = <T extends { id: number }>(
-  { fetchItems, queryKey }: Omit<TSearchForm<T>, "arr">
+  { fetchItems, type }: Omit<TSearchForm<T>, "arr">
 ): ISearchForm => {
   const [searchValue, setSearchValue] = useState<ISearchForm["searchValue"]>('');
 
-  const handleStorageData = (): TQueryData<T> => StorageHandler.getData<TQueryData<T>>(queryKey);
+  const handleStorageData = (): TQueryData<T> => StorageHandler.getData<TQueryData<T>>(type);
 
   const updatePositionsList = () => {
     const queryData = handleStorageData();
@@ -25,9 +25,9 @@ export const useSearchForm = <T extends { id: number }>(
       : null;
 
     if(queryParams && Object.values(queryParams).length > 0) {
-      StorageHandler.handleData<TQueryData<T>>(queryParams, queryKey);
+      StorageHandler.handleData<TQueryData<T>>(queryParams, type);
     } else {
-      StorageHandler.removeData(queryKey);
+      StorageHandler.removeData(type);
     }
 
     fetchItems(null);
@@ -39,7 +39,7 @@ export const useSearchForm = <T extends { id: number }>(
     const queryData = handleStorageData();
     const payload = { search: query };
 
-    await StorageHandler.handleData(queryData ? { ...queryData, ...payload } : payload, queryKey);
+    await StorageHandler.handleData(queryData ? { ...queryData, ...payload } : payload, type);
 
     fetchItems(payload);
   };

@@ -11,6 +11,7 @@ const PositionsWrapper = <T extends { id: number },>({
   footer,
   form,
   isLoading,
+  nav,
   setCurrData
 }: IPositionsWrapper<T>) => {
   const { showPositionForm } = useUpdatePositionModal<T>({
@@ -27,7 +28,7 @@ const PositionsWrapper = <T extends { id: number },>({
       {...{
         aside,
         footer,
-        title: "Все позиции"
+        title: nav || "Все позиции"
       }}
     >
       <Loader

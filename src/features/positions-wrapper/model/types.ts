@@ -16,5 +16,6 @@ export interface IPositionsWrapper<T extends { id: number }> {
   footer: ReactNode;
   form: ReactNode;
   isLoading: boolean;
+  nav?: ReactNode;
   setCurrData: (data: T["id"] | null) => void;
 }

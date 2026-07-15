@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { ArrowLeft, ArrowRight } from "@/shared/icons";
+import { ArrowLeftIcon, ArrowRightIcon } from "@/shared/icons";
 import type { IPagination } from "../model/types";
 import styles from './pagination.module.css';
 
@@ -17,7 +17,7 @@ const Pagination: FC<IPagination> = ({ handleClick, isHidden, page, perPage, tot
               onClick={() => handleClick({ page: page - 1, perPage })}
               type="button"
             >
-              <ArrowLeft />
+              <ArrowLeftIcon />
             </button>
           }
           <div className={styles.pagination__wrapper}>
@@ -38,7 +38,7 @@ const Pagination: FC<IPagination> = ({ handleClick, isHidden, page, perPage, tot
                 onClick={() => handleClick({ page: page + 1, perPage })}
                 type="button"
               >
-                <ArrowRight />
+                <ArrowRightIcon />
               </button>
           }
         </div>

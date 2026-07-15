@@ -3,7 +3,8 @@ import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreatePriceItemForm } from "@/features/create-price-item-form";
 import { DeptSelectField } from "@/features/dept-select-field";
 import { Heading } from "@/entities/heading";
-import { GoBackBtn  } from "@/features/go-back-btn";
+import { GoBackBtn } from "@/features/go-back-btn";
+import { Nav } from "@/features/nav";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableOptions } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
@@ -66,7 +67,7 @@ const PricelistWrapper: FC = () => {
 
   return (<>
     <Heading {...{ aside: <GoBackBtn />, title }}>
-      <SearchForm<TPricelistData> {...{ arr, fetchItems, queryKey: PRICE_KEY }} />
+      <SearchForm<TPricelistData> {...{ arr, fetchItems, type: PRICE_KEY }} />
     </Heading>
     <PositionsWrapper<TPricelistData>
       {...{
@@ -104,6 +105,7 @@ const PricelistWrapper: FC = () => {
           </>
         ),
         isLoading,
+        nav: <Nav />,
         setCurrData
       }}
     >

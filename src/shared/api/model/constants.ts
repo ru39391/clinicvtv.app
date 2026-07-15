@@ -1,4 +1,5 @@
 export const API_URL = import.meta.env.VITE_API_URL;
+export const SITE_URL = `${import.meta.env.VITE_SITE_URL || ""}/`;
 
 export const RESPONSE_DATA = {
   data: {},

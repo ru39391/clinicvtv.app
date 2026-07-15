@@ -1,11 +1,15 @@
 import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreateTestimonialItemForm } from "@/features/create-testimonial-item-form";
+import { Heading } from "@/entities/heading";
+import { GoBackBtn } from "@/features/go-back-btn";
+import { Nav } from "@/features/nav";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableOptions } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
+import { SearchForm } from "@/features/search-form";
 import { SpecSelectField } from "@/features/spec-select-field";
 import { useModalStore } from "@/shared/store";
 import { useTestimonialStore, type TTestimonialData } from "@/entities/testimonial";
@@ -46,12 +50,18 @@ const TestimonialsWrapper: FC = () => {
     UPDATED_AT_KEY
   ];
   const captions = {...TESTIMONIAL_CAPTIONS as Record<keyof TTestimonialData, string>};
+  const title = "Отзывы";
 
   useEffect(() => {
+    document.title = title;
+
     fetchItems(null);
   }, []);
 
-  return (
+  return (<>
+    <Heading {...{ aside: <GoBackBtn />, title }}>
+      <SearchForm<TTestimonialData> {...{ arr, fetchItems, type: TESTIMONIAL_KEY }} />
+    </Heading>
     <PositionsWrapper<TTestimonialData>
       {...{
         aside: (
@@ -75,6 +85,7 @@ const TestimonialsWrapper: FC = () => {
           </>
         ),
         isLoading,
+        nav: <Nav />,
         setCurrData
       }}
     >
@@ -105,7 +116,7 @@ const TestimonialsWrapper: FC = () => {
           </PositionsTableHeader>
       }
     </PositionsWrapper>
-  )
+  </>)
 };
 
 export default TestimonialsWrapper;

@@ -2,11 +2,15 @@ import { useEffect, type FC } from "react";
 import { CreatePositionBtn } from "@/features/create-position-btn";
 import { CreateExampleItemForm } from "@/features/create-example-item-form";
 import { DeptSelectField } from "@/features/dept-select-field";
+import { Heading } from "@/entities/heading";
+import { GoBackBtn } from "@/features/go-back-btn";
+import { Nav } from "@/features/nav";
 import { PaginationCounter, PaginationNav } from "@/features/pagination";
 import { PositionsTable, PositionsTableHeader, PositionsTableRows, type TPositionTableOptions } from "@/features/positions-table";
 import { PositionsWrapper } from "@/features/positions-wrapper";
 import { RemovePositionModal } from "@/features/remove-position-modal";
 import { ResetPositionsBtn } from "@/features/reset-positions-btn";
+import { SearchForm } from "@/features/search-form";
 import { SelectExamplePicModal, type IExamplePicsPagination } from "@/features/select-example-pic-modal";
 import { SpecSelectField } from "@/features/spec-select-field";
 import { useDeptStore } from "@/entities/dept";
@@ -66,8 +70,11 @@ const ExamplesWrapper: FC = () => {
     UPDATED_AT_KEY
   ];
   const captions = {...EXAMPLE_CAPTIONS as Record<keyof TExampleData, string>};
+  const title = "Примеры работ";
 
   const fetchData = async () => {
+    document.title = title;
+
     await fetchDepts(null);
     fetchItems(null);
   }
@@ -76,7 +83,10 @@ const ExamplesWrapper: FC = () => {
     fetchData();
   }, []);
 
-  return (
+  return (<>
+    <Heading {...{ aside: <GoBackBtn />, title }}>
+      <SearchForm<TExampleData> {...{ arr, fetchItems, type: EXAMPLE_KEY }} />
+    </Heading>
     <PositionsWrapper<TExampleData>
       {...{
         aside: (
@@ -117,6 +127,7 @@ const ExamplesWrapper: FC = () => {
           </>
         ),
         isLoading,
+        nav: <Nav />,
         setCurrData
       }}
     >
@@ -163,7 +174,7 @@ const ExamplesWrapper: FC = () => {
           </PositionsTableHeader>
       }
     </PositionsWrapper>
-  )
+  </>)
 };
 
 export default ExamplesWrapper;

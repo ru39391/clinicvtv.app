@@ -4,6 +4,6 @@ export interface IWrapper {
   aside?: ReactNode;
   children: ReactNode;
   footer?: ReactNode;
-  title: string;
+  title: ReactNode;
   type?: "cards";
 }

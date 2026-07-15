@@ -1,6 +1,6 @@
 export { default as AddIcon } from "./ui/add-icon";
-export { default as ArrowLeft } from "./ui/arrow-left";
-export { default as ArrowRight } from "./ui/arrow-right";
+export { default as ArrowLeftIcon } from "./ui/arrow-left";
+export { default as ArrowRightIcon } from "./ui/arrow-right";
 export { default as CloseIcon } from "./ui/close-icon";
 export { default as CheckedIcon } from "./ui/checked-icon";
 export { default as DotsIcon } from "./ui/dots-icon";

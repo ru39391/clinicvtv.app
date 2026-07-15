@@ -4,7 +4,7 @@ import type { TQueryData } from "@/shared/types";
 export type TSearchForm<T extends { id: number }> = {
   arr: T[];
   fetchItems: (data: TQueryData<T>) => void;
-  queryKey: string;
+  type: string;
 }
 
 export interface ISearchForm {

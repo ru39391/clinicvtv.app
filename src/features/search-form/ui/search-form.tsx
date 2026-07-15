@@ -7,13 +7,13 @@ import styles from './search-form.module.css';
 const SearchForm = <T extends { id: number }>({
   arr,
   fetchItems,
-  queryKey
+  type
 }: TSearchForm<T>) => {
   const {
     handleChange,
     resetSearchValue,
     searchValue
-  } = useSearchForm({ fetchItems, queryKey });
+  } = useSearchForm({ fetchItems, type });
 
   const handleResetValue = useEffectEvent(() => resetSearchValue());
 
