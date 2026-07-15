@@ -2,7 +2,6 @@ import type { ChangeEvent, FocusEvent, ReactNode } from "react";
 import type { TInputField, TInputItem } from "@/shared/types";
 
 export interface ITextFieldInput {
-  current?: number;
   defaultValue?: string;
   handleBlur?: (event: FocusEvent<TInputItem>) => void;
   handleChange?: (event: ChangeEvent<TInputItem>) => void;
@@ -22,8 +21,14 @@ export interface ITextField extends ITextFieldInput {
   label?: string;
 }
 
-export interface IOptionsList extends Omit<ITextFieldInput, "defaultValue" | "isTextarea" | "type"> {
+export interface IOptionsList {
+  current?: number;
+  handleBlur?: (event: FocusEvent<HTMLSelectElement>) => void;
+  handleChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
+  handleFocus?: (event: FocusEvent<HTMLSelectElement>) => void;
   isDisabled?: boolean;
+  isRequired?: boolean;
+  name: string;
   options: Record<"id" | "value", string>[];
 }
 

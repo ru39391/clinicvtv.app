@@ -14,8 +14,7 @@ import {
   DESC_KEY,
   RATING_KEY,
   IS_HIDDEN_KEY,
-  SAVE_POSITION_KEY,
-  SPEC_ID_KEY
+  SAVE_POSITION_KEY
 } from "@/shared/constants";
 import type { TInputField } from "@/shared/types";
 

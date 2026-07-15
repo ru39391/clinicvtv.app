@@ -24,6 +24,7 @@ const SpecSelectField: FC<{ current?: number; }> = ({ current }) => {
       <SelectField
         {...{
           current,
+          errorValue: "",
           isRequired: true,
           label: CAPTIONS_EXT[SPEC_ID_KEY],
           name: SPEC_ID_KEY,

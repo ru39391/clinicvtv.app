@@ -22,6 +22,7 @@ const DeptSelectField: FC<{
       <SelectField
         {...{
           current,
+          errorValue: "",
           isRequired: true,
           label: CAPTIONS[DEPT_ID_KEY],
           name: DEPT_ID_KEY,
