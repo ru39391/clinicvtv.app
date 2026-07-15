@@ -1,24 +1,25 @@
-import { useEffectEvent, useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { StorageHandler } from "@/shared/utils";
 import { useDebounce } from "@/shared/hooks";
 import type { TQueryData } from "@/shared/types";
 import type { ISearchForm, TSearchForm } from "../model/types";
 
 export const useSearchForm = <T extends { id: number }>(
-  { fetchItems, queryKey }: TSearchForm<T>
+  { fetchItems, queryKey }: Omit<TSearchForm<T>, "arr">
 ): ISearchForm => {
   const [searchValue, setSearchValue] = useState<ISearchForm["searchValue"]>('');
 
-  const handleStorageData = (): TQueryData<T> => {
-    const storageData = StorageHandler.getData<TQueryData<T>>(queryKey);
-
-    return storageData;
-  }
+  const handleStorageData = (): TQueryData<T> => StorageHandler.getData<TQueryData<T>>(queryKey);
 
   const updatePositionsList = () => {
-    if(searchValue.length > 0) return;
-
     const queryData = handleStorageData();
+
+    if(searchValue.length > 0) {
+      return;
+    } else {
+      if(!queryData) return;
+    }
+
     const queryParams = queryData
       ? Object.entries(queryData).reduce((acc: TQueryData<T>, [key, value]) => key === "search" ? acc : ({...acc, [key]: value}), {})
       : null;
@@ -54,12 +55,19 @@ export const useSearchForm = <T extends { id: number }>(
     debouncedSearch(value);
   };
 
+  const resetSearchValue = () => {
+    const queryData = handleStorageData();
+
+    if(queryData === null) setSearchValue("");
+  };
+
   useEffect(() => {
     updatePositionsList();
   }, [searchValue]);
 
   return {
-    searchValue,
-    handleChange
+    handleChange,
+    resetSearchValue,
+    searchValue
   }
 }

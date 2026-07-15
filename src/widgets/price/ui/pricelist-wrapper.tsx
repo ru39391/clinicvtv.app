@@ -66,7 +66,7 @@ const PricelistWrapper: FC = () => {
 
   return (<>
     <Heading {...{ aside: <GoBackBtn />, title }}>
-      <SearchForm<TPricelistData> {...{ fetchItems, queryKey: PRICE_KEY }} />
+      <SearchForm<TPricelistData> {...{ arr, fetchItems, queryKey: PRICE_KEY }} />
     </Heading>
     <PositionsWrapper<TPricelistData>
       {...{

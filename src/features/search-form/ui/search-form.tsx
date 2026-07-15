@@ -1,13 +1,25 @@
+import { useEffectEvent, useEffect } from "react";
 import { SearchIcon } from "@/shared/icons";
 import { useSearchForm } from "../hooks/use-search-form";
 import { type TSearchForm } from "../model/types";
 import styles from './search-form.module.css';
 
 const SearchForm = <T extends { id: number }>({
+  arr,
   fetchItems,
   queryKey
 }: TSearchForm<T>) => {
-  const { handleChange, searchValue } = useSearchForm({ fetchItems, queryKey });
+  const {
+    handleChange,
+    resetSearchValue,
+    searchValue
+  } = useSearchForm({ fetchItems, queryKey });
+
+  const handleResetValue = useEffectEvent(() => resetSearchValue());
+
+  useEffect(() => {
+    handleResetValue();
+  }, [arr]);
 
   return (
     <form className={styles.form}>
