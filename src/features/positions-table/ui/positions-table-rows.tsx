@@ -58,7 +58,7 @@ const PositionsTableRows = <T extends TItemData,>({ captions, handleClick, value
         return (
           <TableCell
             key={type}
-            caption={captions[type]}
+            caption={captions[key]}
             type={type}
           >
             {caption}

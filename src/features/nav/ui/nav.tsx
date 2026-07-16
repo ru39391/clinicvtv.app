@@ -14,8 +14,8 @@ const Nav: FC = () => (
     {[PRICE_KEY, EXAMPLE_KEY, TESTIMONIAL_KEY].map(key => (
       <Button
         key={key}
-        href={routes.protected[key]}
-        caption={PAGE_CAPTIONS[key]}
+        href={routes.protected[key as keyof typeof routes.protected]}
+        caption={PAGE_CAPTIONS[key as keyof typeof PAGE_CAPTIONS]}
         style="unstyled"
       />
     ))}
