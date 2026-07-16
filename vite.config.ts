@@ -42,5 +42,6 @@ export default defineConfig(({ mode }) => {
         "~": resolve(__dirname, "./assets"),
       },
     },
+    ...(env.VITE_APP_ENV === "production" && { base: '/app' })
   };
 });
