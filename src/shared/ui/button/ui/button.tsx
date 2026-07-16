@@ -1,21 +1,32 @@
 import type { FC } from "react";
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 import type { IButton } from "../model/types";
 import styles from './button.module.css';
 
-const Button: FC<IButton> = ({ caption = "", children, href, handleClick, isDisabled = false, style, type = "button" }) => {
+const Button: FC<IButton> = ({
+  caption = "",
+  children,
+  href,
+  handleClick,
+  isDisabled = false,
+  style,
+  target,
+  type = "button"
+}) => {
   const btnClassName = isDisabled ? `${styles.btn} ${styles.btn_type_disabled}` : styles.btn;
   const classNameMod = `btn_type_${style}`;
 
   if(href) {
     return (
-      <Link
-        className={style ? `${btnClassName} ${styles[classNameMod]}` : btnClassName}
+      <NavLink
+        className={
+          ({ isActive }) => `${style ? `${btnClassName} ${styles[classNameMod]}` : btnClassName} ${styles.btn_type_link} ${isActive ? styles.active : ''}`
+        }
         to={href}
-        target="_blank"
+        {...(target && { target })}
       >
         {children || ""}{caption}
-      </Link>
+      </NavLink>
     )
   }
 

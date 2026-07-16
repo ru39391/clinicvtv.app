@@ -21,8 +21,8 @@
   font-size: var(--font-size-sm);
   letter-spacing: 0;
   min-width: unset;
-  gap: 0 15px;
-  padding: 10px 20px;
+  gap: 0 8px;
+  padding: 10px 16px;
   flex-direction: row;
   border: 0;
   border-radius: 6px;
@@ -60,6 +60,18 @@
   box-shadow: none;
   background: none;
   color: var(--color-border-dark);
+  font-weight: var(--fw-normal);
+}
+
+.btn_type_unstyled.btn_type_link {
+  color: var(--color-dark);
+  text-decoration: underline;
+}
+
+.btn_type_unstyled.btn_type_link.active,
+.btn_type_unstyled.btn_type_link:hover {
+  color: var(--color-grey-dark);
+  text-decoration: none;
 }
 
 .btn_type_disabled {

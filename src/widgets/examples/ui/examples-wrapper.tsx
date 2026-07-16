@@ -27,6 +27,7 @@ import {
   INTRO_KEY,
   IS_HIDDEN_KEY,
   CREATED_AT_KEY,
+  PAGE_CAPTIONS,
   SPEC_ID_KEY,
   UPDATED_AT_KEY
 } from "@/shared/constants";
@@ -70,7 +71,7 @@ const ExamplesWrapper: FC = () => {
     UPDATED_AT_KEY
   ];
   const captions = {...EXAMPLE_CAPTIONS as Record<keyof TExampleData, string>};
-  const title = "Примеры работ";
+  const title = PAGE_CAPTIONS[EXAMPLE_KEY];
 
   const fetchData = async () => {
     document.title = title;

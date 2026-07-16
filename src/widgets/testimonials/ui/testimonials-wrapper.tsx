@@ -23,6 +23,7 @@ import {
   RATING_KEY,
   IS_HIDDEN_KEY,
   CREATED_AT_KEY,
+  PAGE_CAPTIONS,
   SPEC_ID_KEY,
   UPDATED_AT_KEY
 } from "@/shared/constants";
@@ -50,7 +51,7 @@ const TestimonialsWrapper: FC = () => {
     UPDATED_AT_KEY
   ];
   const captions = {...TESTIMONIAL_CAPTIONS as Record<keyof TTestimonialData, string>};
-  const title = "Отзывы";
+  const title = PAGE_CAPTIONS[TESTIMONIAL_KEY];
 
   useEffect(() => {
     document.title = title;

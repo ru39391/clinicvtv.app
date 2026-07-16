@@ -12,6 +12,7 @@ export const UPDATED_AT_KEY = "updatedAt";
 export const IMG_BEFORE_KEY = "img_before";
 export const IMG_AFTER_KEY = "img_after";
 export const THUMB_KEY = "thumb";
+export const URL_KEY = "url";
 
 export const CAPTIONS = {
   [ID_KEY]: "ID",

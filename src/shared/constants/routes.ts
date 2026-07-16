@@ -16,4 +16,10 @@ export const routes = {
   },
 } as const;
 
+export const PAGE_CAPTIONS = {
+  [EXAMPLE_KEY]: "Примеры работ",
+  [PRICE_KEY]: "Прайслист",
+  [TESTIMONIAL_KEY]: "Отзывы",
+}
+
 export const QUERY_KEY = "query";

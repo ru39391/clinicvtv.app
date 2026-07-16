@@ -21,6 +21,7 @@ import {
   IS_HIDDEN_KEY,
   CREATED_AT_KEY,
   UPDATED_AT_KEY,
+  PAGE_CAPTIONS,
   PRICE_CAPTIONS,
   PRICE_KEY
 } from "@/shared/constants";
@@ -52,7 +53,7 @@ const PricelistWrapper: FC = () => {
     UPDATED_AT_KEY
   ];
   const captions = {...PRICE_CAPTIONS as Record<keyof TPricelistData, string>};
-  const title = "Прайслист";
+  const title = PAGE_CAPTIONS[PRICE_KEY];
 
   const fetchData = async () => {
     document.title = title;

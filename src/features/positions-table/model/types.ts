@@ -29,3 +29,9 @@ export interface IPositionsTable<T extends TItemData, R extends TPositionTableOp
   setCurrData: (id: T["id"]) => void;
   showRemoveModal: (data: Pick<T, "id" | "name">) => void;
 }
+
+export interface IPositionsTableRows<T extends TItemData> {
+  captions: Record<keyof T, string>;
+  handleClick?: () => void;
+  values: TPositionTableOptions<T>[];
+}
