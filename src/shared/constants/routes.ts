@@ -11,7 +11,7 @@ export const routes = {
     [PRICE_KEY]: "/pricelist",
     team: "/team",
     dept: "/depts",
-    [EXAMPLE_PIC_KEY]: "/examplepics",
+    [EXAMPLE_PIC_KEY]: "/pictures",
     [TESTIMONIAL_KEY]: "/testimonials",
   },
 } as const;
