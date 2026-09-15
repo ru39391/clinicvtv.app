@@ -1,0 +1,10 @@
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (--md-min-value) {
+  .table {
+    display: block;
+  }
+}

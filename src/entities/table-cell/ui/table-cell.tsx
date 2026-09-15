@@ -1,0 +1,32 @@
+import { type FC } from "react";
+import { type ITableCell } from "../model/types";
+import styles from './table-cell.module.css';
+
+const TableCell: FC<ITableCell> = ({
+  caption,
+  children,
+  handleClick,
+  isCaption,
+  sortdir,
+  sortby,
+  type
+}) => {
+  const rowClassName = `${styles.col} ${styles[`col_type_${type}`]}`;
+
+  if(!isCaption) return <div className={rowClassName}>{Boolean(caption) && <span className={styles.col__title}>{caption}: </span>}{children}</div>;
+
+  return (
+    <div className={rowClassName}>
+      <span
+        className={`${styles.col__caption} ${styles[`col__caption_type_${type}`]}`}
+        {...(handleClick && { onClick: handleClick })}
+      >
+        {children}
+        {sortby === type && sortdir === "ASC" && <span className={styles.col__sortdir}>▲</span>}
+        {sortby === type && sortdir === "DESC" && <span className={styles.col__sortdir}>▼</span>}
+      </span>
+    </div>
+  )
+};
+
+export default TableCell;

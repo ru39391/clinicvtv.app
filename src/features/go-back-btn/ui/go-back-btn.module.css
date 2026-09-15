@@ -1,0 +1,9 @@
+.caption {
+  display: none;
+}
+
+@media (--sm-min-value) {
+  .caption {
+    display: block;
+  }
+}

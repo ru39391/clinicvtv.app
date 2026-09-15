@@ -1,0 +1,90 @@
+@media (--md-min-value) {
+  .col {
+    text-align: center;
+  }
+}
+
+.col_type_name {
+  text-align: left;
+  grid-area: name;
+}
+
+.col_type_price {
+  grid-area: price;
+}
+
+.col_type_desc {
+  grid-area: desc;
+  text-align: left;
+  line-height: var(--line-height-lg);
+  color: var(--color-border-dark);
+}
+
+.col_type_introtext {
+  grid-area: introtext;
+}
+
+.col_type_dept_id {
+  grid-area: dept_id;
+}
+
+.col_type_is_hidden {
+  grid-area: is_hidden;
+}
+
+.col_type_rating {
+  grid-area: rating;
+}
+
+.col_type_createdAt {
+  grid-area: createdAt;
+}
+
+.col_type_updatedAt {
+  grid-area: updatedAt;
+}
+
+.col_type_btns {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0 32px;
+  grid-area: btns;
+}
+
+@media (--md-min-value) {
+  .col_type_btns {
+    justify-content: center;
+  }
+}
+
+.col__caption {
+  font-size: var(--font-size-body);
+  line-height: 1.875;
+  font-weight: var(--fw-bold);
+  color: var(--color-border-dark);
+  cursor: pointer;
+}
+
+.col__caption_type_price,
+.col__caption_type_rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0 8px;
+}
+
+.col__title {
+  font-weight: var(--fw-normal);
+  color: var(--color-border-dark);
+}
+
+.col_type_name .col__title {
+  display: none;
+}
+
+@media (--md-min-value) {
+  .col__title {
+    display: none;
+  }
+}
